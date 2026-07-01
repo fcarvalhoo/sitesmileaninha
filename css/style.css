@@ -2233,6 +2233,57 @@ img {
   min-height: 18px;
 }
 
+/* Vantagens */
+.modal-vantagens {
+  padding: 20px 0;
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.modal-vantagens-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.modal-vantagens-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.modal-vantagens-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.modal-vantagens-list li svg {
+  flex-shrink: 0;
+  color: var(--peach);
+}
+
+/* Troca content */
+.modal-troca-content {
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-troca-content p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
 /* Accordion */
 .modal-accordion {
   border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -2271,7 +2322,7 @@ img {
 }
 
 .modal-accordion-content.open {
-  max-height: 300px;
+  max-height: 600px;
 }
 
 .payment-methods {

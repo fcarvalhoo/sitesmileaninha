@@ -24,7 +24,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="css/style.css?v=11">
   <script src="js/main.js?v=9" defer></script>
 </head>
 <body>
@@ -757,7 +757,6 @@
       <div class="product-modal-info">
         <h2 id="modalName" class="product-modal-name"></h2>
         <p id="modalPrice" class="product-modal-price"></p>
-        <p id="modalDesc" class="product-modal-desc"></p>
 
         <div id="modalSizeGroup" class="modal-section">
           <div class="modal-section-header">
@@ -830,6 +829,53 @@
           <button type="button" id="modalAddCart" class="modal-btn-secondary">ADICIONAR AO CARRINHO</button>
           <button type="button" id="modalBuyNow" class="modal-btn-primary">COMPRAR AGORA</button>
           <p id="modalAddedMsg" class="modal-added-msg"></p>
+        </div>
+
+        <!-- Vantagens -->
+        <div class="modal-vantagens">
+          <h4 class="modal-vantagens-title">VANTAGENS DE COMPRAR NA SMILE</h4>
+          <ul class="modal-vantagens-list">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Parcelamento em até 10x sem juros
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+              Não serviu? Troque gratuitamente.
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+              Embalagem especial para presente
+            </li>
+          </ul>
+        </div>
+
+        <!-- Descrição do Produto -->
+        <div class="modal-accordion">
+          <button class="modal-accordion-btn" data-target="accordionDesc">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+            DESCRIÇÃO DO PRODUTO
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="modal-accordion-content" id="accordionDesc">
+            <p id="modalDesc" class="product-modal-desc"></p>
+          </div>
+        </div>
+
+        <!-- Troca e Devolução -->
+        <div class="modal-accordion">
+          <button class="modal-accordion-btn" data-target="accordionTroca">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><polyline points="1 4 1 10 7 10"/><polyline points="23 20 23 14 17 14"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+            TROCA E DEVOLUÇÃO
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="modal-accordion-content" id="accordionTroca">
+            <div class="modal-troca-content">
+              <p>Aceitamos trocas em até <strong>7 dias</strong> após o recebimento.</p>
+              <p>O produto deve estar em perfeito estado, sem uso e na embalagem original.</p>
+              <p>Entre em contato pelo <strong>WhatsApp</strong> para iniciar o processo de troca.</p>
+            </div>
+          </div>
         </div>
 
       </div>
