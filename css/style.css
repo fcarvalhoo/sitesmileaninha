@@ -2641,8 +2641,9 @@ img {
     height: 100vh;
     background: linear-gradient(160deg, #f5c0d0 0%, #ead5f0 100%);
     flex-direction: column;
-    padding: 70px 24px 30px;
-    gap: 2px;
+    justify-content: space-evenly;
+    padding: 64px 24px 24px;
+    gap: 0;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: -4px 0 30px rgba(0, 0, 0, 0.15);
     overflow-y: auto;
@@ -2730,6 +2731,12 @@ img {
     background: rgba(255,255,255,0.5) !important;
     color: var(--peach) !important;
     border-radius: 8px;
+  }
+
+  /* Separador entre produtos e info */
+  .nav-menu > li:nth-child(7) {
+    border-top: 1px solid rgba(90, 64, 80, 0.2);
+    padding-top: 4px;
   }
 
   .nav-actions {
