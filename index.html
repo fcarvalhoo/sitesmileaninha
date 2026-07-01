@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smile - Acessórios Artesanais Feitos à Mão</title>
+  <meta name="description" content="Smile - Acessórios artesanais feitos à mão por Ana Livia. Bolsas, pulseiras, colares, body chains e artigos religiosos. Entregas para todo o Brasil. Belo Jardim, PE.">
+  <meta name="keywords" content="acessórios artesanais, miçangas, cristais, pulseiras personalizadas, colares, bolsas de miçangas, body chain, artigos religiosos, terços, Belo Jardim, Pernambuco">
+  <meta name="author" content="Ana Livia - Smile Miçangas">
+  <meta property="og:title" content="Smile - Acessórios Artesanais Feitos à Mão">
+  <meta property="og:description" content="Peças únicas feitas com amor por Ana Livia. Bolsas, pulseiras, colares, body chains e artigos religiosos. Encomende pelo WhatsApp!">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Smile Miçangas">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Smile - Acessórios Artesanais">
+  <meta name="twitter:description" content="Peças únicas feitas à mão com amor. Encomende pelo WhatsApp!">
+  <meta name="theme-color" content="#f8c8d8">
+  <link rel="icon" type="image/png" href="img/favicon.png">
+  <link rel="apple-touch-icon" href="img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div class="loader" id="loader">
+    <div class="loader-content">
+      <img src="img/logo.jpg" alt="Smile" class="loader-logo-img">
+      <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo"><img src="img/logo.jpg" alt="Smile" class="nav-logo-img"></a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu" id="navMenu">
+        <li><a href="#bolsas" class="nav-link">Bolsas</a></li>
+        <li><a href="#pulseiras" class="nav-link">Pulseiras</a></li>
+        <li><a href="#colares" class="nav-link">Colares</a></li>
+        <li><a href="#tornozeleiras" class="nav-link">Tornozeleiras</a></li>
+        <li><a href="#body-chain" class="nav-link">Body Chain</a></li>
+        <li class="nav-dropdown">
+          <a href="#religiosos" class="nav-link nav-link--highlight">Artigos Religiosos</a>
+          <ul class="nav-dropdown-menu">
+            <li><a href="#religiosos" class="nav-dropdown-link" data-filter="todos">Ver Todos</a></li>
+            <li><a href="#religiosos" class="nav-dropdown-link" data-filter="tercos">Terços</a></li>
+            <li><a href="#religiosos" class="nav-dropdown-link" data-filter="chaveiros">Chaveiros</a></li>
+            <li><a href="#religiosos" class="nav-dropdown-link" data-filter="pulseiras-rel">Pulseiras</a></li>
+          </ul>
+        </li>
+        <li><a href="#medidas" class="nav-link">Medidas</a></li>
+        <li><a href="#cuidados" class="nav-link">Cuidados</a></li>
+        <li><a href="#contato" class="nav-link">Contato</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="fav-toggle" id="favToggle" aria-label="Favoritos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="fav-count" id="favCount">0</span>
+        </button>
+        <button class="cart-toggle" id="cartToggle" aria-label="Carrinho">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Favorites Sidebar -->
+  <div class="fav-overlay" id="favOverlay"></div>
+  <div class="cart-sidebar" id="favSidebar">
+    <div class="cart-header">
+      <h3>Seus Favoritos</h3>
+      <button class="cart-close" id="favClose">&times;</button>
+    </div>
+    <div class="cart-items" id="favItems">
+      <div class="cart-empty" id="favEmpty">
+        <p>Nenhum favorito ainda</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+      <h3>Seu Carrinho</h3>
+      <button class="cart-close" id="cartClose">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <p>Seu carrinho está vazio</p>
+      </div>
+    </div>
+    <div class="cart-footer" id="cartFooter" style="display:none;">
+      <div class="cart-footer-section">
+        <label class="cart-footer-label">Forma de Pagamento</label>
+        <div class="modal-payment-options">
+          <label class="modal-payment-option">
+            <input type="radio" name="cart-payment" value="Pix" checked>
+            <span>Pix</span>
+          </label>
+          <label class="modal-payment-option">
+            <input type="radio" name="cart-payment" value="Cartão">
+            <span>Cartão</span>
+          </label>
+          <label class="modal-payment-option">
+            <input type="radio" name="cart-payment" value="Dinheiro">
+            <span>Dinheiro</span>
+          </label>
+        </div>
+      </div>
+      <div class="cart-footer-section">
+        <label class="cart-footer-label">Calcular Frete</label>
+        <div class="modal-shipping">
+          <input type="text" id="cartCep" placeholder="Seu CEP" maxlength="9" class="modal-input">
+          <button type="button" id="cartCalcFrete" class="modal-calc-btn">Calcular</button>
+        </div>
+        <p id="cartFreteResult" class="modal-frete-result"></p>
+      </div>
+      <div class="cart-total-line">
+        <span>Produtos:</span>
+        <span id="cartSubtotal">R$ 0,00</span>
+      </div>
+      <div class="cart-total-line" id="cartFreteLine" style="display:none;">
+        <span>Frete:</span>
+        <span id="cartFreteValue">R$ 0,00</span>
+      </div>
+      <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">R$ 0,00</span>
+      </div>
+      <button class="cart-checkout-btn" id="cartCheckout">Finalizar Pedido pelo WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-slider" id="heroBgSlider">
+      <img src="img/bolsa-azul-1.jpg" class="hero-bg-slide active" alt="">
+      <img src="img/colar-rosa-letra.jpg" class="hero-bg-slide" alt="">
+      <img src="img/terco-cristal-1.jpg" class="hero-bg-slide" alt="">
+      <img src="img/chaveiro-religioso.jpg" class="hero-bg-slide" alt="">
+      <img src="img/pulseira-signo.jpg" class="hero-bg-slide" alt="">
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">Smile</h1>
+      <p class="hero-tagline">Acessórios feitos à mão com amor</p>
+      <div class="hero-divider"></div>
+      <p class="hero-subtitle">Belo Jardim, Pernambuco</p>
+      <a href="#bolsas" class="hero-btn">Ver Produtos</a>
+    </div>
+    <div class="hero-scroll-indicator">
+      <span></span>
+    </div>
+  </section>
+
+  <!-- Stats Counter -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-number" data-target="100">0</span>
+          <span class="stat-suffix">+</span>
+          <p class="stat-label">Clientes satisfeitos</p>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="80">0</span>
+          <span class="stat-suffix">+</span>
+          <p class="stat-label">Peças criadas</p>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number" data-target="100">0</span>
+          <span class="stat-suffix">%</span>
+          <p class="stat-label">Feito à mão</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bolsas Section -->
+  <section class="products-section" id="bolsas">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Bolsas</h2>
+        <p class="section-subtitle">Bolsas artesanais de miçangas e cristais</p>
+      </div>
+      <div class="sort-bar">
+        <button class="sort-btn active" data-sort="default">Padrão</button>
+        <button class="sort-btn" data-sort="low">Menor preço</button>
+        <button class="sort-btn" data-sort="high">Maior preço</button>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image">
+            <img src="img/bolsa-azul-1.jpg" alt="Bolsa Azul Cristal" loading="lazy" class="product-img-main">
+            <img src="img/bolsa-azul-2.jpg" alt="Bolsa Azul Cristal - outro ângulo" loading="lazy" class="product-img-hover">
+            <span class="product-badge">Novo</span>
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Bolsa Azul Cristal</h3>
+            <p class="product-price">R$ 85,00</p>
+            <p class="product-installment">ou 2x de R$ 42,50</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="bolsa-azul-cristal" data-name="Bolsa Azul Cristal" data-price="85.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/bolsa-verde-neon.jpg" alt="Bolsa Verde Neon" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Bolsa Verde Neon</h3>
+            <p class="product-price">R$ 90,00</p>
+            <p class="product-installment">ou 2x de R$ 45,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="bolsa-verde-neon" data-name="Bolsa Verde Neon" data-price="90.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card product-card--esgotado">
+          <div class="product-image" >
+            <img src="img/bolsa-rosa.jpg" alt="Bolsa Rosa Cristal" loading="lazy">
+            <span class="product-badge product-badge--esgotado">Esgotado</span>
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Bolsa Rosa Cristal</h3>
+            <p class="product-price">R$ 85,00</p>
+            <p class="product-installment">ou 2x de R$ 42,50</p>
+            <a href="https://wa.me/5581983911126?text=Oi,%20Ana%20Livia!%20Vi%20que%20a%20Bolsa%20Rosa%20Cristal%20está%20esgotada.%20Gostaria%20de%20encomendar%20uma!" class="product-btn product-btn--encomendar" target="_blank">Encomendar</a>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/bolsa-coracao.jpg" alt="Bolsa Coração" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Bolsa Coração</h3>
+            <p class="product-price">R$ 95,00</p>
+            <p class="product-installment">ou 2x de R$ 47,50</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="bolsa-coracao" data-name="Bolsa Coração" data-price="95.0">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pulseiras Section -->
+  <section class="products-section products-section--alt" id="pulseiras">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Pulseiras</h2>
+        <p class="section-subtitle">Pulseiras personalizadas com nome, cristais e pingentes</p>
+      </div>
+      <div class="sort-bar">
+        <button class="sort-btn active" data-sort="default">Padrão</button>
+        <button class="sort-btn" data-sort="low">Menor preço</button>
+        <button class="sort-btn" data-sort="high">Maior preço</button>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/pulseira-vermelha.jpg" alt="Pulseira Vermelha" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Pulseira Vermelha</h3>
+            <p class="product-price">R$ 22,00</p>
+            <p class="product-installment">ou 2x de R$ 11,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="pulseira-vermelha" data-name="Pulseira Vermelha" data-price="22.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/pulseira-colorida.jpg" alt="Pulseira Colorida" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Pulseira Colorida</h3>
+            <p class="product-price">R$ 18,00</p>
+            <p class="product-installment">ou 2x de R$ 9,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="pulseira-colorida" data-name="Pulseira Colorida" data-price="18.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/pulseira-signo.jpg" alt="Pulseira Signo" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Pulseira Signo</h3>
+            <p class="product-price">R$ 25,00</p>
+            <p class="product-installment">ou 2x de R$ 12,50</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="pulseira-signo" data-name="Pulseira Signo" data-price="25.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/pulseira-neon.jpg" alt="Pulseira Neon" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Pulseira Neon</h3>
+            <p class="product-price">R$ 15,00</p>
+            <p class="product-installment">ou 2x de R$ 7,50</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="pulseira-neon" data-name="Pulseira Neon" data-price="15.0">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Colares Section -->
+  <section class="products-section" id="colares">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Colares</h2>
+        <p class="section-subtitle">Colares de cristais, pérolas e miçangas coloridas</p>
+      </div>
+      <div class="sort-bar">
+        <button class="sort-btn active" data-sort="default">Padrão</button>
+        <button class="sort-btn" data-sort="low">Menor preço</button>
+        <button class="sort-btn" data-sort="high">Maior preço</button>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/colar-laranja.jpg" alt="Colar Laranja com Pingente" loading="lazy">
+            <span class="product-badge">Popular</span>
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Colar Laranja com Pingente</h3>
+            <p class="product-price">R$ 32,00</p>
+            <p class="product-installment">ou 2x de R$ 16,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="colar-laranja" data-name="Colar Laranja com Pingente" data-price="32.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/colar-colorido-estrela.jpg" alt="Colar Colorido Estrela do Mar" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Colar Colorido Estrela do Mar</h3>
+            <p class="product-price">R$ 35,00</p>
+            <p class="product-installment">ou 2x de R$ 17,50</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="colar-estrela" data-name="Colar Colorido Estrela do Mar" data-price="35.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <img src="img/colar-rosa-letra.jpg" alt="Colar Rosa com Pingente de Letra" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Colar Rosa com Pingente</h3>
+            <p class="product-price">R$ 28,00</p>
+            <p class="product-installment">ou 2x de R$ 14,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="colar-rosa" data-name="Colar Rosa com Pingente" data-price="28.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image">
+            <img src="img/colar-dourado-smile.jpg" alt="Colar Dourado Smile" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Colar Dourado Smile</h3>
+            <p class="product-price">R$ 30,00</p>
+            <p class="product-installment">ou 2x de R$ 15,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="colar-smile" data-name="Colar Dourado Smile" data-price="30.0">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tornozeleiras Section -->
+  <section class="products-section" id="tornozeleiras">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Tornozeleiras</h2>
+        <p class="section-subtitle">Tornozeleiras delicadas para o dia a dia</p>
+      </div>
+      <div class="sort-bar">
+        <button class="sort-btn active" data-sort="default">Padrão</button>
+        <button class="sort-btn" data-sort="low">Menor preço</button>
+        <button class="sort-btn" data-sort="high">Maior preço</button>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/tornozeleira-rosa.jpg" alt="Tornozeleira Rosa" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Tornozeleira Rosa</h3>
+            <p class="product-price">R$ 18,00</p>
+            <p class="product-installment">ou 2x de R$ 9,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="tornozeleira-rosa" data-name="Tornozeleira Rosa" data-price="18.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/tornozeleira-colorida.jpg" alt="Tornozeleira Colorida" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Tornozeleira Colorida</h3>
+            <p class="product-price">R$ 18,00</p>
+            <p class="product-installment">ou 2x de R$ 9,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="tornozeleira-colorida" data-name="Tornozeleira Colorida" data-price="18.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/tornozeleira-olho-grego.jpg" alt="Tornozeleira Olho Grego" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Tornozeleira Olho Grego</h3>
+            <p class="product-price">R$ 20,00</p>
+            <p class="product-installment">ou 2x de R$ 10,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="tornozeleira-olho-grego" data-name="Tornozeleira Olho Grego" data-price="20.0">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Body Chain Section -->
+  <section class="products-section products-section--alt" id="body-chain">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Body Chain</h2>
+        <p class="section-subtitle">Body chains de cristais e miçangas para looks especiais</p>
+      </div>
+      <div class="sort-bar">
+        <button class="sort-btn active" data-sort="default">Padrão</button>
+        <button class="sort-btn" data-sort="low">Menor preço</button>
+        <button class="sort-btn" data-sort="high">Maior preço</button>
+      </div>
+      <div class="products-grid">
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/body-chain-azul.jpg" alt="Body Chain Cristal Azul" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Body Chain Cristal Azul</h3>
+            <p class="product-price">R$ 55,00</p>
+            <p class="product-installment">ou 2x de R$ 27,50</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="body-chain-azul" data-name="Body Chain Cristal Azul" data-price="55.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-image" >
+            <img src="img/body-chain-cintura.jpg" alt="Body Chain Cintura" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Body Chain Colorido</h3>
+            <p class="product-price">R$ 50,00</p>
+            <p class="product-installment">ou 2x de R$ 25,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="body-chain-colorido" data-name="Body Chain Colorido" data-price="50.0">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artigos Religiosos Section -->
+  <section class="products-section religiosos-section" id="religiosos">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Artigos Religiosos</h2>
+        <p class="section-subtitle">Terços, pulseiras e chaveiros com símbolos de fé</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="tercos">Terços</button>
+        <button class="filter-btn" data-filter="chaveiros">Chaveiros</button>
+        <button class="filter-btn" data-filter="pulseiras-rel">Pulseiras</button>
+      </div>
+      <div class="products-grid" id="religiosos-grid">
+        <div class="product-card" data-category="tercos">
+          <div class="product-image" >
+            <img src="img/terco-lilas.jpg" alt="Terço Lilás Dourado" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Terço Lilás Dourado</h3>
+            <p class="product-price">R$ 35,00</p>
+            <p class="product-installment">ou 2x de R$ 17,50</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="terco-lilas" data-name="Terço Lilás Dourado" data-price="35.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card" data-category="tercos">
+          <div class="product-image" >
+            <img src="img/terco-branco.jpg" alt="Terço Branco Dourado" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Terço Branco Dourado</h3>
+            <p class="product-price">R$ 32,00</p>
+            <p class="product-installment">ou 2x de R$ 16,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="terco-branco" data-name="Terço Branco Dourado" data-price="32.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card" data-category="tercos">
+          <div class="product-image">
+            <img src="img/terco-cristal-2.jpg" alt="Terço Cristal Transparente" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Terço Cristal Transparente</h3>
+            <p class="product-price">R$ 38,00</p>
+            <p class="product-installment">ou 2x de R$ 19,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="terco-cristal" data-name="Terço Cristal Transparente" data-price="38.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card" data-category="tercos">
+          <div class="product-image" >
+            <img src="img/terco-rosa-aninha.jpg" alt="Terço Rosa Personalizado" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Terço Rosa Personalizado</h3>
+            <p class="product-price">R$ 35,00</p>
+            <p class="product-installment">ou 2x de R$ 17,50</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="terco-rosa" data-name="Terço Rosa Personalizado" data-price="35.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card" data-category="tercos">
+          <div class="product-image" >
+            <img src="img/terco-dourado.jpg" alt="Terço Religioso Dourado" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Terço Religioso Dourado</h3>
+            <p class="product-price">R$ 30,00</p>
+            <p class="product-installment">ou 2x de R$ 15,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="terco-dourado" data-name="Terço Religioso Dourado" data-price="30.0">Comprar</button>
+          </div>
+        </div>
+        <div class="product-card" data-category="chaveiros">
+          <div class="product-image">
+            <img src="img/chaveiro-religioso.jpg" alt="Chaveiro Religioso Personalizado" loading="lazy">
+          
+            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">Chaveiro Religioso</h3>
+            <p class="product-price">R$ 18,00</p>
+            <p class="product-installment">ou 2x de R$ 9,00</p>
+            <button class="product-btn add-to-cart-btn" type="button" data-id="chaveiro-religioso" data-name="Chaveiro Religioso" data-price="18.0">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guia de Medidas Panel -->
+  <div class="page-panel" id="medidas">
+    <button class="panel-close" aria-label="Fechar">&times;</button>
+  <section class="info-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Guia de Medidas</h2>
+        <p class="section-subtitle">Escolha o tamanho ideal para sua peça</p>
+      </div>
+
+      <div class="info-tabs">
+        <button class="info-tab active" data-tab="tab-pulseiras">Pulseiras</button>
+        <button class="info-tab" data-tab="tab-colares">Colares</button>
+        <button class="info-tab" data-tab="tab-tornozeleiras">Tornozeleiras</button>
+      </div>
+
+      <div class="info-tab-content active" id="tab-pulseiras">
+        <div class="size-guide-card">
+          <h3>Medidas para Pulseiras</h3>
+          <p class="size-guide-desc">Os tamanhos são baseados na circunferência do seu punho. Meça-o e escolha sua pulseira:</p>
+          <div class="size-table">
+            <div class="size-row size-row--header">
+              <span>Tamanho</span>
+              <span>Medida</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">P</span>
+              <span>16cm a 17cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">M</span>
+              <span>17cm a 19cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">G</span>
+              <span>19cm a 20cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">GG</span>
+              <span>20cm a 21,5cm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-tab-content" id="tab-colares">
+        <div class="size-guide-card">
+          <h3>Medidas para Colares</h3>
+          <p class="size-guide-desc">Escolha o comprimento ideal de acordo com o caimento desejado:</p>
+          <div class="size-table">
+            <div class="size-row size-row--header">
+              <span>Estilo</span>
+              <span>Medida</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">Gargantilha</span>
+              <span>35cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">Princesa</span>
+              <span>40cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">Matinê</span>
+              <span>45cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">Médio</span>
+              <span>50cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">Longo</span>
+              <span>55cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">Extra Longo</span>
+              <span>81cm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-tab-content" id="tab-tornozeleiras">
+        <div class="size-guide-card">
+          <h3>Medidas para Tornozeleiras</h3>
+          <p class="size-guide-desc">Meça a circunferência do seu tornozelo e escolha o tamanho:</p>
+          <div class="size-table">
+            <div class="size-row size-row--header">
+              <span>Tamanho</span>
+              <span>Medida</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">P</span>
+              <span>22cm a 23cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">M</span>
+              <span>24cm a 25cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">G</span>
+              <span>26cm a 27cm</span>
+            </div>
+            <div class="size-row">
+              <span class="size-label">GG</span>
+              <span>28cm a 29cm</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- Cuidados Panel -->
+  <div class="page-panel" id="cuidados">
+    <button class="panel-close" aria-label="Fechar">&times;</button>
+  <section class="cuidados-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title section-title--white">Cuidados com suas Peças</h2>
+        <p class="section-subtitle section-subtitle--white">Para que seus acessórios durem muito mais</p>
+      </div>
+
+      <div class="cuidados-grid">
+        <div class="cuidado-card">
+          <h3>Evite Molhar</h3>
+          <p>Evite molhar as suas peças. A água pode danificar os materiais e enfraquecer os fios.</p>
+        </div>
+        <div class="cuidado-card">
+          <h3>Sem Produtos Químicos</h3>
+          <p>Evite qualquer contato com bronzeadores, cremes ou perfumes. Aplique-os antes de colocar a peça.</p>
+        </div>
+        <div class="cuidado-card">
+          <h3>Não Estique</h3>
+          <p>Por mais resistentes que sejam, evite esticá-las. Coloque e retire com cuidado.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  </div>
+
+  <!-- Contato Panel -->
+  <div class="page-panel" id="contato">
+    <button class="panel-close" aria-label="Fechar">&times;</button>
+  <section class="contact-section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title section-title--white">Fale Conosco</h2>
+        <p class="section-subtitle section-subtitle--white">Entre em contato para fazer sua encomenda</p>
+      </div>
+      <div class="contact-center">
+        <div class="contact-links">
+          <a href="https://wa.me/5581983911126" target="_blank" class="contact-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            (81) 98391-1126
+          </a>
+          <a href="https://instagram.com/smilemicangas_" target="_blank" class="contact-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @smilemicangas_
+          </a>
+          <span class="contact-chip contact-chip--info">Belo Jardim, PE - Entregas para todo o Brasil</span>
+        </div>
+
+        <div class="idea-box">
+          <h3>Teve uma ideia diferente?</h3>
+          <p>Conte pra gente! Criamos seu acessório personalizado e exclusivo do jeitinho que você imaginou.</p>
+          <form class="idea-form" id="contactForm">
+            <div class="form-group">
+              <input type="text" id="nome" placeholder="Seu nome" required>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="telefone" placeholder="Seu WhatsApp" required>
+            </div>
+            <div class="form-group">
+              <textarea id="mensagem" placeholder="Descreva a peça que você imaginou..." rows="4" required></textarea>
+            </div>
+            <button type="submit" class="form-btn">Enviar pelo WhatsApp</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  </div>
+
+  <!-- Product Modal -->
+  <div class="product-modal-overlay" id="productModalOverlay"></div>
+  <div class="product-modal" id="productModal">
+    <button class="product-modal-close" id="productModalClose">&times;</button>
+    <div class="product-modal-content">
+      <div class="product-modal-gallery">
+        <img id="modalImg" src="" alt="" class="product-modal-img">
+      </div>
+      <div class="product-modal-info">
+        <h2 id="modalName" class="product-modal-name"></h2>
+        <p id="modalPrice" class="product-modal-price"></p>
+        <p id="modalDesc" class="product-modal-desc"></p>
+
+        <div id="modalSizeGroup" class="modal-section">
+          <div class="modal-section-header">
+            <span>Tamanho</span>
+          </div>
+          <div class="modal-size-options" id="modalSizeOptions"></div>
+        </div>
+
+        <div class="modal-section">
+          <div class="modal-section-header">
+            <span>Quantidade</span>
+          </div>
+          <div class="modal-qty-row">
+            <div class="modal-qty">
+              <button type="button" id="modalQtyMinus">-</button>
+              <span id="modalQty">1</span>
+              <button type="button" id="modalQtyPlus">+</button>
+            </div>
+          </div>
+          <div class="modal-actions">
+            <button type="button" id="modalAddCart" class="modal-btn-secondary">ADICIONAR AO CARRINHO</button>
+            <button type="button" id="modalBuyNow" class="modal-btn-primary">COMPRAR AGORA</button>
+          </div>
+          <p id="modalAddedMsg" class="modal-added-msg"></p>
+        </div>
+
+        <div class="modal-accordion">
+          <button class="modal-accordion-btn" data-target="accordionPayment">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            MEIOS DE PAGAMENTO
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="modal-accordion-content" id="accordionPayment">
+            <div class="payment-methods">
+              <div class="payment-method">
+                <strong>Pix</strong>
+                <p>Pagamento instantâneo com desconto</p>
+              </div>
+              <div class="payment-method">
+                <strong>Cartão de Crédito</strong>
+                <p>Aceitamos todas as bandeiras</p>
+              </div>
+              <div class="payment-method">
+                <strong>Dinheiro</strong>
+                <p>Para retirada em Belo Jardim</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-accordion">
+          <button class="modal-accordion-btn" data-target="accordionShipping">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            MEIOS DE ENVIO
+            <svg class="accordion-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M6 9l6 6 6-6"/></svg>
+          </button>
+          <div class="modal-accordion-content" id="accordionShipping">
+            <div class="modal-shipping">
+              <input type="text" id="modalCep" placeholder="Seu CEP" maxlength="9" class="modal-input">
+              <button type="button" id="modalCalcFrete" class="modal-calc-btn">Calcular</button>
+            </div>
+            <p id="modalFreteResult" class="modal-frete-result"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Smile</div>
+        <p class="footer-text">Acessórios feitos à mão com amor</p>
+        <div class="footer-links">
+          <a href="#" class="footer-link" data-panel="sobre">Sobre</a>
+          <a href="#" class="footer-link" data-panel="trocas">Trocas e Devoluções</a>
+        </div>
+        <div class="footer-social">
+          <a href="https://instagram.com/smilemicangas_" target="_blank" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://wa.me/5581983911126" target="_blank" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+        </div>
+        <p class="footer-copyright">Smile &copy; 2021 - 2026. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sobre Panel -->
+  <div class="page-panel" id="sobre">
+    <button class="panel-close" aria-label="Fechar">&times;</button>
+    <section class="info-section" style="background: var(--pink-light);">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Sobre a Smile</h2>
+          <p class="section-subtitle">Nossa história</p>
+        </div>
+        <div class="sobre-content">
+          <div class="sobre-card">
+            <img src="img/logo.jpg" alt="Smile" class="sobre-logo">
+            <h3>Desde 2021</h3>
+            <p>A Smile nasceu em 2021 em Belo Jardim, Pernambuco. O que começou como um hobby se transformou em uma marca de acessórios artesanais feitos com muito carinho e dedicação.</p>
+            <p>Cada peça é única e feita à mão com miçangas, cristais, pérolas e materiais selecionados. Trabalhamos com bolsas, pulseiras, colares, tornozeleiras, body chains, artigos religiosos e muito mais.</p>
+            <p>Nosso objetivo é criar acessórios que traduzam o estilo de cada cliente, com qualidade e preço justo. Fazemos entregas para todo o Brasil e aceitamos encomendas personalizadas.</p>
+            <div class="sobre-stats">
+              <div><strong>2021</strong><span>Ano de fundação</span></div>
+              <div><strong>100+</strong><span>Clientes satisfeitos</span></div>
+              <div><strong>Belo Jardim</strong><span>Pernambuco</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Trocas Panel -->
+  <div class="page-panel" id="trocas">
+    <button class="panel-close" aria-label="Fechar">&times;</button>
+    <section class="info-section" style="background: var(--pink-light);">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Trocas e Devoluções</h2>
+          <p class="section-subtitle">Política de troca da Smile</p>
+        </div>
+        <div class="sobre-content">
+          <div class="sobre-card">
+            <div class="troca-item">
+              <h3>Prazo para troca</h3>
+              <p>Você tem até 7 dias após o recebimento para solicitar a troca do produto, desde que esteja em perfeitas condições, sem uso e com a embalagem original.</p>
+            </div>
+            <div class="troca-item">
+              <h3>Como solicitar</h3>
+              <p>Entre em contato pelo WhatsApp (81) 98391-1126 informando o número do pedido e o motivo da troca. Nossa equipe irá orientar sobre o envio.</p>
+            </div>
+            <div class="troca-item">
+              <h3>Produtos personalizados</h3>
+              <p>Peças personalizadas (com nome, iniciais ou sob medida) não são passíveis de troca ou devolução, exceto em caso de defeito.</p>
+            </div>
+            <div class="troca-item">
+              <h3>Defeitos</h3>
+              <p>Caso o produto apresente algum defeito, entre em contato imediatamente. Faremos a troca ou reparo sem custo adicional.</p>
+            </div>
+            <div class="troca-item">
+              <h3>Frete de devolução</h3>
+              <p>Em caso de defeito, o frete de devolução é por conta da Smile. Para trocas por preferência, o frete fica por conta do cliente.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <!-- WhatsApp Float Button -->
+  <a href="https://wa.me/5581983911126?text=Oi,%20Ana%20Livia!%20Vim%20pelo%20site%20e%20gostaria%20de%20saber%20mais%20sobre%20os%20acessórios!" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+  </button>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
