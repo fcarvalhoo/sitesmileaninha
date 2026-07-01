@@ -403,11 +403,7 @@ document.addEventListener('DOMContentLoaded', function () {
     productModal.classList.add('active');
     lockScroll();
     history.pushState({ productModal: true }, '', '#produto=' + encodeURIComponent(name));
-    // Reset: hide bar initially, scroll to top
-    var infoEl = productModal.querySelector('.product-modal-info');
-    infoEl.scrollTop = 0;
-    lastInfoScroll = 0;
-    productModalActions.classList.add('hidden');
+    productModal.querySelector('.product-modal-content').scrollTop = 0;
   }
 
   function closeProductModal() {
@@ -429,18 +425,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Show action bar on scroll down, hide on scroll up
-  var productModalActions = document.querySelector('.product-modal-actions');
-  var lastInfoScroll = 0;
-  document.querySelector('.product-modal-info').addEventListener('scroll', function () {
-    var current = this.scrollTop;
-    if (current > lastInfoScroll && current > 30) {
-      productModalActions.classList.remove('hidden');
-    } else if (current < lastInfoScroll) {
-      productModalActions.classList.add('hidden');
-    }
-    lastInfoScroll = current;
-  });
 
 
 
