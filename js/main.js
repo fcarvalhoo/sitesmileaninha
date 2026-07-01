@@ -424,6 +424,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  // Hide/show actions bar on scroll
+  var productModalActions = document.querySelector('.product-modal-actions');
+  var lastInfoScroll = 0;
+  document.querySelector('.product-modal-info').addEventListener('scroll', function () {
+    var current = this.scrollTop;
+    if (current > lastInfoScroll && current > 40) {
+      productModalActions.classList.add('hidden');
+    } else {
+      productModalActions.classList.remove('hidden');
+    }
+    lastInfoScroll = current;
+  });
+
 
   document.getElementById('modalQtyMinus').addEventListener('click', function () {
     if (modalQty > 1) { modalQty--; document.getElementById('modalQty').textContent = modalQty; }
