@@ -23,6 +23,23 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('scroll', handleNavScroll);
   handleNavScroll();
 
+  // --- Scroll lock (iOS-safe) ---
+  var scrollLockY = 0;
+  function lockScroll() {
+    scrollLockY = window.scrollY;
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + scrollLockY + 'px';
+    document.body.style.width = '100%';
+  }
+  function unlockScroll() {
+    document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, scrollLockY);
+  }
+
   // --- Mobile menu ---
   var navToggle = document.getElementById('navToggle');
   var navMenu = document.getElementById('navMenu');
@@ -34,14 +51,14 @@ document.addEventListener('DOMContentLoaded', function () {
     navToggle.classList.toggle('active');
     navMenu.classList.toggle('active');
     overlay.classList.toggle('active');
-    document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    if (navMenu.classList.contains('active')) { lockScroll(); } else { unlockScroll(); }
   }
 
   function closeMenu() {
     navToggle.classList.remove('active');
     navMenu.classList.remove('active');
     overlay.classList.remove('active');
-    document.body.style.overflow = '';
+    unlockScroll();
     document.querySelectorAll('.nav-dropdown.open').forEach(function(d) {
       d.classList.remove('open');
     });
@@ -214,13 +231,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function openFavs() {
     favSidebar.classList.add('active');
     favOverlayEl.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    lockScroll();
   }
 
   function closeFavs() {
     favSidebar.classList.remove('active');
     favOverlayEl.classList.remove('active');
-    document.body.style.overflow = '';
+    unlockScroll();
   }
 
   document.getElementById('favToggle').addEventListener('click', openFavs);
@@ -331,13 +348,13 @@ document.addEventListener('DOMContentLoaded', function () {
   function openCart() {
     cartSidebar.classList.add('active');
     cartOverlay.classList.add('active');
-    document.body.style.overflow = 'hidden';
+    lockScroll();
   }
 
   function closeCart() {
     cartSidebar.classList.remove('active');
     cartOverlay.classList.remove('active');
-    document.body.style.overflow = '';
+    unlockScroll();
   }
 
   document.getElementById('cartToggle').addEventListener('click', openCart);
@@ -417,7 +434,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Product Modal ---
   var productModal = document.getElementById('productModal');
-  var productModalOverlay = document.getElementById('productModalOverlay');
   var modalQty = 1;
   var modalProduct = {};
 
@@ -504,27 +520,28 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('modalAddedMsg').textContent = '';
 
     productModal.classList.add('active');
-    productModalOverlay.classList.add('active');
-    modalScrollY = window.scrollY;
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + modalScrollY + 'px';
-    document.body.style.width = '100%';
+    lockScroll();
+    history.pushState({ productModal: true }, '', '#produto=' + encodeURIComponent(name));
   }
 
-  var modalScrollY = 0;
   function closeProductModal() {
     productModal.classList.remove('active');
-    productModalOverlay.classList.remove('active');
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.top = '';
-    document.body.style.width = '';
-    window.scrollTo(0, modalScrollY);
+    unlockScroll();
   }
 
-  document.getElementById('productModalClose').addEventListener('click', closeProductModal);
-  productModalOverlay.addEventListener('click', closeProductModal);
+  document.getElementById('productModalBack').addEventListener('click', function () {
+    if (history.state && history.state.productModal) {
+      history.back();
+    } else {
+      closeProductModal();
+    }
+  });
+
+  window.addEventListener('popstate', function () {
+    if (productModal.classList.contains('active')) {
+      closeProductModal();
+    }
+  });
 
   // Share button
   document.getElementById('modalShare').addEventListener('click', function () {
@@ -773,27 +790,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('.add-to-cart-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var productId = this.getAttribute('data-id');
-      var base = window.location.origin + window.location.pathname;
-      window.open(base + '#produto=' + productId, '_blank');
+      var card = this.closest('.product-card');
+      var name = card.querySelector('.product-name').textContent;
+      var price = parseFloat(this.getAttribute('data-price'));
+      var img = card.querySelector('.product-image img').getAttribute('src');
+      openProductModal(name, price, img);
     });
   });
-
-  // Auto-open product modal when page loads with #produto= hash (new tab flow)
-  (function checkProductHash() {
-    var hash = window.location.hash;
-    if (hash.indexOf('#produto=') === 0) {
-      var productId = hash.slice(9);
-      var btn = document.querySelector('.add-to-cart-btn[data-id="' + productId + '"]');
-      if (btn) {
-        var card = btn.closest('.product-card');
-        var name = card.querySelector('.product-name').textContent;
-        var price = parseFloat(btn.getAttribute('data-price'));
-        var img = card.querySelector('.product-image img').getAttribute('src');
-        setTimeout(function () { openProductModal(name, price, img); }, 700);
-      }
-    }
-  }());
 
   // Quick-add cart buttons on product cards
   document.querySelectorAll('.product-card:not(.product-card--esgotado) .add-to-cart-btn').forEach(function (buyBtn) {
@@ -888,7 +891,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var panel = document.getElementById(id);
     if (panel && panel.classList.contains('page-panel')) {
       panel.classList.add('active');
-      document.body.style.overflow = 'hidden';
+      lockScroll();
     }
   }
 
@@ -896,7 +899,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.page-panel').forEach(function (p) {
       p.classList.remove('active');
     });
-    document.body.style.overflow = '';
+    unlockScroll();
   }
 
   document.querySelectorAll('.panel-close').forEach(function (btn) {
@@ -1009,7 +1012,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var panel = document.getElementById(panelId);
       if (panel) {
         panel.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        lockScroll();
       }
     });
   });
