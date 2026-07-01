@@ -682,15 +682,12 @@ document.addEventListener('DOMContentLoaded', function () {
       var img = card.querySelector('.product-image img').getAttribute('src');
       var cat = getProductCategory(name);
 
-      if (sizeOptions[cat]) {
-        openProductModal(name, price, img);
-      } else {
-        cart.push({ name: name, price: price, img: img, qty: 1, size: 'Tamanho Único' });
-        updateCartUI();
-        showToast(name + ' adicionado ao carrinho!');
-        cartBtn.classList.add('added');
-        setTimeout(function () { cartBtn.classList.remove('added'); }, 1500);
-      }
+      var size = sizeOptions[cat] ? sizeOptions[cat][0].value : 'Tamanho Único';
+      cart.push({ name: name, price: price, img: img, qty: 1, size: size });
+      updateCartUI();
+      showToast(name + ' adicionado ao carrinho!');
+      cartBtn.classList.add('added');
+      setTimeout(function () { cartBtn.classList.remove('added'); }, 1500);
     });
 
     buyBtn.parentNode.insertBefore(wrapper, buyBtn);
