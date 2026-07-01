@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var parentDropdown = link.closest('.nav-dropdown');
       if (parentDropdown && window.innerWidth <= 768) {
         e.preventDefault();
+        e.stopImmediatePropagation();
         parentDropdown.classList.toggle('open');
       } else {
         closeMenu();
@@ -772,13 +773,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('.add-to-cart-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var card = this.closest('.product-card');
-      var name = card.querySelector('.product-name').textContent;
-      var price = parseFloat(this.getAttribute('data-price'));
-      var img = card.querySelector('.product-image img').getAttribute('src');
-      openProductModal(name, price, img);
+      var productId = this.getAttribute('data-id');
+      var base = window.location.origin + window.location.pathname;
+      window.open(base + '#produto=' + productId, '_blank');
     });
   });
+
+  // Auto-open product modal when page loads with #produto= hash (new tab flow)
+  (function checkProductHash() {
+    var hash = window.location.hash;
+    if (hash.indexOf('#produto=') === 0) {
+      var productId = hash.slice(9);
+      var btn = document.querySelector('.add-to-cart-btn[data-id="' + productId + '"]');
+      if (btn) {
+        var card = btn.closest('.product-card');
+        var name = card.querySelector('.product-name').textContent;
+        var price = parseFloat(btn.getAttribute('data-price'));
+        var img = card.querySelector('.product-image img').getAttribute('src');
+        setTimeout(function () { openProductModal(name, price, img); }, 700);
+      }
+    }
+  }());
 
   // Quick-add cart buttons on product cards
   document.querySelectorAll('.product-card:not(.product-card--esgotado) .add-to-cart-btn').forEach(function (buyBtn) {
