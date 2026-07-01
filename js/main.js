@@ -42,12 +42,23 @@ document.addEventListener('DOMContentLoaded', function () {
     navMenu.classList.remove('active');
     overlay.classList.remove('active');
     document.body.style.overflow = '';
+    document.querySelectorAll('.nav-dropdown.open').forEach(function(d) {
+      d.classList.remove('open');
+    });
   }
 
   navToggle.addEventListener('click', toggleMenu);
   overlay.addEventListener('click', closeMenu);
   document.querySelectorAll('.nav-link').forEach(function (link) {
-    link.addEventListener('click', closeMenu);
+    link.addEventListener('click', function(e) {
+      var parentDropdown = link.closest('.nav-dropdown');
+      if (parentDropdown && window.innerWidth <= 768) {
+        e.preventDefault();
+        parentDropdown.classList.toggle('open');
+      } else {
+        closeMenu();
+      }
+    });
   });
 
   // --- Scroll reveal for product cards ---
