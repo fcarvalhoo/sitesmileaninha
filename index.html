@@ -66,10 +66,6 @@
         <li><a href="#contato" class="nav-link">Contato</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="fav-toggle" id="favToggle" aria-label="Favoritos">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span class="fav-count" id="favCount">0</span>
-        </button>
         <button class="cart-toggle" id="cartToggle" aria-label="Carrinho">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           <span class="cart-count" id="cartCount">0</span>
@@ -77,20 +73,6 @@
       </div>
     </div>
   </nav>
-
-  <!-- Favorites Sidebar -->
-  <div class="fav-overlay" id="favOverlay"></div>
-  <div class="cart-sidebar" id="favSidebar">
-    <div class="cart-header">
-      <h3>Seus Favoritos</h3>
-      <button class="cart-close" id="favClose">&times;</button>
-    </div>
-    <div class="cart-items" id="favItems">
-      <div class="cart-empty" id="favEmpty">
-        <p>Nenhum favorito ainda</p>
-      </div>
-    </div>
-  </div>
 
   <!-- Cart Sidebar -->
   <div class="cart-overlay" id="cartOverlay"></div>
@@ -209,7 +191,6 @@
             <img src="img/bolsa-azul-2.jpg" alt="Bolsa Azul Cristal - outro ângulo" loading="lazy" class="product-img-hover">
             <span class="product-badge">Novo</span>
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Bolsa Azul Cristal</h3>
@@ -222,7 +203,6 @@
           <div class="product-image" >
             <img src="img/bolsa-verde-neon.jpg" alt="Bolsa Verde Neon" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Bolsa Verde Neon</h3>
@@ -235,7 +215,6 @@
           <div class="product-image" >
             <img src="img/bolsa-rosa.jpg" alt="Bolsa Rosa Cristal" loading="lazy">
             <span class="product-badge product-badge--esgotado">Esgotado</span>
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Bolsa Rosa Cristal</h3>
@@ -248,7 +227,6 @@
           <div class="product-image" >
             <img src="img/bolsa-coracao.jpg" alt="Bolsa Coração" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Bolsa Coração</h3>
@@ -278,7 +256,6 @@
           <div class="product-image" >
             <img src="img/pulseira-vermelha.jpg" alt="Pulseira Vermelha" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Pulseira Vermelha</h3>
@@ -291,7 +268,6 @@
           <div class="product-image" >
             <img src="img/pulseira-colorida.jpg" alt="Pulseira Colorida" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Pulseira Colorida</h3>
@@ -304,7 +280,6 @@
           <div class="product-image" >
             <img src="img/pulseira-signo.jpg" alt="Pulseira Signo" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Pulseira Signo</h3>
@@ -317,7 +292,6 @@
           <div class="product-image" >
             <img src="img/pulseira-neon.jpg" alt="Pulseira Neon" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Pulseira Neon</h3>
@@ -348,7 +322,6 @@
             <img src="img/colar-laranja.jpg" alt="Colar Laranja com Pingente" loading="lazy">
             <span class="product-badge">Popular</span>
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Colar Laranja com Pingente</h3>
@@ -361,7 +334,6 @@
           <div class="product-image" >
             <img src="img/colar-colorido-estrela.jpg" alt="Colar Colorido Estrela do Mar" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Colar Colorido Estrela do Mar</h3>
@@ -374,7 +346,6 @@
           <div class="product-image">
             <img src="img/colar-rosa-letra.jpg" alt="Colar Rosa com Pingente de Letra" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Colar Rosa com Pingente</h3>
@@ -387,7 +358,6 @@
           <div class="product-image">
             <img src="img/colar-dourado-smile.jpg" alt="Colar Dourado Smile" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Colar Dourado Smile</h3>
@@ -417,7 +387,6 @@
           <div class="product-image" >
             <img src="img/tornozeleira-rosa.jpg" alt="Tornozeleira Rosa" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Tornozeleira Rosa</h3>
@@ -430,7 +399,6 @@
           <div class="product-image" >
             <img src="img/tornozeleira-colorida.jpg" alt="Tornozeleira Colorida" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Tornozeleira Colorida</h3>
@@ -443,7 +411,6 @@
           <div class="product-image" >
             <img src="img/tornozeleira-olho-grego.jpg" alt="Tornozeleira Olho Grego" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Tornozeleira Olho Grego</h3>
@@ -473,7 +440,6 @@
           <div class="product-image" >
             <img src="img/body-chain-azul.jpg" alt="Body Chain Cristal Azul" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Body Chain Cristal Azul</h3>
@@ -486,7 +452,6 @@
           <div class="product-image" >
             <img src="img/body-chain-cintura.jpg" alt="Body Chain Cintura" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Body Chain Colorido</h3>
@@ -517,7 +482,6 @@
           <div class="product-image" >
             <img src="img/terco-lilas.jpg" alt="Terço Lilás Dourado" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Terço Lilás Dourado</h3>
@@ -530,7 +494,6 @@
           <div class="product-image" >
             <img src="img/terco-branco.jpg" alt="Terço Branco Dourado" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Terço Branco Dourado</h3>
@@ -543,7 +506,6 @@
           <div class="product-image">
             <img src="img/terco-cristal-2.jpg" alt="Terço Cristal Transparente" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Terço Cristal Transparente</h3>
@@ -556,7 +518,6 @@
           <div class="product-image" >
             <img src="img/terco-rosa-aninha.jpg" alt="Terço Rosa Personalizado" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Terço Rosa Personalizado</h3>
@@ -569,7 +530,6 @@
           <div class="product-image" >
             <img src="img/terco-dourado.jpg" alt="Terço Religioso Dourado" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Terço Religioso Dourado</h3>
@@ -582,7 +542,6 @@
           <div class="product-image">
             <img src="img/chaveiro-religioso.jpg" alt="Chaveiro Religioso Personalizado" loading="lazy">
           
-            <button class="fav-btn" aria-label="Favoritar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
           </div>
           <div class="product-info">
             <h3 class="product-name">Chaveiro Religioso</h3>
@@ -789,9 +748,7 @@
         Voltar
       </button>
       <span class="product-page-brand">Smile</span>
-      <button type="button" class="modal-share-btn" id="modalShare" title="Compartilhar produto">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-      </button>
+      <span class="product-page-nav-spacer"></span>
     </nav>
     <div class="product-modal-content">
       <div class="product-modal-gallery">

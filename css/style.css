@@ -2967,11 +2967,11 @@ img {
 
   .product-modal-gallery {
     flex-shrink: 0;
-    height: 55vh;
+    height: 42vh;
   }
 
   .product-modal-img {
-    height: 55vh;
+    height: 42vh;
   }
 
   .product-modal-info {
