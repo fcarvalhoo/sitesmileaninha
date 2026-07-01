@@ -34,6 +34,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  overflow-x: hidden;
 }
 
 body {
@@ -2654,22 +2655,33 @@ img {
     background: var(--white-20);
   }
 
+  .nav-dropdown {
+    width: 100%;
+  }
+
   .nav-dropdown-menu {
     position: static;
     transform: none;
     box-shadow: none;
-    background: rgba(255,255,255,0.1);
-    border-radius: 8px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
     padding: 4px 0;
     opacity: 1;
     visibility: visible;
     min-width: auto;
+    width: 100%;
+    margin-top: 4px;
   }
 
   .nav-dropdown-link {
+    display: block;
     color: var(--white);
-    padding: 8px 24px;
+    padding: 10px 20px;
     font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
   }
 
   .nav-dropdown-link:hover {
