@@ -504,17 +504,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
     productModal.classList.add('active');
     productModalOverlay.classList.add('active');
+    modalScrollY = window.scrollY;
     document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = '-' + modalScrollY + 'px';
+    document.body.style.width = '100%';
   }
 
+  var modalScrollY = 0;
   function closeProductModal() {
     productModal.classList.remove('active');
     productModalOverlay.classList.remove('active');
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    window.scrollTo(0, modalScrollY);
   }
 
   document.getElementById('productModalClose').addEventListener('click', closeProductModal);
   productModalOverlay.addEventListener('click', closeProductModal);
+
+  // Share button
+  document.getElementById('modalShare').addEventListener('click', function () {
+    var name = document.getElementById('modalName').textContent;
+    var shareData = {
+      title: 'Smile — ' + name,
+      text: 'Olha esse produto da Smile Miçangas! ' + name,
+      url: window.location.href
+    };
+    if (navigator.share) {
+      navigator.share(shareData);
+    } else {
+      navigator.clipboard.writeText(window.location.href).then(function () {
+        showToast('Link copiado!');
+      }).catch(function () {
+        showToast('Link: ' + window.location.href);
+      });
+    }
+  });
 
   document.getElementById('modalQtyMinus').addEventListener('click', function () {
     if (modalQty > 1) { modalQty--; document.getElementById('modalQty').textContent = modalQty; }
@@ -750,6 +778,40 @@ document.addEventListener('DOMContentLoaded', function () {
       var img = card.querySelector('.product-image img').getAttribute('src');
       openProductModal(name, price, img);
     });
+  });
+
+  // Quick-add cart buttons on product cards
+  document.querySelectorAll('.product-card:not(.product-card--esgotado) .add-to-cart-btn').forEach(function (buyBtn) {
+    var wrapper = document.createElement('div');
+    wrapper.className = 'product-card-btns';
+
+    var cartBtn = document.createElement('button');
+    cartBtn.type = 'button';
+    cartBtn.className = 'quick-add-btn';
+    cartBtn.title = 'Adicionar ao carrinho';
+    cartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
+
+    cartBtn.addEventListener('click', function () {
+      var card = this.closest('.product-card');
+      var name = card.querySelector('.product-name').textContent;
+      var price = parseFloat(buyBtn.getAttribute('data-price'));
+      var img = card.querySelector('.product-image img').getAttribute('src');
+      var cat = getProductCategory(name);
+
+      if (sizeOptions[cat]) {
+        openProductModal(name, price, img);
+      } else {
+        cart.push({ name: name, price: price, img: img, qty: 1, size: 'Tamanho Único' });
+        updateCartUI();
+        showToast(name + ' adicionado ao carrinho!');
+        cartBtn.classList.add('added');
+        setTimeout(function () { cartBtn.classList.remove('added'); }, 1500);
+      }
+    });
+
+    buyBtn.parentNode.insertBefore(wrapper, buyBtn);
+    wrapper.appendChild(cartBtn);
+    wrapper.appendChild(buyBtn);
   });
 
   document.getElementById('cartCheckout').addEventListener('click', function () {

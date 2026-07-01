@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Smile - Acessórios Artesanais Feitos à Mão</title>
   <meta name="description" content="Smile - Acessórios artesanais feitos à mão por Ana Livia. Bolsas, pulseiras, colares, body chains e artigos religiosos. Entregas para todo o Brasil. Belo Jardim, PE.">
   <meta name="keywords" content="acessórios artesanais, miçangas, cristais, pulseiras personalizadas, colares, bolsas de miçangas, body chain, artigos religiosos, terços, Belo Jardim, Pernambuco">
@@ -24,8 +24,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=7">
-  <script src="js/main.js?v=6" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=8">
+  <script src="js/main.js?v=7" defer></script>
 </head>
 <body>
 
@@ -125,7 +125,7 @@
       <div class="cart-footer-section">
         <label class="cart-footer-label">Calcular Frete</label>
         <div class="modal-shipping">
-          <input type="text" id="cartCep" placeholder="Seu CEP" maxlength="9" class="modal-input">
+          <input type="text" id="cartCep" placeholder="Simular frete — CEP" maxlength="9" class="modal-input">
           <button type="button" id="cartCalcFrete" class="modal-calc-btn">Calcular</button>
         </div>
         <p id="cartFreteResult" class="modal-frete-result"></p>
@@ -790,7 +790,13 @@
         <img id="modalImg" src="" alt="" class="product-modal-img">
       </div>
       <div class="product-modal-info">
-        <h2 id="modalName" class="product-modal-name"></h2>
+        <div class="modal-name-row">
+          <h2 id="modalName" class="product-modal-name"></h2>
+          <button type="button" class="modal-share-btn" id="modalShare" title="Compartilhar produto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Compartilhar
+          </button>
+        </div>
         <p id="modalPrice" class="product-modal-price"></p>
         <p id="modalDesc" class="product-modal-desc"></p>
 
@@ -851,7 +857,7 @@
           </button>
           <div class="modal-accordion-content" id="accordionShipping">
             <div class="modal-shipping">
-              <input type="text" id="modalCep" placeholder="Seu CEP" maxlength="9" class="modal-input">
+              <input type="text" id="modalCep" placeholder="Simular frete — CEP" maxlength="9" class="modal-input">
               <button type="button" id="modalCalcFrete" class="modal-calc-btn">Calcular</button>
             </div>
             <p id="modalFreteResult" class="modal-frete-result"></p>

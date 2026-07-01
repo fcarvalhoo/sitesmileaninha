@@ -821,6 +821,44 @@ img {
   transform: translateY(-2px);
 }
 
+/* Two-button layout on product cards */
+.product-card-btns {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.product-card-btns .product-btn {
+  flex: 1;
+  width: auto;
+}
+
+.quick-add-btn {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  background: transparent;
+  border: 2px solid var(--text-dark);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dark);
+  transition: var(--transition);
+}
+
+.quick-add-btn:hover {
+  background: var(--text-dark);
+  color: var(--white);
+}
+
+.quick-add-btn.added {
+  background: #25D366;
+  border-color: #25D366;
+  color: var(--white);
+}
+
 /* ===== Filter Bar (Religiosos) ===== */
 .religiosos-section {
   background: linear-gradient(135deg, var(--lilac-light) 0%, var(--pink-light) 100%);
@@ -1942,10 +1980,43 @@ img {
   gap: 16px;
 }
 
+.modal-name-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
 .product-modal-name {
   font-size: 24px;
   font-weight: 700;
   color: var(--text-dark);
+  flex: 1;
+}
+
+.modal-share-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: 1px solid rgba(0,0,0,0.12);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: 'Quicksand', sans-serif;
+  white-space: nowrap;
+  margin-top: 4px;
+}
+
+.modal-share-btn:hover {
+  border-color: var(--peach);
+  color: var(--peach);
 }
 
 .product-modal-price {
@@ -2627,10 +2698,16 @@ img {
 @media (max-width: 768px) {
   .nav-toggle {
     display: flex;
+    order: 3;
   }
 
   .nav-logo {
     flex: 1;
+    order: 1;
+  }
+
+  .nav-actions {
+    order: 2;
   }
 
   .nav-menu {
@@ -2714,6 +2791,12 @@ img {
     width: 100% !important;
     margin-top: 6px !important;
     margin-bottom: 4px !important;
+    animation: dropdownSlideIn 0.22s ease !important;
+  }
+
+  @keyframes dropdownSlideIn {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   .nav-dropdown-link {
@@ -2790,6 +2873,11 @@ img {
     padding: 6px;
     top: 8px;
     left: 8px;
+  }
+
+  .quick-add-btn {
+    width: 34px;
+    height: 34px;
   }
 
   .hero-title {
