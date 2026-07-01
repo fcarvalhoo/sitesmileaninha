@@ -2138,15 +2138,25 @@ img {
   padding: 8px 0;
 }
 
-/* Sticky bottom actions bar */
+/* Sticky bottom actions bar — fixed inside the product modal */
 .product-modal-actions {
-  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding: 12px 16px 20px;
+  padding: 12px 16px max(16px, env(safe-area-inset-bottom));
   background: var(--white);
   border-top: 1px solid rgba(0,0,0,0.08);
+  transform: translateY(0);
+  transition: transform 0.3s ease;
+}
+
+.product-modal-actions.hidden {
+  transform: translateY(100%);
 }
 
 .modal-actions {
@@ -2984,7 +2994,7 @@ img {
 
   .product-modal-info {
     flex: 1;
-    padding: 20px 16px;
+    padding: 20px 16px 100px;
     gap: 12px;
     overflow-y: auto;
     height: auto;
