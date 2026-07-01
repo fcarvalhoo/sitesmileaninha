@@ -2526,16 +2526,18 @@ img {
   overflow-y: auto;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transform: translateX(30px);
+  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
 }
 
 .page-panel.active {
   opacity: 1;
   visibility: visible;
+  transform: translateX(0);
 }
 
 .page-panel > section {
-  min-height: 100vh;
+  min-height: 100svh;
   padding-top: 80px;
 }
 
@@ -3129,30 +3131,19 @@ img {
   -webkit-touch-callout: none;
 }
 
-/* Panels slide in from right like native pages */
-.page-panel {
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(30px);
-  transition: opacity 0.35s ease, visibility 0.35s ease, transform 0.35s ease;
-}
-
-.page-panel.active {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
-}
-
+/* Panels slide in from right on mobile */
 @media (max-width: 768px) {
   .page-panel {
-    transform: translateX(100%);
-    opacity: 1;
-    visibility: visible;
-    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(100%) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
   }
 
   .page-panel.active {
-    transform: translateX(0);
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }
 
