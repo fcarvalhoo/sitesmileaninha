@@ -760,6 +760,7 @@ document.addEventListener('DOMContentLoaded', function () {
       lockScroll();
     }
   }
+  window.openPanel = openPanel;
 
   function closeAllPanels() {
     document.querySelectorAll('.page-panel').forEach(function (p) {

@@ -2064,6 +2064,40 @@ img {
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-size-guide-btn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--peach);
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.modal-cep-help {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--peach);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-top: 6px;
+  cursor: pointer;
 }
 
 .modal-size-options {

@@ -762,6 +762,10 @@
         <div id="modalSizeGroup" class="modal-section">
           <div class="modal-section-header">
             <span>Tamanho</span>
+            <button type="button" class="modal-size-guide-btn" onclick="openPanel('medidas')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><path d="M21 21H3V3"/><path d="M7 17l4-4 4 4 4-8"/></svg>
+              Guia de tamanhos
+            </button>
           </div>
           <div class="modal-size-options" id="modalSizeOptions"></div>
         </div>
@@ -814,6 +818,10 @@
               <input type="text" id="modalCep" placeholder="Simular frete — CEP" maxlength="9" class="modal-input">
               <button type="button" id="modalCalcFrete" class="modal-calc-btn">Calcular</button>
             </div>
+            <a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank" rel="noopener" class="modal-cep-help">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              Não sabe seu CEP?
+            </a>
             <p id="modalFreteResult" class="modal-frete-result"></p>
           </div>
         </div>
