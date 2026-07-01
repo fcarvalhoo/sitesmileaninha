@@ -2138,14 +2138,12 @@ img {
   padding: 8px 0;
 }
 
-/* Bottom actions bar */
+/* Action buttons inside product info */
 .product-modal-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  padding: 12px 16px 16px;
-  background: var(--white);
-  border-top: 1px solid rgba(0,0,0,0.08);
+  margin-top: 8px;
 }
 
 .modal-actions {
