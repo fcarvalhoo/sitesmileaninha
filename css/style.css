@@ -2708,20 +2708,25 @@ img {
 
 /* ===== Responsive: Mobile (max 768px) ===== */
 @media (max-width: 768px) {
+  .nav-container {
+    position: relative;
+  }
+
   .nav-toggle {
     display: flex;
     order: 1;
   }
 
   .nav-logo {
-    flex: 1;
-    order: 2;
-    text-align: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: 'Playfair Display', serif;
     font-style: italic;
     font-size: 22px;
     color: var(--peach);
     letter-spacing: 1px;
+    pointer-events: none;
   }
 
   .nav-logo-img {
@@ -2730,6 +2735,7 @@ img {
 
   .nav-actions {
     order: 3;
+    margin-left: auto;
   }
 
   .nav-menu {
