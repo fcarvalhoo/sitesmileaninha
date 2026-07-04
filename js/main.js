@@ -1214,29 +1214,142 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function saveFavorites() { try { localStorage.setItem('smileFav', JSON.stringify(favorites)); } catch(e) {} }
 
-  function updateFavBadge() {
-    var el = document.getElementById('favCount');
-    if (!el) return;
-    el.textContent = favorites.length;
-    el.style.display = favorites.length > 0 ? 'flex' : 'none';
+  var favSidebar = document.getElementById('favSidebar');
+  var favOverlay = document.getElementById('favOverlay');
+
+  function openFavPanel() {
+    favSidebar.classList.add('active');
+    favOverlay.classList.add('active');
+    lockScroll();
+    renderFavPanel();
   }
 
+  function closeFavPanel() {
+    favSidebar.classList.remove('active');
+    favOverlay.classList.remove('active');
+    unlockScroll();
+  }
+
+  document.getElementById('favToggle').addEventListener('click', openFavPanel);
+  document.getElementById('favClose').addEventListener('click', closeFavPanel);
+  favOverlay.addEventListener('click', closeFavPanel);
+
+  document.getElementById('favClearBtn').addEventListener('click', function() {
+    favorites = [];
+    saveFavorites();
+    document.querySelectorAll('.fav-btn.fav-active').forEach(function(b) {
+      b.classList.remove('fav-active');
+    });
+    updateFavBadge();
+    renderFavPanel();
+  });
+
+  function updateFavBadge() {
+    var countEl = document.getElementById('favCount');
+    var toggle = document.getElementById('favToggle');
+    if (countEl) {
+      countEl.textContent = favorites.length;
+      countEl.style.display = favorites.length > 0 ? 'flex' : 'none';
+    }
+    if (toggle) toggle.classList.toggle('has-favs', favorites.length > 0);
+  }
+
+  function renderFavPanel() {
+    var itemsEl = document.getElementById('favItems');
+    var emptyEl = document.getElementById('favEmpty');
+    var footerEl = document.getElementById('favFooter');
+    if (!itemsEl) return;
+
+    var existing = itemsEl.querySelectorAll('.fav-item');
+    existing.forEach(function(el) { el.remove(); });
+
+    if (favorites.length === 0) {
+      emptyEl.style.display = 'flex';
+      footerEl.style.display = 'none';
+      return;
+    }
+
+    emptyEl.style.display = 'none';
+    footerEl.style.display = 'block';
+
+    favorites.forEach(function(fav) {
+      var card = Array.from(document.querySelectorAll('.product-card')).find(function(c) {
+        var n = c.querySelector('.product-name');
+        return n && n.textContent === fav;
+      });
+      if (!card) return;
+
+      var img = card.querySelector('.product-image img');
+      var priceStr = card.querySelector('.product-price').textContent;
+      var buyBtn = card.querySelector('.add-to-cart-btn');
+      var price = buyBtn ? parseFloat(buyBtn.getAttribute('data-price')) : 0;
+      var imgSrc = img ? img.getAttribute('src') : '';
+
+      var item = document.createElement('div');
+      item.className = 'fav-item';
+
+      var imgEl = document.createElement('img');
+      imgEl.src = imgSrc; imgEl.alt = fav; imgEl.className = 'fav-item-img'; imgEl.loading = 'lazy';
+      imgEl.addEventListener('click', function() { closeFavPanel(); openProductModal(fav, price, getCardImages(card)); });
+
+      var info = document.createElement('div'); info.className = 'fav-item-info';
+      var nameEl = document.createElement('p'); nameEl.className = 'fav-item-name'; nameEl.textContent = fav;
+      nameEl.addEventListener('click', function() { closeFavPanel(); openProductModal(fav, price, getCardImages(card)); });
+      var priceEl = document.createElement('p'); priceEl.className = 'fav-item-price'; priceEl.textContent = priceStr;
+      info.appendChild(nameEl); info.appendChild(priceEl);
+
+      var actions = document.createElement('div'); actions.className = 'fav-item-actions';
+      var buyBtnEl = document.createElement('button'); buyBtnEl.type = 'button'; buyBtnEl.className = 'fav-item-buy';
+      buyBtnEl.textContent = 'Comprar';
+      buyBtnEl.addEventListener('click', function() { closeFavPanel(); openProductModal(fav, price, getCardImages(card)); });
+
+      var removeBtn = document.createElement('button'); removeBtn.type = 'button'; removeBtn.className = 'fav-item-remove';
+      removeBtn.textContent = 'Remover';
+      removeBtn.addEventListener('click', function() {
+        var idx = favorites.indexOf(fav);
+        if (idx !== -1) favorites.splice(idx, 1);
+        saveFavorites(); updateFavBadge();
+        var cardBtn = card.querySelector('.fav-btn');
+        if (cardBtn) { cardBtn.classList.add('fav-removing'); cardBtn.classList.remove('fav-active'); setTimeout(function() { cardBtn.classList.remove('fav-removing'); }, 350); }
+        renderFavPanel();
+      });
+
+      actions.appendChild(buyBtnEl); actions.appendChild(removeBtn);
+      item.appendChild(imgEl); item.appendChild(info); item.appendChild(actions);
+      itemsEl.appendChild(item);
+    });
+  }
+
+  // Add fav buttons to product cards
   document.querySelectorAll('.product-card').forEach(function(card) {
     var nameEl = card.querySelector('.product-name');
     var imgWrap = card.querySelector('.product-image');
     if (!nameEl || !imgWrap) return;
     var pname = nameEl.textContent;
+    var isActive = favorites.indexOf(pname) !== -1;
     var btn = document.createElement('button');
     btn.type = 'button';
-    btn.className = 'fav-btn' + (favorites.indexOf(pname) !== -1 ? ' fav-btn--active' : '');
-    btn.setAttribute('aria-label', 'Favoritar');
-    btn.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+    btn.className = 'fav-btn' + (isActive ? ' fav-active' : '');
+    btn.setAttribute('aria-label', isActive ? 'Remover dos favoritos' : 'Adicionar aos favoritos');
+    btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
     btn.addEventListener('click', function(e) {
       e.stopPropagation();
       var idx = favorites.indexOf(pname);
-      if (idx === -1) { favorites.push(pname); btn.classList.add('fav-btn--active'); }
-      else { favorites.splice(idx, 1); btn.classList.remove('fav-btn--active'); }
-      saveFavorites(); updateFavBadge();
+      if (idx === -1) {
+        favorites.push(pname);
+        btn.classList.remove('fav-removing');
+        btn.classList.add('fav-active');
+        btn.setAttribute('aria-label', 'Remover dos favoritos');
+        void btn.offsetWidth; // reflow to restart animation
+      } else {
+        favorites.splice(idx, 1);
+        btn.classList.add('fav-removing');
+        btn.classList.remove('fav-active');
+        btn.setAttribute('aria-label', 'Adicionar aos favoritos');
+        setTimeout(function() { btn.classList.remove('fav-removing'); }, 350);
+      }
+      saveFavorites();
+      updateFavBadge();
     });
     imgWrap.appendChild(btn);
   });

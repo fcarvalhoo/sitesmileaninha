@@ -26,8 +26,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=33">
-  <script src="js/main.js?v=21" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=34">
+  <script src="js/main.js?v=22" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -90,6 +90,10 @@
         <li><a href="#contato" class="nav-link">Contato</a></li>
       </ul>
       <div class="nav-actions">
+        <button class="fav-toggle" id="favToggle" aria-label="Favoritos">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="fav-count" id="favCount">0</span>
+        </button>
         <button class="cart-toggle" id="cartToggle" aria-label="Carrinho">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           <span class="cart-count" id="cartCount">0</span>
@@ -97,6 +101,27 @@
       </div>
     </div>
   </nav>
+
+  <!-- Favorites Sidebar -->
+  <div class="cart-overlay" id="favOverlay"></div>
+  <div class="fav-sidebar" id="favSidebar">
+    <div class="fav-header">
+      <h3>
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Meus Favoritos
+      </h3>
+      <button class="fav-close" id="favClose" aria-label="Fechar favoritos">&times;</button>
+    </div>
+    <div class="fav-items" id="favItems">
+      <div class="fav-empty" id="favEmpty">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <p>Nenhum favorito ainda.<br>Clique no coração ♡ de um produto.</p>
+      </div>
+    </div>
+    <div class="fav-footer" id="favFooter" style="display:none;">
+      <button type="button" class="fav-clear-btn" id="favClearBtn">Limpar favoritos</button>
+    </div>
+  </div>
 
   <!-- Cart Sidebar -->
   <div class="cart-overlay" id="cartOverlay"></div>
