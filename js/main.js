@@ -693,6 +693,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         resultEl.innerHTML = calcFreteResult(data, document.getElementById('cartCep').value);
         updateCartTotals();
+        updateCashWarning();
       })
       .catch(function () {
         btnEl.textContent = 'Calcular';
@@ -707,6 +708,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var v = this.value.replace(/\D/g, '');
     if (v.length > 5) { this.value = v.slice(0, 5) + '-' + v.slice(5, 8); }
     else { this.value = v; }
+    var btn = document.getElementById('cartCalcFrete');
+    if (v.length >= 8) { btn.classList.add('ready'); } else { btn.classList.remove('ready'); }
   });
 
   function updateCartTotals() {
@@ -841,6 +844,21 @@ document.addEventListener('DOMContentLoaded', function () {
     var v = this.value.replace(/\D/g, '');
     if (v.length > 5) { this.value = v.slice(0, 5) + '-' + v.slice(5, 8); }
     else { this.value = v; }
+    var btn = document.getElementById('modalCalcFrete');
+    if (v.length >= 8) { btn.classList.add('ready'); } else { btn.classList.remove('ready'); }
+  });
+
+  // Aviso de dinheiro só para Belo Jardim
+  function updateCashWarning() {
+    var warning = document.getElementById('cashWarning');
+    if (!warning) return;
+    var isDinheiro = (document.querySelector('input[name="cart-payment"]:checked') || {}).value === 'Dinheiro';
+    var isBeloJardim = cartCidadeUf && cartCidadeUf.toLowerCase().indexOf('belo jardim') !== -1;
+    warning.style.display = (isDinheiro && !isBeloJardim) ? 'block' : 'none';
+  }
+
+  document.querySelectorAll('input[name="cart-payment"]').forEach(function (radio) {
+    radio.addEventListener('change', updateCashWarning);
   });
 
   function getCardImages(card) {
