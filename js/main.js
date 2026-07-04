@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
+  var WHATSAPP_NUM = '5581983911126';
+
   // --- Loader ---
   var loader = document.getElementById('loader');
   window.addEventListener('load', function () {
@@ -100,9 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function () { toast.classList.remove('show'); }, 2500);
   }
 
-  // --- Hero background slider ---
+  // --- Hero background slider (respects prefers-reduced-motion) ---
   var heroSlides = document.querySelectorAll('.hero-bg-slide');
-  if (heroSlides.length > 1) {
+  if (heroSlides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     var currentSlide = 0;
     setInterval(function () {
       heroSlides[currentSlide].classList.remove('active');
@@ -226,6 +228,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Shopping Cart ---
   var cart = [];
+  var freteAtual = 0;
+  var cartCidadeUf = '';
+
+  // Load persisted cart
+  try {
+    var stored = localStorage.getItem('smileCart');
+    if (stored) cart = JSON.parse(stored);
+  } catch (e) {}
+
+  function saveCart() {
+    try { localStorage.setItem('smileCart', JSON.stringify(cart)); } catch (e) {}
+  }
+
   var cartSidebar = document.getElementById('cartSidebar');
   var cartOverlay = document.getElementById('cartOverlay');
   var cartItems = document.getElementById('cartItems');
@@ -233,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var cartFooter = document.getElementById('cartFooter');
   var cartCountEl = document.getElementById('cartCount');
   var cartTotalEl = document.getElementById('cartTotal');
+  var cartSuccess = document.getElementById('cartSuccess');
 
   function openCart() {
     cartSidebar.classList.add('active');
@@ -250,6 +266,17 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('cartClose').addEventListener('click', closeCart);
   cartOverlay.addEventListener('click', closeCart);
 
+  // Cart success clear button
+  document.getElementById('cartClearSuccess').addEventListener('click', function () {
+    cart = [];
+    freteAtual = 0;
+    cartCidadeUf = '';
+    saveCart();
+    cartSuccess.style.display = 'none';
+    cartItems.style.display = '';
+    updateCartUI();
+  });
+
   function updateCartUI() {
     var totalItems = 0;
     var totalPrice = 0;
@@ -260,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     cartCountEl.textContent = totalItems;
+    saveCart();
 
     if (cart.length === 0) {
       cartEmpty.style.display = 'block';
@@ -279,22 +307,71 @@ document.addEventListener('DOMContentLoaded', function () {
     cart.forEach(function (item, index) {
       var div = document.createElement('div');
       div.className = 'cart-item';
-      var sizeHtml = item.size
-        ? '<p class="cart-item-size">Tam: ' + item.size + '</p>'
-        : '<p class="cart-item-size cart-item-size-missing" data-name="' + item.name + '" data-price="' + item.price + '" data-img="' + item.img + '">Escolha um tamanho</p>';
-      div.innerHTML =
-        '<img src="' + item.img + '" alt="' + item.name + '" class="cart-item-img">' +
-        '<div class="cart-item-details">' +
-          '<p class="cart-item-name">' + item.name + '</p>' +
-          sizeHtml +
-          '<p class="cart-item-price">R$ ' + (item.price * item.qty).toFixed(2).replace('.', ',') + '</p>' +
-          '<div class="cart-item-qty">' +
-            '<button class="qty-minus" data-index="' + index + '">-</button>' +
-            '<span>' + item.qty + '</span>' +
-            '<button class="qty-plus" data-index="' + index + '">+</button>' +
-          '</div>' +
-        '</div>' +
-        '<button class="cart-item-remove" data-index="' + index + '">&times;</button>';
+
+      var img = document.createElement('img');
+      img.src = item.img;
+      img.alt = item.name;
+      img.className = 'cart-item-img';
+
+      var details = document.createElement('div');
+      details.className = 'cart-item-details';
+
+      var nameEl = document.createElement('p');
+      nameEl.className = 'cart-item-name';
+      nameEl.textContent = item.name;
+
+      var sizeEl = document.createElement('p');
+      if (item.size) {
+        sizeEl.className = 'cart-item-size';
+        sizeEl.textContent = 'Tam: ' + item.size;
+      } else {
+        sizeEl.className = 'cart-item-size cart-item-size-missing';
+        sizeEl.textContent = 'Escolha um tamanho';
+        sizeEl.dataset.name = item.name;
+        sizeEl.dataset.price = item.price;
+        sizeEl.dataset.img = item.img;
+      }
+
+      var priceEl = document.createElement('p');
+      priceEl.className = 'cart-item-price';
+      priceEl.textContent = 'R$ ' + (item.price * item.qty).toFixed(2).replace('.', ',');
+
+      var qtyRow = document.createElement('div');
+      qtyRow.className = 'cart-item-qty';
+
+      var minusBtn = document.createElement('button');
+      minusBtn.className = 'qty-minus';
+      minusBtn.setAttribute('data-index', index);
+      minusBtn.setAttribute('aria-label', 'Diminuir quantidade');
+      minusBtn.textContent = '-';
+
+      var qtySpan = document.createElement('span');
+      qtySpan.textContent = item.qty;
+
+      var plusBtn = document.createElement('button');
+      plusBtn.className = 'qty-plus';
+      plusBtn.setAttribute('data-index', index);
+      plusBtn.setAttribute('aria-label', 'Aumentar quantidade');
+      plusBtn.textContent = '+';
+
+      qtyRow.appendChild(minusBtn);
+      qtyRow.appendChild(qtySpan);
+      qtyRow.appendChild(plusBtn);
+
+      details.appendChild(nameEl);
+      details.appendChild(sizeEl);
+      details.appendChild(priceEl);
+      details.appendChild(qtyRow);
+
+      var removeBtn = document.createElement('button');
+      removeBtn.className = 'cart-item-remove';
+      removeBtn.setAttribute('data-index', index);
+      removeBtn.setAttribute('aria-label', 'Remover item');
+      removeBtn.textContent = '×';
+
+      div.appendChild(img);
+      div.appendChild(details);
+      div.appendChild(removeBtn);
       cartItems.appendChild(div);
     });
 
@@ -324,9 +401,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     cartItems.querySelectorAll('.cart-item-size-missing').forEach(function (el) {
       el.addEventListener('click', function () {
-        var name = this.getAttribute('data-name');
-        var price = parseFloat(this.getAttribute('data-price'));
-        var img = this.getAttribute('data-img');
+        var name = this.dataset.name;
+        var price = parseFloat(this.dataset.price);
+        var img = this.dataset.img;
         closeCart();
         openProductModal(name, price, img);
       });
@@ -400,11 +477,18 @@ document.addEventListener('DOMContentLoaded', function () {
       track.appendChild(img);
     });
 
-    if (imgs.length > 1) {
+    var hasMultiple = imgs.length > 1;
+    var prevBtn = document.getElementById('galleryPrev');
+    var nextBtn = document.getElementById('galleryNext');
+    prevBtn.style.display = hasMultiple ? '' : 'none';
+    nextBtn.style.display = hasMultiple ? '' : 'none';
+
+    if (hasMultiple) {
       imgs.forEach(function (_, i) {
         var dot = document.createElement('button');
         dot.className = 'modal-gallery-dot' + (i === 0 ? ' active' : '');
         dot.setAttribute('data-index', i);
+        dot.setAttribute('aria-label', 'Foto ' + (i + 1));
         dot.addEventListener('click', function () { goToSlide(parseInt(this.getAttribute('data-index'))); });
         dots.appendChild(dot);
       });
@@ -423,6 +507,10 @@ document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.modal-gallery-dot').forEach(function (d, i) {
       d.classList.toggle('active', i === index);
     });
+    var prev = document.getElementById('galleryPrev');
+    var next = document.getElementById('galleryNext');
+    if (prev) prev.disabled = index === 0;
+    if (next) next.disabled = index === galleryImgs.length - 1;
   }
 
   // Touch swipe on gallery
@@ -439,10 +527,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }, { passive: true });
   })();
 
+  // Prev/next arrow buttons
+  document.getElementById('galleryPrev').addEventListener('click', function () {
+    if (galleryIndex > 0) goToSlide(galleryIndex - 1);
+  });
+  document.getElementById('galleryNext').addEventListener('click', function () {
+    if (galleryIndex < galleryImgs.length - 1) goToSlide(galleryIndex + 1);
+  });
+
   function openProductModal(name, price, imgs) {
     if (!Array.isArray(imgs)) imgs = [imgs];
     modalQty = 1;
-    freteAtual = 0;
     var cat = getProductCategory(name);
     modalProduct = { name: name, price: price, img: imgs[0], category: cat };
 
@@ -466,6 +561,7 @@ document.addEventListener('DOMContentLoaded', function () {
         btn.addEventListener('click', function () {
           sizeOpts.querySelectorAll('.modal-size-btn').forEach(function (b) { b.classList.remove('active'); });
           this.classList.add('active');
+          sizeOpts.classList.remove('size-required');
         });
         sizeOpts.appendChild(btn);
       });
@@ -475,13 +571,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     document.querySelectorAll('.modal-accordion-content').forEach(function (c) { c.classList.remove('open'); });
-    document.querySelectorAll('.modal-accordion-btn').forEach(function (b) { b.classList.remove('open'); });
+    document.querySelectorAll('.modal-accordion-btn').forEach(function (b) {
+      b.classList.remove('open');
+      b.setAttribute('aria-expanded', 'false');
+    });
     document.getElementById('modalAddedMsg').textContent = '';
+    document.getElementById('modalFreteResult').textContent = '';
+    document.getElementById('modalCep').value = '';
 
     productModal.classList.add('active');
     lockScroll();
     history.pushState({ productModal: true }, '', '#produto=' + encodeURIComponent(name));
     productModal.querySelector('.product-modal-content').scrollTop = 0;
+    document.getElementById('productModalBack').focus();
   }
 
   function closeProductModal() {
@@ -503,14 +605,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-
-
-
   document.getElementById('modalQtyMinus').addEventListener('click', function () {
     if (modalQty > 1) { modalQty--; document.getElementById('modalQty').textContent = modalQty; }
   });
   document.getElementById('modalQtyPlus').addEventListener('click', function () {
-    modalQty++; document.getElementById('modalQty').textContent = modalQty;
+    if (modalQty < 10) { modalQty++; document.getElementById('modalQty').textContent = modalQty; }
   });
 
   var freteTabela = {
@@ -543,11 +642,25 @@ document.addEventListener('DOMContentLoaded', function () {
     'TO': { valor: 25.00, prazo: '8 a 14 dias úteis', regiao: 'Norte' },
   };
 
-  var freteAtual = 0;
+  function calcFreteResult(data, cepFormatted) {
+    var uf = data.uf;
+    var cidade = data.localidade;
+    cartCidadeUf = cidade + ', ' + uf + ' - CEP ' + cepFormatted;
+    var frete = freteTabela[uf];
+
+    if (cidade && cidade.toLowerCase() === 'belo jardim' && uf === 'PE') {
+      freteAtual = 5.00;
+      return '<strong>' + cidade + ', ' + uf + '</strong> - R$ 5,00 (1 a 2 dias)';
+    } else if (frete) {
+      freteAtual = frete.valor;
+      return '<strong>' + cidade + ', ' + uf + '</strong> - R$ ' + frete.valor.toFixed(2).replace('.', ',') + ' (' + frete.prazo + ')';
+    } else {
+      freteAtual = 25.00;
+      return '<strong>' + cidade + ', ' + uf + '</strong> - R$ 25,00 (10 a 15 dias)';
+    }
+  }
 
   // --- Cart Frete ---
-  var cartCidadeUf = '';
-
   document.getElementById('cartCalcFrete').addEventListener('click', function () {
     var cep = document.getElementById('cartCep').value.replace(/\D/g, '');
     var resultEl = document.getElementById('cartFreteResult');
@@ -575,22 +688,7 @@ document.addEventListener('DOMContentLoaded', function () {
           updateCartTotals();
           return;
         }
-
-        var uf = data.uf;
-        var cidade = data.localidade;
-        cartCidadeUf = cidade + ', ' + uf + ' - CEP ' + document.getElementById('cartCep').value;
-        var frete = freteTabela[uf];
-
-        if (cidade && cidade.toLowerCase() === 'belo jardim' && uf === 'PE') {
-          freteAtual = 5.00;
-          resultEl.innerHTML = '<strong>' + cidade + ', ' + uf + '</strong> - R$ 5,00 (1 a 2 dias)';
-        } else if (frete) {
-          freteAtual = frete.valor;
-          resultEl.innerHTML = '<strong>' + cidade + ', ' + uf + '</strong> - R$ ' + frete.valor.toFixed(2).replace('.', ',') + ' (' + frete.prazo + ')';
-        } else {
-          freteAtual = 25.00;
-          resultEl.innerHTML = '<strong>' + cidade + ', ' + uf + '</strong> - R$ 25,00 (10 a 15 dias)';
-        }
+        resultEl.innerHTML = calcFreteResult(data, document.getElementById('cartCep').value);
         updateCartTotals();
       })
       .catch(function () {
@@ -663,6 +761,17 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.getElementById('modalBuyNow').addEventListener('click', function () {
+    var cat = modalProduct.category;
+    if (sizeOptions[cat]) {
+      var activeSize = document.querySelector('.modal-size-btn.active');
+      if (!activeSize) {
+        var sizeOpts = document.getElementById('modalSizeOptions');
+        sizeOpts.classList.add('size-required');
+        sizeOpts.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setTimeout(function () { sizeOpts.classList.remove('size-required'); }, 900);
+        return;
+      }
+    }
     if (addModalToCart()) {
       closeProductModal();
       openCart();
@@ -676,10 +785,11 @@ document.addEventListener('DOMContentLoaded', function () {
       var content = document.getElementById(targetId);
       this.classList.toggle('open');
       content.classList.toggle('open');
+      this.setAttribute('aria-expanded', this.classList.contains('open') ? 'true' : 'false');
     });
   });
 
-  // --- Modal CEP (informativo) ---
+  // --- Modal CEP (syncs frete to cart) ---
   document.getElementById('modalCalcFrete').addEventListener('click', function () {
     var cep = document.getElementById('modalCep').value.replace(/\D/g, '');
     var resultEl = document.getElementById('modalFreteResult');
@@ -700,16 +810,14 @@ document.addEventListener('DOMContentLoaded', function () {
           resultEl.textContent = 'CEP não encontrado.';
           return;
         }
-        var uf = data.uf;
-        var cidade = data.localidade;
-        var frete = freteTabela[uf];
-
-        if (cidade && cidade.toLowerCase() === 'belo jardim' && uf === 'PE') {
-          resultEl.innerHTML = '<strong>' + cidade + ', ' + uf + '</strong> - R$ 5,00 (1 a 2 dias)';
-        } else if (frete) {
-          resultEl.innerHTML = '<strong>' + cidade + ', ' + uf + '</strong> - R$ ' + frete.valor.toFixed(2).replace('.', ',') + ' (' + frete.prazo + ')';
-        } else {
-          resultEl.innerHTML = '<strong>' + cidade + ', ' + uf + '</strong> - R$ 25,00 (10 a 15 dias)';
+        var cepFormatted = document.getElementById('modalCep').value;
+        resultEl.innerHTML = calcFreteResult(data, cepFormatted);
+        // Sync to cart CEP input
+        var cartCepInput = document.getElementById('cartCep');
+        if (cartCepInput) {
+          cartCepInput.value = cepFormatted;
+          document.getElementById('cartFreteResult').innerHTML = resultEl.innerHTML;
+          updateCartTotals();
         }
       })
       .catch(function () {
@@ -747,6 +855,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cartBtn.type = 'button';
     cartBtn.className = 'quick-add-btn';
     cartBtn.title = 'Adicionar ao carrinho';
+    cartBtn.setAttribute('aria-label', 'Adicionar ao carrinho');
     cartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
 
     cartBtn.addEventListener('click', function (e) {
@@ -779,7 +888,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Card inteiro abre o modal ao clicar
   document.querySelectorAll('.product-card').forEach(function (card) {
-    card.style.cursor = 'pointer';
+    if (!card.classList.contains('product-card--esgotado')) {
+      card.style.cursor = 'pointer';
+    }
     card.addEventListener('click', function (e) {
       if (e.target.closest('.quick-add-btn') || card.classList.contains('product-card--esgotado')) return;
       var name = card.querySelector('.product-name').textContent;
@@ -830,8 +941,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     msg += '\n\nAguardo as informações para finalizar!';
 
-    var url = 'https://wa.me/5581983911126?text=' + encodeURIComponent(msg);
+    var url = 'https://wa.me/' + WHATSAPP_NUM + '?text=' + encodeURIComponent(msg);
     window.open(url, '_blank');
+
+    // Show success state
+    cartItems.style.display = 'none';
+    cartFooter.style.display = 'none';
+    cartSuccess.style.display = 'flex';
   });
 
   // --- Contact form -> WhatsApp ---
@@ -842,11 +958,20 @@ document.addEventListener('DOMContentLoaded', function () {
     var telefone = document.getElementById('telefone').value.trim();
     var mensagem = document.getElementById('mensagem').value.trim();
 
+    var phoneDigits = telefone.replace(/\D/g, '');
+    if (phoneDigits.length < 10 || phoneDigits.length > 11) {
+      var telInput = document.getElementById('telefone');
+      telInput.setCustomValidity('Digite um número de WhatsApp válido com DDD (ex: 81 98391-1126)');
+      telInput.reportValidity();
+      return;
+    }
+    document.getElementById('telefone').setCustomValidity('');
+
     var whatsappMsg = 'Oi, Ana Livia! Meu nome é ' + nome +
       '. Meu WhatsApp: ' + telefone +
       '. Minha ideia: ' + mensagem;
 
-    var whatsappUrl = 'https://wa.me/5581983911126?text=' + encodeURIComponent(whatsappMsg);
+    var whatsappUrl = 'https://wa.me/' + WHATSAPP_NUM + '?text=' + encodeURIComponent(whatsappMsg);
     window.open(whatsappUrl, '_blank');
     contactForm.reset();
   });
@@ -912,11 +1037,7 @@ document.addEventListener('DOMContentLoaded', function () {
             link.style.background = 'rgba(139,64,96,0.12)';
           }
         } else {
-          if (link.classList.contains('nav-link--highlight')) {
-            link.style.background = '';
-          } else {
-            link.style.background = '';
-          }
+          link.style.background = '';
         }
       }
     });
@@ -997,5 +1118,11 @@ document.addEventListener('DOMContentLoaded', function () {
     } else if (value.length > 0) {
       this.value = '(' + value;
     }
+    this.setCustomValidity('');
   });
+
+  // Render cart from persisted state on page load
+  if (cart.length > 0) {
+    updateCartUI();
+  }
 });
