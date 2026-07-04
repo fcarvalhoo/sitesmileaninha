@@ -2818,10 +2818,23 @@ img {
     transform: translateX(-50%);
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 22px;
-    color: var(--peach);
-    letter-spacing: 1px;
+    font-size: 24px;
+    color: #ffffff;
+    letter-spacing: 2px;
     pointer-events: none;
+    text-shadow: 0 1px 6px rgba(120, 50, 70, 0.3), 0 2px 16px rgba(120, 50, 70, 0.15);
+    animation: smileGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes smileGlow {
+    0%, 100% {
+      text-shadow: 0 1px 6px rgba(120, 50, 70, 0.3), 0 2px 16px rgba(120, 50, 70, 0.15);
+      letter-spacing: 2px;
+    }
+    50% {
+      text-shadow: 0 1px 6px rgba(120, 50, 70, 0.2), 0 0 20px rgba(255, 200, 170, 0.6), 0 0 40px rgba(255, 180, 140, 0.25);
+      letter-spacing: 3px;
+    }
   }
 
   .nav-logo-img {
