@@ -404,6 +404,7 @@ document.addEventListener('DOMContentLoaded', function () {
         var name = this.dataset.name;
         var price = parseFloat(this.dataset.price);
         var img = this.dataset.img;
+        pendingCartFixName = name;
         closeCart();
         openProductModal(name, price, img);
       });
@@ -414,6 +415,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var productModal = document.getElementById('productModal');
   var modalQty = 1;
   var modalProduct = {};
+  var pendingCartFixName = null;
 
   var productDescriptions = {
     'bolsa': 'Bolsa artesanal feita com cristais de alta qualidade. Perfeita para festas e eventos especiais.',
@@ -589,6 +591,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function closeProductModal() {
     productModal.classList.remove('active');
     unlockScroll();
+    pendingCartFixName = null;
   }
 
   document.getElementById('productModalBack').addEventListener('click', function () {
@@ -727,6 +730,14 @@ document.addEventListener('DOMContentLoaded', function () {
   function addModalToCart() {
     var activeSize = document.querySelector('.modal-size-btn.active');
     var size = activeSize ? activeSize.getAttribute('data-size') : null;
+
+    // Remove o item sem tamanho se o modal foi aberto pelo "Escolha um tamanho" do carrinho
+    if (pendingCartFixName) {
+      cart = cart.filter(function (item) {
+        return !(item.name === pendingCartFixName && item.size === null);
+      });
+      pendingCartFixName = null;
+    }
 
     var existing = cart.find(function (item) {
       return item.name === modalProduct.name && item.size === size;
