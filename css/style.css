@@ -2900,7 +2900,7 @@ img {
     height: 100vh;
     background: linear-gradient(160deg, #f5c0d0 0%, #ead5f0 100%);
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     padding: 72px 20px 40px;
     gap: 2px;
@@ -2929,6 +2929,11 @@ img {
 
   .nav-section-label:first-child {
     padding-top: 0;
+  }
+
+  .nav-spacer {
+    display: block;
+    flex: 1;
   }
 
   .nav-link {
