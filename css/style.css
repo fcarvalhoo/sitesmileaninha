@@ -2818,20 +2818,10 @@ img {
     transform: translateX(-50%);
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 23px;
+    font-size: 22px;
     color: var(--peach);
     letter-spacing: 1px;
     pointer-events: none;
-    text-shadow:
-      0 0 8px rgba(255, 255, 255, 0.95),
-      0 0 16px rgba(255, 255, 255, 0.7),
-      0 1px 3px rgba(255, 255, 255, 0.9);
-    animation: smileFloat 3.5s ease-in-out infinite;
-  }
-
-  @keyframes smileFloat {
-    0%, 100% { transform: translateX(-50%) translateY(0px); }
-    50%       { transform: translateX(-50%) translateY(-2px); }
   }
 
   .nav-logo-img {
@@ -3397,10 +3387,10 @@ img {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Panels slide in from right on mobile */
+/* Panels slide in from left on mobile */
 @media (max-width: 768px) {
   .page-panel {
-    transform: translateX(100%) !important;
+    transform: translateX(-100%) !important;
     opacity: 1 !important;
     visibility: visible !important;
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
