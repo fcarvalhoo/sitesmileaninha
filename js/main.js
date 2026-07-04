@@ -186,12 +186,20 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
     var cards = religGrid.querySelectorAll('.product-card');
+    var visibleIndex = 0;
     cards.forEach(function (card) {
+      card.classList.remove('pop-in');
       var category = card.getAttribute('data-category');
       if (filter === 'todos' || category === filter) {
         card.classList.remove('hidden');
-        card.classList.remove('visible');
-        setTimeout(function () { revealCards(); }, 50);
+        var delay = visibleIndex * 55;
+        visibleIndex++;
+        (function (c, d) {
+          setTimeout(function () {
+            c.classList.add('pop-in');
+            c.addEventListener('animationend', function () { c.classList.remove('pop-in'); }, { once: true });
+          }, d);
+        })(card, delay);
       } else {
         card.classList.add('hidden');
         card.classList.remove('visible');
