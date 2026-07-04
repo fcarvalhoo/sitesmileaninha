@@ -667,7 +667,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.querySelectorAll('.add-to-cart-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function (e) {
+      e.stopPropagation();
       var card = this.closest('.product-card');
       var name = card.querySelector('.product-name').textContent;
       var price = parseFloat(this.getAttribute('data-price'));
@@ -687,7 +688,8 @@ document.addEventListener('DOMContentLoaded', function () {
     cartBtn.title = 'Adicionar ao carrinho';
     cartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
 
-    cartBtn.addEventListener('click', function () {
+    cartBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
       var card = this.closest('.product-card');
       var name = card.querySelector('.product-name').textContent;
       var price = parseFloat(buyBtn.getAttribute('data-price'));
@@ -712,6 +714,20 @@ document.addEventListener('DOMContentLoaded', function () {
     buyBtn.parentNode.insertBefore(wrapper, buyBtn);
     wrapper.appendChild(cartBtn);
     wrapper.appendChild(buyBtn);
+  });
+
+  // Card inteiro abre o modal ao clicar
+  document.querySelectorAll('.product-card').forEach(function (card) {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', function (e) {
+      if (e.target.closest('.quick-add-btn') || e.target.closest('.product-card--esgotado')) return;
+      var name = card.querySelector('.product-name').textContent;
+      var buyBtn = card.querySelector('.add-to-cart-btn');
+      if (!buyBtn) return;
+      var price = parseFloat(buyBtn.getAttribute('data-price'));
+      var img = card.querySelector('.product-image img').getAttribute('src');
+      openProductModal(name, price, img);
+    });
   });
 
   document.getElementById('cartCheckout').addEventListener('click', function () {
