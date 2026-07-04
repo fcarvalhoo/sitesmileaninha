@@ -2900,8 +2900,9 @@ img {
     height: 100vh;
     background: linear-gradient(160deg, #f5c0d0 0%, #ead5f0 100%);
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 72px 20px 32px;
+    justify-content: center;
+    align-items: center;
+    padding: 72px 20px 40px;
     gap: 2px;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 4px 0 30px rgba(0, 0, 0, 0.15);
@@ -2915,26 +2916,30 @@ img {
   }
 
   .nav-section-label {
+    display: block;
+    width: 100%;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: rgba(90, 64, 80, 0.5);
-    padding: 16px 12px 6px;
+    color: rgba(90, 64, 80, 0.45);
+    padding: 20px 12px 6px;
+    text-align: left;
   }
 
   .nav-section-label:first-child {
-    padding-top: 4px;
+    padding-top: 0;
   }
 
   .nav-link {
-    font-size: 15px;
-    padding: 10px 12px;
+    font-size: 16px;
+    padding: 10px 16px;
     border-radius: 10px;
     width: 100%;
     color: var(--text-dark);
     font-weight: 600;
     text-align: left;
+    display: block;
   }
 
   .nav-link:hover {
@@ -3007,7 +3012,8 @@ img {
   }
 
   .nav-link--highlight {
-    margin-top: 4px;
+    margin-top: 2px;
+    text-align: center !important;
   }
 
   .nav-actions {
