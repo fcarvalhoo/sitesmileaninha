@@ -279,7 +279,9 @@ document.addEventListener('DOMContentLoaded', function () {
     cart.forEach(function (item, index) {
       var div = document.createElement('div');
       div.className = 'cart-item';
-      var sizeHtml = item.size ? '<p class="cart-item-size">Tam: ' + item.size + '</p>' : '';
+      var sizeHtml = item.size
+        ? '<p class="cart-item-size">Tam: ' + item.size + '</p>'
+        : '<p class="cart-item-size cart-item-size-missing" data-name="' + item.name + '" data-price="' + item.price + '" data-img="' + item.img + '">⚠ Escolha um tamanho</p>';
       div.innerHTML =
         '<img src="' + item.img + '" alt="' + item.name + '" class="cart-item-img">' +
         '<div class="cart-item-details">' +
@@ -317,6 +319,16 @@ document.addEventListener('DOMContentLoaded', function () {
         var i = parseInt(this.getAttribute('data-index'));
         cart.splice(i, 1);
         updateCartUI();
+      });
+    });
+
+    cartItems.querySelectorAll('.cart-item-size-missing').forEach(function (el) {
+      el.addEventListener('click', function () {
+        var name = this.getAttribute('data-name');
+        var price = parseFloat(this.getAttribute('data-price'));
+        var img = this.getAttribute('data-img');
+        closeCart();
+        openProductModal(name, price, img);
       });
     });
   }
@@ -558,15 +570,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function addModalToCart() {
     var activeSize = document.querySelector('.modal-size-btn.active');
-    var size = '';
-
-    if (!activeSize) {
-      document.getElementById('modalSizeOptions').style.outline = '2px solid #e74c3c';
-      document.getElementById('modalSizeOptions').style.borderRadius = '8px';
-      setTimeout(function () { document.getElementById('modalSizeOptions').style.outline = ''; }, 2000);
-      return false;
-    }
-    size = activeSize.getAttribute('data-size');
+    var size = activeSize ? activeSize.getAttribute('data-size') : null;
 
     var existing = cart.find(function (item) {
       return item.name === modalProduct.name && item.size === size;
@@ -690,12 +694,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var img = card.querySelector('.product-image img').getAttribute('src');
       var cat = getProductCategory(name);
 
-      if (sizeOptions[cat]) {
-        openProductModal(name, price, img);
-        return;
-      }
-
-      var size = 'Tamanho Único';
+      var size = sizeOptions[cat] ? null : 'Tamanho Único';
       var existing = cart.find(function (item) {
         return item.name === name && item.size === size;
       });
@@ -717,6 +716,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.getElementById('cartCheckout').addEventListener('click', function () {
     if (cart.length === 0) return;
+
+    var missingSize = cart.find(function (item) { return item.size === null; });
+    if (missingSize) {
+      var errorEl = document.getElementById('cartSizeError');
+      errorEl.textContent = '⚠ Escolha o tamanho de "' + missingSize.name + '" antes de finalizar.';
+      errorEl.style.display = 'block';
+      setTimeout(function () { errorEl.style.display = 'none'; }, 5000);
+      return;
+    }
 
     var subtotal = 0;
     var msg = 'Oi, Ana Livia! Gostaria de fazer o seguinte pedido:\n\n';

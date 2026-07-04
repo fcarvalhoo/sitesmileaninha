@@ -1775,6 +1775,26 @@ img {
   margin-bottom: 6px;
 }
 
+.cart-item-size-missing {
+  color: #e05c2a;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cart-size-error {
+  background: #fff3f0;
+  border: 1px solid #e05c2a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #e05c2a;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
 .cart-item-price {
   font-size: 14px;
   font-weight: 700;
