@@ -254,6 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cartSidebar.classList.add('active');
     cartOverlay.classList.add('active');
     lockScroll();
+    renderCartRv();
   }
 
   function closeCart() {
@@ -543,6 +544,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var cat = getProductCategory(name);
     modalProduct = { name: name, price: price, img: imgs[0], category: cat };
 
+    addToRecentlyViewed(name, price, imgs[0]);
+
+    var shareBtn = document.getElementById('modalShareBtn');
+    if (shareBtn) {
+      var shareText = encodeURIComponent('Vi esse produto na Smile e adorei: ' + name + ' - R$ ' + price.toFixed(2).replace('.', ',') + '. Confira em ' + window.location.href);
+      shareBtn.href = 'https://api.whatsapp.com/send?text=' + shareText;
+    }
+
     renderGallery(imgs, name);
     document.getElementById('modalName').textContent = name;
     document.getElementById('modalPrice').textContent = 'R$ ' + price.toFixed(2).replace('.', ',');
@@ -709,7 +718,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (v.length > 5) { this.value = v.slice(0, 5) + '-' + v.slice(5, 8); }
     else { this.value = v; }
     var btn = document.getElementById('cartCalcFrete');
-    if (v.length >= 8) { btn.classList.add('ready'); } else { btn.classList.remove('ready'); }
+    if (v.length >= 8) {
+      btn.classList.add('ready');
+      btn.click();
+    } else {
+      btn.classList.remove('ready');
+    }
   });
 
   function updateCartTotals() {
@@ -845,7 +859,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (v.length > 5) { this.value = v.slice(0, 5) + '-' + v.slice(5, 8); }
     else { this.value = v; }
     var btn = document.getElementById('modalCalcFrete');
-    if (v.length >= 8) { btn.classList.add('ready'); } else { btn.classList.remove('ready'); }
+    if (v.length >= 8) {
+      btn.classList.add('ready');
+      btn.click();
+    } else {
+      btn.classList.remove('ready');
+    }
   });
 
   // Aviso de dinheiro só para Belo Jardim
@@ -1154,4 +1173,131 @@ document.addEventListener('DOMContentLoaded', function () {
   if (cart.length > 0) {
     updateCartUI();
   }
+
+  // ===== RECENTLY VIEWED =====
+  var recentlyViewed = [];
+  try { var rvS = localStorage.getItem('smileRV'); if (rvS) recentlyViewed = JSON.parse(rvS); } catch(e) {}
+
+  function saveRV() { try { localStorage.setItem('smileRV', JSON.stringify(recentlyViewed)); } catch(e) {} }
+
+  function addToRecentlyViewed(name, price, img) {
+    recentlyViewed = recentlyViewed.filter(function(p) { return p.name !== name; });
+    recentlyViewed.unshift({ name: name, price: price, img: img });
+    if (recentlyViewed.length > 4) recentlyViewed = recentlyViewed.slice(0, 4);
+    saveRV();
+  }
+
+  function renderCartRv() {
+    var wrap = document.getElementById('cartRvWrap');
+    var list = document.getElementById('cartRvList');
+    if (!wrap || !list) return;
+    if (recentlyViewed.length === 0) { wrap.style.display = 'none'; return; }
+    wrap.style.display = 'block';
+    list.innerHTML = '';
+    recentlyViewed.forEach(function(p) {
+      var item = document.createElement('div');
+      item.className = 'rv-item';
+      var img = document.createElement('img');
+      img.src = p.img; img.alt = p.name; img.loading = 'lazy';
+      var nameEl = document.createElement('p'); nameEl.className = 'rv-name'; nameEl.textContent = p.name;
+      var priceEl = document.createElement('p'); priceEl.className = 'rv-price';
+      priceEl.textContent = 'R$ ' + p.price.toFixed(2).replace('.', ',');
+      item.appendChild(img); item.appendChild(nameEl); item.appendChild(priceEl);
+      item.addEventListener('click', function() { closeCart(); openProductModal(p.name, p.price, p.img); });
+      list.appendChild(item);
+    });
+  }
+
+  // ===== FAVORITES =====
+  var favorites = [];
+  try { var fvS = localStorage.getItem('smileFav'); if (fvS) favorites = JSON.parse(fvS); } catch(e) {}
+
+  function saveFavorites() { try { localStorage.setItem('smileFav', JSON.stringify(favorites)); } catch(e) {} }
+
+  function updateFavBadge() {
+    var el = document.getElementById('favCount');
+    if (!el) return;
+    el.textContent = favorites.length;
+    el.style.display = favorites.length > 0 ? 'flex' : 'none';
+  }
+
+  document.querySelectorAll('.product-card').forEach(function(card) {
+    var nameEl = card.querySelector('.product-name');
+    var imgWrap = card.querySelector('.product-image');
+    if (!nameEl || !imgWrap) return;
+    var pname = nameEl.textContent;
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'fav-btn' + (favorites.indexOf(pname) !== -1 ? ' fav-btn--active' : '');
+    btn.setAttribute('aria-label', 'Favoritar');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>';
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var idx = favorites.indexOf(pname);
+      if (idx === -1) { favorites.push(pname); btn.classList.add('fav-btn--active'); }
+      else { favorites.splice(idx, 1); btn.classList.remove('fav-btn--active'); }
+      saveFavorites(); updateFavBadge();
+    });
+    imgWrap.appendChild(btn);
+  });
+
+  updateFavBadge();
+
+  // ===== ESGOTADO TOGGLE =====
+  var hideEsgotados = false;
+  var toggleEsgBtn = document.getElementById('toggleEsgotado');
+  if (toggleEsgBtn) {
+    toggleEsgBtn.addEventListener('click', function() {
+      hideEsgotados = !hideEsgotados;
+      document.querySelectorAll('.product-card--esgotado').forEach(function(c) {
+        c.style.display = hideEsgotados ? 'none' : '';
+      });
+      this.textContent = hideEsgotados ? 'Mostrar esgotados' : 'Ocultar esgotados';
+      this.classList.toggle('active', hideEsgotados);
+      updateAllCounts();
+    });
+  }
+
+  // ===== PRODUCT COUNT =====
+  function updateCount(sectionId) {
+    var section = document.getElementById(sectionId);
+    var countEl = document.getElementById('count-' + sectionId);
+    if (!section || !countEl) return;
+    var grid = section.querySelector('.products-grid');
+    if (!grid) return;
+    var visible = Array.from(grid.querySelectorAll('.product-card')).filter(function(c) {
+      return c.style.display !== 'none' && !c.classList.contains('hidden');
+    }).length;
+    countEl.textContent = visible + (visible === 1 ? ' produto' : ' produtos');
+  }
+
+  function updateAllCounts() {
+    ['bolsas','pulseiras','colares','tornozeleiras','body-chain'].forEach(updateCount);
+  }
+
+  updateAllCounts();
+
+  // ===== ZOOM LIGHTBOX =====
+  var zoomOverlay = document.getElementById('zoomOverlay');
+  var zoomImg = document.getElementById('zoomImg');
+
+  document.getElementById('modalGalleryTrack').addEventListener('click', function(e) {
+    var img = e.target.closest('.modal-gallery-img');
+    if (!img || window.innerWidth <= 768) return;
+    zoomImg.src = img.src;
+    zoomImg.alt = img.alt;
+    zoomOverlay.classList.add('active');
+  });
+
+  document.getElementById('zoomClose').addEventListener('click', function() {
+    zoomOverlay.classList.remove('active');
+  });
+
+  zoomOverlay.addEventListener('click', function(e) {
+    if (e.target === zoomOverlay || e.target === zoomImg) zoomOverlay.classList.remove('active');
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') zoomOverlay.classList.remove('active');
+  });
 });
