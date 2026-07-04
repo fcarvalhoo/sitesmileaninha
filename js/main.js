@@ -281,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
       div.className = 'cart-item';
       var sizeHtml = item.size
         ? '<p class="cart-item-size">Tam: ' + item.size + '</p>'
-        : '<p class="cart-item-size cart-item-size-missing" data-name="' + item.name + '" data-price="' + item.price + '" data-img="' + item.img + '">⚠ Escolha um tamanho</p>';
+        : '<p class="cart-item-size cart-item-size-missing" data-name="' + item.name + '" data-price="' + item.price + '" data-img="' + item.img + '">Escolha um tamanho</p>';
       div.innerHTML =
         '<img src="' + item.img + '" alt="' + item.name + '" class="cart-item-img">' +
         '<div class="cart-item-details">' +
@@ -685,7 +685,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cartBtn.type = 'button';
     cartBtn.className = 'quick-add-btn';
     cartBtn.title = 'Adicionar ao carrinho';
-    cartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Carrinho';
+    cartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
 
     cartBtn.addEventListener('click', function () {
       var card = this.closest('.product-card');
@@ -720,7 +720,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var missingSize = cart.find(function (item) { return item.size === null; });
     if (missingSize) {
       var errorEl = document.getElementById('cartSizeError');
-      errorEl.textContent = '⚠ Escolha o tamanho de "' + missingSize.name + '" antes de finalizar.';
+      errorEl.textContent = 'Escolha o tamanho de "' + missingSize.name + '" antes de finalizar.';
       errorEl.style.display = 'block';
       setTimeout(function () { errorEl.style.display = 'none'; }, 5000);
       return;
