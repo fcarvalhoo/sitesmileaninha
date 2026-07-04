@@ -1560,6 +1560,23 @@ img {
   100% { transform: scale(1); }
 }
 
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%  { transform: scale(1.25); }
+  28%  { transform: scale(1); }
+  42%  { transform: scale(1.15); }
+  56%  { transform: scale(1); }
+}
+
+@keyframes cartSwing {
+  0%, 100% { transform: rotate(0deg); }
+  15%  { transform: rotate(-18deg); }
+  35%  { transform: rotate(14deg); }
+  55%  { transform: rotate(-9deg); }
+  75%  { transform: rotate(5deg); }
+  90%  { transform: rotate(-2deg); }
+}
+
 @keyframes favUnpop {
   0%   { transform: scale(1); }
   40%  { transform: scale(0.7); }
@@ -1601,6 +1618,7 @@ img {
 
 .fav-btn:hover svg {
   stroke: #e05575;
+  animation: heartbeat 0.85s ease;
 }
 
 .fav-btn.fav-active svg {
@@ -1620,10 +1638,11 @@ img {
   border: none;
   cursor: pointer;
   padding: 6px;
-  transition: transform 0.15s ease;
 }
 
-.fav-toggle:hover { transform: scale(1.1); }
+.fav-toggle:hover svg {
+  animation: heartbeat 0.85s ease;
+}
 
 .fav-toggle svg {
   width: 24px;
@@ -1708,6 +1727,11 @@ img {
   width: 24px;
   height: 24px;
   color: #8b4060;
+  transform-origin: top center;
+}
+
+.cart-toggle:hover svg {
+  animation: cartSwing 0.7s ease;
 }
 
 .cart-count {
