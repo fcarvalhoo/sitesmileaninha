@@ -1948,9 +1948,9 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
-  border-bottom: 1px solid rgba(0,0,0,0.07);
+  border-bottom: none;
   flex-shrink: 0;
-  background: var(--white);
+  background: rgba(248, 200, 216, 0.95);
   position: relative;
 }
 
@@ -1962,7 +1962,7 @@ img {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 22px;
-  color: var(--peach);
+  color: #ffffff;
   letter-spacing: 1px;
 }
 
