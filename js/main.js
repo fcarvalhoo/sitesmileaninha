@@ -381,14 +381,72 @@ document.addEventListener('DOMContentLoaded', function () {
     return 'bolsa';
   }
 
-  function openProductModal(name, price, img) {
+  var galleryImgs = [];
+  var galleryIndex = 0;
+
+  function renderGallery(imgs, name) {
+    var track = document.getElementById('modalGalleryTrack');
+    var dots = document.getElementById('modalGalleryDots');
+    track.innerHTML = '';
+    dots.innerHTML = '';
+    galleryImgs = imgs;
+    galleryIndex = 0;
+
+    imgs.forEach(function (src) {
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = name;
+      img.className = 'modal-gallery-img';
+      track.appendChild(img);
+    });
+
+    if (imgs.length > 1) {
+      imgs.forEach(function (_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'modal-gallery-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('data-index', i);
+        dot.addEventListener('click', function () { goToSlide(parseInt(this.getAttribute('data-index'))); });
+        dots.appendChild(dot);
+      });
+      dots.style.display = 'flex';
+    } else {
+      dots.style.display = 'none';
+    }
+
+    goToSlide(0);
+  }
+
+  function goToSlide(index) {
+    galleryIndex = index;
+    var track = document.getElementById('modalGalleryTrack');
+    track.style.transform = 'translateX(' + (-index * 100) + '%)';
+    document.querySelectorAll('.modal-gallery-dot').forEach(function (d, i) {
+      d.classList.toggle('active', i === index);
+    });
+  }
+
+  // Touch swipe on gallery
+  (function () {
+    var touchStartX = 0;
+    var gallery = document.querySelector('.product-modal-gallery');
+    gallery.addEventListener('touchstart', function (e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+    gallery.addEventListener('touchend', function (e) {
+      var diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) {
+        if (diff > 0 && galleryIndex < galleryImgs.length - 1) goToSlide(galleryIndex + 1);
+        else if (diff < 0 && galleryIndex > 0) goToSlide(galleryIndex - 1);
+      }
+    }, { passive: true });
+  })();
+
+  function openProductModal(name, price, imgs) {
+    if (!Array.isArray(imgs)) imgs = [imgs];
     modalQty = 1;
     freteAtual = 0;
     var cat = getProductCategory(name);
-    modalProduct = { name: name, price: price, img: img, category: cat };
+    modalProduct = { name: name, price: price, img: imgs[0], category: cat };
 
-    document.getElementById('modalImg').src = img;
-    document.getElementById('modalImg').alt = name;
+    renderGallery(imgs, name);
     document.getElementById('modalName').textContent = name;
     document.getElementById('modalPrice').textContent = 'R$ ' + price.toFixed(2).replace('.', ',');
     document.getElementById('modalDesc').textContent = productDescriptions[cat] || '';
@@ -666,14 +724,17 @@ document.addEventListener('DOMContentLoaded', function () {
     else { this.value = v; }
   });
 
+  function getCardImages(card) {
+    return Array.from(card.querySelectorAll('.product-image img')).map(function (el) { return el.getAttribute('src'); });
+  }
+
   document.querySelectorAll('.add-to-cart-btn').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
       var card = this.closest('.product-card');
       var name = card.querySelector('.product-name').textContent;
       var price = parseFloat(this.getAttribute('data-price'));
-      var img = card.querySelector('.product-image img').getAttribute('src');
-      openProductModal(name, price, img);
+      openProductModal(name, price, getCardImages(card));
     });
   });
 
@@ -720,13 +781,12 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.product-card').forEach(function (card) {
     card.style.cursor = 'pointer';
     card.addEventListener('click', function (e) {
-      if (e.target.closest('.quick-add-btn') || e.target.closest('.product-card--esgotado')) return;
+      if (e.target.closest('.quick-add-btn') || card.classList.contains('product-card--esgotado')) return;
       var name = card.querySelector('.product-name').textContent;
       var buyBtn = card.querySelector('.add-to-cart-btn');
       if (!buyBtn) return;
       var price = parseFloat(buyBtn.getAttribute('data-price'));
-      var img = card.querySelector('.product-image img').getAttribute('src');
-      openProductModal(name, price, img);
+      openProductModal(name, price, getCardImages(card));
     });
   });
 
