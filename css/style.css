@@ -1962,7 +1962,7 @@ img {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: 22px;
-  color: #ffffff;
+  color: var(--peach);
   letter-spacing: 1px;
 }
 
