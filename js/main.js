@@ -681,7 +681,7 @@ document.addEventListener('DOMContentLoaded', function () {
     cartBtn.type = 'button';
     cartBtn.className = 'quick-add-btn';
     cartBtn.title = 'Adicionar ao carrinho';
-    cartBtn.innerHTML = '+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>';
+    cartBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Carrinho';
 
     cartBtn.addEventListener('click', function () {
       var card = this.closest('.product-card');
@@ -690,8 +690,20 @@ document.addEventListener('DOMContentLoaded', function () {
       var img = card.querySelector('.product-image img').getAttribute('src');
       var cat = getProductCategory(name);
 
-      var size = sizeOptions[cat] ? sizeOptions[cat][0].value : 'Tamanho Único';
-      cart.push({ name: name, price: price, img: img, qty: 1, size: size });
+      if (sizeOptions[cat]) {
+        openProductModal(name, price, img);
+        return;
+      }
+
+      var size = 'Tamanho Único';
+      var existing = cart.find(function (item) {
+        return item.name === name && item.size === size;
+      });
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        cart.push({ name: name, price: price, img: img, qty: 1, size: size });
+      }
       updateCartUI();
       showToast(name + ' adicionado ao carrinho!');
       cartBtn.classList.add('added');
