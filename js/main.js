@@ -854,7 +854,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!warning) return;
     var isDinheiro = (document.querySelector('input[name="cart-payment"]:checked') || {}).value === 'Dinheiro';
     var isBeloJardim = cartCidadeUf && cartCidadeUf.toLowerCase().indexOf('belo jardim') !== -1;
-    warning.style.display = (isDinheiro && !isBeloJardim) ? 'block' : 'none';
+    warning.style.display = (isDinheiro && cartCidadeUf && !isBeloJardim) ? 'block' : 'none';
   }
 
   document.querySelectorAll('input[name="cart-payment"]').forEach(function (radio) {
