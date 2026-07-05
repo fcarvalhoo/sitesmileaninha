@@ -56,13 +56,21 @@ document.addEventListener('DOMContentLoaded', function () {
     if (navMenu.classList.contains('active')) { lockScroll(); } else { unlockScroll(); }
   }
 
+  function closeDropdown(d) {
+    d.classList.add('closing');
+    setTimeout(function () {
+      d.classList.remove('open');
+      d.classList.remove('closing');
+    }, 220);
+  }
+
   function closeMenu() {
     navToggle.classList.remove('active');
     navMenu.classList.remove('active');
     overlay.classList.remove('active');
     unlockScroll();
     document.querySelectorAll('.nav-dropdown.open').forEach(function(d) {
-      d.classList.remove('open');
+      closeDropdown(d);
     });
   }
 
@@ -74,7 +82,11 @@ document.addEventListener('DOMContentLoaded', function () {
       if (parentDropdown && window.innerWidth <= 768) {
         e.preventDefault();
         e.stopImmediatePropagation();
-        parentDropdown.classList.toggle('open');
+        if (parentDropdown.classList.contains('open')) {
+          closeDropdown(parentDropdown);
+        } else {
+          parentDropdown.classList.add('open');
+        }
       } else {
         closeMenu();
       }

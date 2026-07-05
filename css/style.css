@@ -3230,6 +3230,22 @@ img {
     animation: dropdownSlideIn 0.25s ease;
   }
 
+  .nav-dropdown.closing .nav-dropdown-menu {
+    display: flex !important;
+    flex-direction: column !important;
+    position: static !important;
+    box-shadow: none !important;
+    background: rgba(255,255,255,0.3) !important;
+    border-radius: 12px !important;
+    padding: 4px 0 !important;
+    visibility: visible !important;
+    min-width: auto !important;
+    width: 100% !important;
+    margin-top: 6px !important;
+    margin-bottom: 4px !important;
+    animation: dropdownSlideOut 0.22s ease forwards !important;
+  }
+
   .nav-dropdown-link {
     display: block;
     color: var(--text-dark) !important;
@@ -3721,6 +3737,11 @@ img {
 @keyframes dropdownSlideIn {
   from { opacity: 0; transform: translateY(-10px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes dropdownSlideOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(-10px); }
 }
 
 /* Panels slide in from left on mobile */
