@@ -799,6 +799,17 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   document.getElementById('modalAddCart').addEventListener('click', function () {
+    var cat = modalProduct.category;
+    if (sizeOptions[cat]) {
+      var activeSize = document.querySelector('.modal-size-btn.active');
+      if (!activeSize) {
+        var sizeOpts = document.getElementById('modalSizeOptions');
+        sizeOpts.classList.add('size-required');
+        sizeOpts.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        setTimeout(function () { sizeOpts.classList.remove('size-required'); }, 900);
+        return;
+      }
+    }
     if (addModalToCart()) {
       document.getElementById('modalAddedMsg').textContent = 'Adicionado ao carrinho!';
       setTimeout(function () {
@@ -866,6 +877,7 @@ document.addEventListener('DOMContentLoaded', function () {
           cartCepInput.value = cepFormatted;
           document.getElementById('cartFreteResult').innerHTML = resultEl.innerHTML;
           updateCartTotals();
+          updateCashWarning();
         }
       })
       .catch(function () {
