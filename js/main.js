@@ -57,11 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function closeDropdown(d) {
-    d.classList.add('closing');
-    setTimeout(function () {
-      d.classList.remove('open');
-      d.classList.remove('closing');
-    }, 220);
+    var menu = d.querySelector('.nav-dropdown-menu');
+    d.classList.remove('open');
+    if (menu) {
+      menu.classList.add('closing');
+      setTimeout(function () { menu.classList.remove('closing'); }, 220);
+    }
   }
 
   function closeMenu() {

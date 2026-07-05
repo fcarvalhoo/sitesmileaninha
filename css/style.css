@@ -3230,7 +3230,7 @@ img {
     animation: dropdownSlideIn 0.25s ease;
   }
 
-  .nav-dropdown.closing .nav-dropdown-menu {
+  .nav-dropdown-menu.closing {
     display: flex !important;
     flex-direction: column !important;
     position: static !important;
