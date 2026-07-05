@@ -564,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (shareBtn) {
       var price2x = (price / 2).toFixed(2).replace('.', ',');
       var shareText = encodeURIComponent(
-        'Vi esse produto na *Smile Micangas* e adorei!\n\n' +
+        'Vi esse produto na *Smile Miçangas* e adorei!\n\n' +
         '*' + name + '*\n' +
         'R$ ' + price.toFixed(2).replace('.', ',') + ' ou 2x de R$ ' + price2x + ' sem juros\n\n' +
         'Confira no site: https://sitesmileaninha.vercel.app'
