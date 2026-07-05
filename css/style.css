@@ -3306,7 +3306,7 @@ img {
     left: 8px;
   }
 
-  .quick-add-btn, .wa-card-btn {
+  .quick-add-btn {
     width: 38px;
     height: 38px;
     border-radius: var(--radius-sm);
@@ -3534,7 +3534,7 @@ img {
     border-radius: var(--radius-sm);
   }
 
-  .quick-add-btn, .wa-card-btn {
+  .quick-add-btn {
     width: 36px;
     height: 36px;
     border-radius: var(--radius-sm);
@@ -3879,28 +3879,6 @@ img {
 }
 .zoom-close:hover { background: rgba(255,255,255,0.25); }
 
-/* ===== WhatsApp quick-button on product cards ===== */
-.wa-card-btn {
-  flex-shrink: 0;
-  width: 48px;
-  background: rgba(37, 211, 102, 0.07);
-  border: 1.5px solid rgba(37, 211, 102, 0.3);
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #128C7E;
-  transition: var(--transition);
-}
-.wa-card-btn:hover {
-  background: #25D366;
-  border-color: #25D366;
-  color: #fff;
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
-  transform: translateY(-2px);
-}
-.wa-card-btn:active { transform: translateY(0); }
 
 /* ===== Mobile sticky modal actions ===== */
 @media (max-width: 768px) {
