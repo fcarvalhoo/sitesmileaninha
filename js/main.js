@@ -1145,32 +1145,30 @@ document.addEventListener('DOMContentLoaded', function () {
     var grid = bar.nextElementSibling;
     var originalOrder = Array.from(grid.querySelectorAll('.product-card'));
 
-    bar.querySelectorAll('.sort-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        bar.querySelectorAll('.sort-btn').forEach(function (b) { b.classList.remove('active'); });
-        this.classList.add('active');
+    var sel = bar.querySelector('.sort-select');
+    if (!sel) return;
 
-        var sort = this.getAttribute('data-sort');
-        var cards = Array.from(grid.querySelectorAll('.product-card'));
+    sel.addEventListener('change', function () {
+      var sort = this.value;
+      var cards = Array.from(grid.querySelectorAll('.product-card'));
 
-        if (sort === 'default') {
-          originalOrder.forEach(function (card) { grid.appendChild(card); });
-        } else {
-          cards.sort(function (a, b) {
-            var btnA = a.querySelector('.add-to-cart-btn');
-            var btnB = b.querySelector('.add-to-cart-btn');
-            var priceA = btnA ? parseFloat(btnA.getAttribute('data-price')) : 0;
-            var priceB = btnB ? parseFloat(btnB.getAttribute('data-price')) : 0;
-            return sort === 'low' ? priceA - priceB : priceB - priceA;
-          });
-          cards.forEach(function (card) { grid.appendChild(card); });
-        }
-
-        grid.querySelectorAll('.product-card').forEach(function (card) {
-          card.classList.remove('visible');
+      if (sort === 'default') {
+        originalOrder.forEach(function (card) { grid.appendChild(card); });
+      } else {
+        cards.sort(function (a, b) {
+          var btnA = a.querySelector('.add-to-cart-btn');
+          var btnB = b.querySelector('.add-to-cart-btn');
+          var priceA = btnA ? parseFloat(btnA.getAttribute('data-price')) : 0;
+          var priceB = btnB ? parseFloat(btnB.getAttribute('data-price')) : 0;
+          return sort === 'low' ? priceA - priceB : priceB - priceA;
         });
-        setTimeout(revealCards, 100);
+        cards.forEach(function (card) { grid.appendChild(card); });
+      }
+
+      grid.querySelectorAll('.product-card').forEach(function (card) {
+        card.classList.remove('visible');
       });
+      setTimeout(revealCards, 100);
     });
   });
 
