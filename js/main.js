@@ -1168,8 +1168,10 @@ document.addEventListener('DOMContentLoaded', function () {
       var sort = this.value;
       var cards = Array.from(grid.querySelectorAll('.product-card'));
 
-      if (sort === 'default') {
+      if (sort === 'featured' || sort === 'bestseller' || sort === 'oldest') {
         originalOrder.forEach(function (card) { grid.appendChild(card); });
+      } else if (sort === 'newest') {
+        originalOrder.slice().reverse().forEach(function (card) { grid.appendChild(card); });
       } else if (sort === 'az' || sort === 'za') {
         cards.sort(function (a, b) {
           var nameA = (a.querySelector('.product-name') || {}).textContent || '';
