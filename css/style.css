@@ -780,35 +780,21 @@ img {
   display: block;
 }
 
-/* ===== Category Filter Bar ===== */
-.category-filter-bar {
-  background: var(--white);
-  border-bottom: 1px solid rgba(45,26,36,0.08);
-  padding: 0;
-  position: sticky;
-  top: 68px;
-  z-index: 80;
-  box-shadow: 0 2px 12px rgba(45,26,36,0.05);
-}
-
-.category-filter-pills {
+/* ===== Category Filter Buttons (dentro do menu) ===== */
+.nav-filter-pills {
   display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 12px 0;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
 }
-
-.category-filter-pills::-webkit-scrollbar { display: none; }
 
 .category-filter-btn {
-  flex-shrink: 0;
-  padding: 8px 18px;
+  padding: 7px 14px;
   border-radius: 20px;
-  border: 1.5px solid rgba(45,26,36,0.12);
+  border: 1.5px solid rgba(45,26,36,0.14);
   background: none;
   font-family: 'Quicksand', sans-serif;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text-dark);
   cursor: pointer;
