@@ -773,7 +773,59 @@ img {
 .products-section {
   padding: 80px 0;
   background: var(--white);
+  display: none;
+}
+
+.products-section.active {
   display: block;
+}
+
+/* ===== Category Filter Bar ===== */
+.category-filter-bar {
+  background: var(--white);
+  border-bottom: 1px solid rgba(45,26,36,0.08);
+  padding: 0;
+  position: sticky;
+  top: 68px;
+  z-index: 80;
+  box-shadow: 0 2px 12px rgba(45,26,36,0.05);
+}
+
+.category-filter-pills {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 12px 0;
+}
+
+.category-filter-pills::-webkit-scrollbar { display: none; }
+
+.category-filter-btn {
+  flex-shrink: 0;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(45,26,36,0.12);
+  background: none;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.category-filter-btn:hover {
+  border-color: var(--rose-cta);
+  color: var(--rose-cta);
+  background: var(--rose-soft);
+}
+
+.category-filter-btn.active {
+  background: var(--rose-cta);
+  border-color: var(--rose-cta);
+  color: var(--white);
 }
 
 .products-section--alt {

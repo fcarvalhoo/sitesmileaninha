@@ -101,30 +101,42 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // --- Scroll to product section by category ---
-  function scrollToSection(sectionId) {
+  // --- Mostrar seção por categoria ---
+  function showSection(sectionId) {
+    document.querySelectorAll('.products-section').forEach(function (s) {
+      s.classList.remove('active');
+    });
     var target = document.getElementById(sectionId);
     if (target) {
-      var top = target.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: top, behavior: 'smooth' });
+      target.classList.add('active');
+      setTimeout(function () {
+        var bar = document.querySelector('.category-filter-bar');
+        var offset = bar ? bar.offsetHeight + 68 : 80;
+        var top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        revealCards();
+      }, 40);
     }
+    document.querySelectorAll('.category-filter-btn').forEach(function (b) {
+      b.classList.toggle('active', b.getAttribute('data-section') === sectionId);
+    });
     closeMenu();
   }
-  window.scrollToSection = scrollToSection;
+  window.showSection = showSection;
 
-  // Category buttons in menu — scroll to section
-  document.querySelectorAll('.nav-cat-btn').forEach(function (btn) {
+  // Barra de filtros de categoria
+  document.querySelectorAll('.category-filter-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      scrollToSection(this.getAttribute('data-section'));
+      showSection(this.getAttribute('data-section'));
     });
   });
 
-  // Hero "Ver Produtos" button — scroll to first section
+  // Hero "Ver Produtos" — mostra bolsas
   var heroViewBtn = document.getElementById('heroViewProducts');
   if (heroViewBtn) {
     heroViewBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      scrollToSection('bolsas');
+      showSection('bolsas');
     });
   }
 
