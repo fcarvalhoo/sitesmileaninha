@@ -1575,13 +1575,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Nav drawer carousel ---
   (function () {
+    var carousel = document.getElementById('navCarousel');
     var track = document.getElementById('navCarouselTrack');
     var dotsWrap = document.getElementById('navCarouselDots');
-    if (!track || !dotsWrap) return;
+    if (!carousel || !track || !dotsWrap) return;
 
     var slides = track.querySelectorAll('.nav-carousel-slide');
     var current = 0;
     var timer;
+
+    function setWidths() {
+      var w = carousel.clientWidth;
+      slides.forEach(function (s) { s.style.width = w + 'px'; });
+    }
+    setWidths();
+    window.addEventListener('resize', setWidths);
 
     slides.forEach(function (_, i) {
       var dot = document.createElement('button');
@@ -1593,7 +1601,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function goTo(index) {
       current = index;
-      track.style.transform = 'translateX(-' + (100 * current) + '%)';
+      var w = slides[0].offsetWidth || carousel.clientWidth;
+      track.style.transform = 'translateX(-' + (w * current) + 'px)';
       dotsWrap.querySelectorAll('.nav-carousel-dot').forEach(function (d, i) {
         d.classList.toggle('active', i === current);
       });
