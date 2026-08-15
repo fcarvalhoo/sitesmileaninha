@@ -1079,7 +1079,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // --- Page panels (Medidas, Cuidados, Contato) ---
-  var panelIds = ['medidas', 'cuidados', 'contato', 'sobre', 'trocas'];
+  var panelIds = ['medidas', 'cuidados', 'contato', 'sobre', 'trocas', 'fale-conosco', 'avaliacoes', 'parcerias', 'duvidas', 'pagamentos', 'frete-info', 'termos', 'privacidade'];
 
   function openPanel(id) {
     var panel = document.getElementById(id);
