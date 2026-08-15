@@ -103,24 +103,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Mostrar seção por categoria ---
   function showSection(sectionId) {
+    // 1. Fecha o menu primeiro
+    closeMenu();
+
+    // 2. Ativa a seção imediatamente (ainda escondida pelo menu)
     document.querySelectorAll('.products-section').forEach(function (s) {
       s.classList.remove('active');
     });
     var target = document.getElementById(sectionId);
-    if (target) {
-      target.classList.add('active');
-      setTimeout(function () {
-        var bar = document.querySelector('.category-filter-bar');
-        var offset = bar ? bar.offsetHeight + 68 : 80;
-        var top = target.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: top, behavior: 'smooth' });
-        revealCards();
-      }, 40);
-    }
+    if (target) { target.classList.add('active'); }
+
     document.querySelectorAll('.category-filter-btn').forEach(function (b) {
       b.classList.toggle('active', b.getAttribute('data-section') === sectionId);
     });
-    closeMenu();
+
+    // 3. Aguarda a animação do menu fechar (320ms) e então rola para a seção
+    setTimeout(function () {
+      if (target) {
+        var top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        revealCards();
+      }
+    }, 360);
   }
   window.showSection = showSection;
 
