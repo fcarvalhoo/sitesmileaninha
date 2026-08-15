@@ -101,6 +101,44 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // --- Show product section by category ---
+  function showSection(sectionId) {
+    document.querySelectorAll('.products-section').forEach(function (s) {
+      s.classList.remove('active');
+    });
+    var target = document.getElementById(sectionId);
+    if (target) {
+      target.classList.add('active');
+      setTimeout(function () {
+        var navBar = document.getElementById('products-nav');
+        var top = target.getBoundingClientRect().top + window.scrollY - (navBar ? navBar.offsetHeight + 70 : 80);
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        revealCards();
+      }, 40);
+    }
+    document.querySelectorAll('.category-pill, .nav-cat-btn').forEach(function (p) {
+      p.classList.toggle('active', p.getAttribute('data-section') === sectionId);
+    });
+    closeMenu();
+  }
+  window.showSection = showSection;
+
+  // Category pill clicks (bar + menu)
+  document.querySelectorAll('.category-pill, .nav-cat-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showSection(this.getAttribute('data-section'));
+    });
+  });
+
+  // Hero "Ver Produtos" button
+  var heroViewBtn = document.getElementById('heroViewProducts');
+  if (heroViewBtn) {
+    heroViewBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      showSection('bolsas');
+    });
+  }
+
   // --- Scroll reveal for product cards ---
   function revealCards() {
     var cards = document.querySelectorAll('.product-card:not(.hidden)');
@@ -1202,10 +1240,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // --- Footer panel links (Sobre, Trocas) ---
+  // --- Footer + menu panel links ---
   document.querySelectorAll('.footer-link').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
+      closeMenu();
       var panelId = this.getAttribute('data-panel');
       var panel = document.getElementById(panelId);
       if (panel) {

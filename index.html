@@ -35,8 +35,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=46">
-  <script src="js/main.js?v=36" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=47">
+  <script src="js/main.js?v=37" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -76,28 +76,83 @@
         <span></span>
         <span></span>
       </button>
-      <ul class="nav-menu" id="navMenu">
-        <li class="nav-section-label">Categorias</li>
-        <li><a href="#bolsas" class="nav-link">Bolsas</a></li>
-        <li><a href="#pulseiras" class="nav-link">Pulseiras</a></li>
-        <li><a href="#colares" class="nav-link">Colares</a></li>
-        <li><a href="#tornozeleiras" class="nav-link">Tornozeleiras</a></li>
-        <li><a href="#body-chain" class="nav-link">Body Chain</a></li>
-        <li class="nav-dropdown">
-          <a href="#religiosos" class="nav-link nav-link--highlight">Artigos Religiosos</a>
-          <ul class="nav-dropdown-menu">
-            <li><a href="#religiosos" class="nav-dropdown-link" data-filter="todos">Ver Todos</a></li>
-            <li><a href="#religiosos" class="nav-dropdown-link" data-filter="tercos">Terços</a></li>
-            <li><a href="#religiosos" class="nav-dropdown-link" data-filter="chaveiros">Chaveiros</a></li>
-            <li><a href="#religiosos" class="nav-dropdown-link" data-filter="pulseiras-rel">Pulseiras</a></li>
-          </ul>
-        </li>
-        <li class="nav-spacer"></li>
-        <li class="nav-section-label">Informações</li>
-        <li><a href="#medidas" class="nav-link">Medidas</a></li>
-        <li><a href="#cuidados" class="nav-link">Cuidados</a></li>
-        <li><a href="#contato" class="nav-link">Contato</a></li>
-      </ul>
+      <div class="nav-menu" id="navMenu">
+
+        <!-- Cabeçalho da gaveta -->
+        <div class="nav-drawer-header">
+          <div class="nav-drawer-brand">Smile</div>
+          <p class="nav-drawer-tagline">Acessórios artesanais feitos à mão</p>
+        </div>
+
+        <!-- Produtos -->
+        <div class="nav-drawer-block">
+          <p class="nav-drawer-hook">Confira nossos produtos!</p>
+          <div class="nav-drawer-categories">
+            <button class="nav-cat-btn" data-section="bolsas">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Bolsas
+            </button>
+            <button class="nav-cat-btn" data-section="pulseiras">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2 2"/></svg>
+              Pulseiras
+            </button>
+            <button class="nav-cat-btn" data-section="colares">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><circle cx="12" cy="20" r="2"/></svg>
+              Colares
+            </button>
+            <button class="nav-cat-btn" data-section="tornozeleiras">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><ellipse cx="12" cy="18" rx="8" ry="3"/><path d="M4 18V9a8 8 0 0 1 16 0v9"/></svg>
+              Tornozeleiras
+            </button>
+            <button class="nav-cat-btn" data-section="body-chain">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M12 2v20M6 6l6-4 6 4M6 18l6 4 6-4"/></svg>
+              Body Chain
+            </button>
+            <button class="nav-cat-btn nav-cat-btn--relig" data-section="religiosos">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Artigos Religiosos
+            </button>
+          </div>
+        </div>
+
+        <!-- Formas de pagamento -->
+        <div class="nav-drawer-block nav-drawer-block--subtle">
+          <p class="nav-drawer-block-title">Formas de Pagamento</p>
+          <div class="nav-payment-pills">
+            <span>⚡ Pix com 5% OFF</span>
+            <span>💳 Cartão 2x sem juros</span>
+            <span>💵 Dinheiro</span>
+          </div>
+        </div>
+
+        <!-- Mini depoimento -->
+        <div class="nav-drawer-review">
+          <div class="nav-review-stars">★★★★★</div>
+          <p>"Qualidade incrível, entrega rápida e embalagem linda!"</p>
+          <span>— Juliana M.</span>
+        </div>
+
+        <!-- Institucional -->
+        <div class="nav-drawer-block">
+          <p class="nav-drawer-block-title">Institucional</p>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="sobre">Sobre a Smile</a>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="fale-conosco">Fale Conosco</a>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="avaliacoes">Avaliações e Depoimentos</a>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="parcerias">Parcerias</a>
+        </div>
+
+        <!-- Informação -->
+        <div class="nav-drawer-block">
+          <p class="nav-drawer-block-title">Informação</p>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="duvidas">Dúvidas Frequentes</a>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="pagamentos">Formas de Pagamento</a>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="frete-info">Frete e Prazo de Entrega</a>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="trocas">Trocas e Devoluções</a>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="termos">Termos e Condições</a>
+          <a href="#" class="nav-drawer-link footer-link" data-panel="privacidade">Política de Privacidade</a>
+        </div>
+
+      </div>
       <div class="nav-actions">
         <button class="fav-toggle" id="favToggle" aria-label="Favoritos">
           <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -212,7 +267,7 @@
       <p class="hero-tagline">Acessórios feitos à mão com amor</p>
       <div class="hero-divider"></div>
       <p class="hero-subtitle">Belo Jardim, Pernambuco</p>
-      <a href="#bolsas" class="hero-btn">Ver Produtos</a>
+      <a href="#bolsas" class="hero-btn" id="heroViewProducts">Ver Produtos</a>
     </div>
     <div class="hero-scroll-indicator">
       <span></span>
@@ -390,6 +445,27 @@
           </div>
 
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra de Categorias -->
+  <section class="category-bar" id="products-nav">
+    <div class="container">
+      <p class="category-bar-label">O que você procura?</p>
+      <div class="category-pills-wrap">
+        <button class="category-pill" data-section="bolsas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Bolsas
+        </button>
+        <button class="category-pill" data-section="pulseiras">Pulseiras</button>
+        <button class="category-pill" data-section="colares">Colares</button>
+        <button class="category-pill" data-section="tornozeleiras">Tornozeleiras</button>
+        <button class="category-pill" data-section="body-chain">Body Chain</button>
+        <button class="category-pill" data-section="religiosos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Artigos Religiosos
+        </button>
       </div>
     </div>
   </section>
