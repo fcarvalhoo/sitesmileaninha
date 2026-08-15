@@ -1201,6 +1201,36 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  // --- Destaques Carousel ---
+  var destaquesTrack = document.getElementById('destaquesTrack');
+  var prevArrow = document.querySelector('.destaque-arrow--prev');
+  var nextArrow = document.querySelector('.destaque-arrow--next');
+
+  if (destaquesTrack && prevArrow && nextArrow) {
+    var destaquesIndex = 0;
+    var cardWidth = 260; // card 240px + gap 20px
+
+    function updateDestaquesArrows() {
+      var total = destaquesTrack.children.length;
+      var visible = Math.floor(destaquesTrack.parentElement.offsetWidth / cardWidth);
+      prevArrow.disabled = destaquesIndex === 0;
+      nextArrow.disabled = destaquesIndex >= total - visible;
+    }
+
+    function slideDestaques(dir) {
+      var total = destaquesTrack.children.length;
+      var visible = Math.floor(destaquesTrack.parentElement.offsetWidth / cardWidth);
+      destaquesIndex = Math.max(0, Math.min(destaquesIndex + dir, total - visible));
+      destaquesTrack.style.transform = 'translateX(-' + (destaquesIndex * cardWidth) + 'px)';
+      updateDestaquesArrows();
+    }
+
+    prevArrow.addEventListener('click', function () { slideDestaques(-1); });
+    nextArrow.addEventListener('click', function () { slideDestaques(1); });
+    updateDestaquesArrows();
+    window.addEventListener('resize', updateDestaquesArrows);
+  }
+
   // --- Phone mask ---
   var telefoneInput = document.getElementById('telefone');
   telefoneInput.addEventListener('input', function () {

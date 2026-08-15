@@ -35,8 +35,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=41">
-  <script src="js/main.js?v=30" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=42">
+  <script src="js/main.js?v=31" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -261,6 +261,122 @@
           <span class="stat-number" data-target="100">0</span>
           <span class="stat-suffix">%</span>
           <p class="stat-label">Feito à mão</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Destaques Carousel -->
+  <section class="destaques-section">
+    <div class="container">
+      <div class="destaques-header">
+        <div>
+          <p class="destaques-eyebrow">Mais Vendidos</p>
+          <h2 class="destaques-title">Destaques</h2>
+        </div>
+        <div class="destaques-arrows">
+          <button class="destaque-arrow destaque-arrow--prev" aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button class="destaque-arrow destaque-arrow--next" aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="destaques-track-wrap">
+        <div class="destaques-track" id="destaquesTrack">
+
+          <div class="destaque-card" data-name="Bolsa Azul Cristal" data-price="85.0">
+            <div class="destaque-img-wrap">
+              <img src="img/bolsa-azul-1.jpg" alt="Bolsa Azul Cristal" loading="lazy">
+              <span class="destaque-badge">Destaque</span>
+            </div>
+            <div class="destaque-info">
+              <p class="destaque-category">Bolsas</p>
+              <h3 class="destaque-name">Bolsa Azul Cristal</h3>
+              <p class="destaque-price">R$ 85,00</p>
+              <button class="destaque-btn add-to-cart-btn" type="button" data-id="bolsa-azul-cristal" data-name="Bolsa Azul Cristal" data-price="85.0">Ver produto</button>
+            </div>
+          </div>
+
+          <div class="destaque-card" data-name="Bolsa Coração" data-price="95.0">
+            <div class="destaque-img-wrap">
+              <img src="img/bolsa-coracao.jpg" alt="Bolsa Coração" loading="lazy">
+              <span class="destaque-badge">Destaque</span>
+            </div>
+            <div class="destaque-info">
+              <p class="destaque-category">Bolsas</p>
+              <h3 class="destaque-name">Bolsa Coração</h3>
+              <p class="destaque-price">R$ 95,00</p>
+              <button class="destaque-btn add-to-cart-btn" type="button" data-id="bolsa-coracao" data-name="Bolsa Coração" data-price="95.0">Ver produto</button>
+            </div>
+          </div>
+
+          <div class="destaque-card" data-name="Bolsa Verde Neon" data-price="90.0">
+            <div class="destaque-img-wrap">
+              <img src="img/bolsa-verde-neon.jpg" alt="Bolsa Verde Neon" loading="lazy">
+              <span class="destaque-badge">Destaque</span>
+            </div>
+            <div class="destaque-info">
+              <p class="destaque-category">Bolsas</p>
+              <h3 class="destaque-name">Bolsa Verde Neon</h3>
+              <p class="destaque-price">R$ 90,00</p>
+              <button class="destaque-btn add-to-cart-btn" type="button" data-id="bolsa-verde-neon" data-name="Bolsa Verde Neon" data-price="90.0">Ver produto</button>
+            </div>
+          </div>
+
+          <div class="destaque-card" data-name="Pulseira Signo" data-price="25.0">
+            <div class="destaque-img-wrap">
+              <img src="img/pulseira-signo.jpg" alt="Pulseira Signo" loading="lazy">
+              <span class="destaque-badge">Destaque</span>
+            </div>
+            <div class="destaque-info">
+              <p class="destaque-category">Pulseiras</p>
+              <h3 class="destaque-name">Pulseira Signo</h3>
+              <p class="destaque-price">R$ 25,00</p>
+              <button class="destaque-btn add-to-cart-btn" type="button" data-id="pulseira-signo" data-name="Pulseira Signo" data-price="25.0">Ver produto</button>
+            </div>
+          </div>
+
+          <div class="destaque-card" data-name="Pulseira Vermelha" data-price="22.0">
+            <div class="destaque-img-wrap">
+              <img src="img/pulseira-vermelha.jpg" alt="Pulseira Vermelha" loading="lazy">
+              <span class="destaque-badge">Destaque</span>
+            </div>
+            <div class="destaque-info">
+              <p class="destaque-category">Pulseiras</p>
+              <h3 class="destaque-name">Pulseira Vermelha</h3>
+              <p class="destaque-price">R$ 22,00</p>
+              <button class="destaque-btn add-to-cart-btn" type="button" data-id="pulseira-vermelha" data-name="Pulseira Vermelha" data-price="22.0">Ver produto</button>
+            </div>
+          </div>
+
+          <div class="destaque-card" data-name="Pulseira Colorida" data-price="18.0">
+            <div class="destaque-img-wrap">
+              <img src="img/pulseira-colorida.jpg" alt="Pulseira Colorida" loading="lazy">
+              <span class="destaque-badge">Destaque</span>
+            </div>
+            <div class="destaque-info">
+              <p class="destaque-category">Pulseiras</p>
+              <h3 class="destaque-name">Pulseira Colorida</h3>
+              <p class="destaque-price">R$ 18,00</p>
+              <button class="destaque-btn add-to-cart-btn" type="button" data-id="pulseira-colorida" data-name="Pulseira Colorida" data-price="18.0">Ver produto</button>
+            </div>
+          </div>
+
+          <div class="destaque-card" data-name="Pulseira Neon" data-price="15.0">
+            <div class="destaque-img-wrap">
+              <img src="img/pulseira-neon.jpg" alt="Pulseira Neon" loading="lazy">
+              <span class="destaque-badge">Destaque</span>
+            </div>
+            <div class="destaque-info">
+              <p class="destaque-category">Pulseiras</p>
+              <h3 class="destaque-name">Pulseira Neon</h3>
+              <p class="destaque-price">R$ 15,00</p>
+              <button class="destaque-btn add-to-cart-btn" type="button" data-id="pulseira-neon" data-name="Pulseira Neon" data-price="15.0">Ver produto</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
