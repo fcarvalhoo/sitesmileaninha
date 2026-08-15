@@ -1,3 +1,10 @@
+// --- Google Analytics helper ---
+function gaEvent(eventName, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, params);
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
 
   var WHATSAPP_NUM = '5581983911126';
@@ -811,6 +818,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
     if (addModalToCart()) {
+      gaEvent('add_to_cart', { item_name: modalProduct.name, price: modalProduct.price, source: 'modal' });
       document.getElementById('modalAddedMsg').textContent = 'Adicionado ao carrinho!';
       setTimeout(function () {
         closeProductModal();
@@ -922,6 +930,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var card = this.closest('.product-card');
       var name = card.querySelector('.product-name').textContent;
       var price = parseFloat(this.getAttribute('data-price'));
+      gaEvent('view_item', { item_name: name, price: price });
       openProductModal(name, price, getCardImages(card));
     });
   });
@@ -957,6 +966,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
       updateCartUI();
       showToast(name + ' adicionado ao carrinho!');
+      gaEvent('add_to_cart', { item_name: name, price: price });
       cartBtn.classList.add('added');
       setTimeout(function () { cartBtn.classList.remove('added'); }, 1500);
     });
@@ -1023,6 +1033,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     var url = 'https://wa.me/' + WHATSAPP_NUM + '?text=' + encodeURIComponent(msg);
     window.open(url, '_blank');
+
+    gaEvent('purchase', {
+      value: totalFinal,
+      currency: 'BRL',
+      items: cart.map(function(i) { return { item_name: i.name, price: i.price, quantity: i.qty }; })
+    });
 
     // Show success state
     cartItems.style.display = 'none';
