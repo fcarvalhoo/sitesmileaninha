@@ -1170,6 +1170,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (sort === 'default') {
         originalOrder.forEach(function (card) { grid.appendChild(card); });
+      } else if (sort === 'az' || sort === 'za') {
+        cards.sort(function (a, b) {
+          var nameA = (a.querySelector('.product-name') || {}).textContent || '';
+          var nameB = (b.querySelector('.product-name') || {}).textContent || '';
+          return sort === 'az' ? nameA.localeCompare(nameB, 'pt') : nameB.localeCompare(nameA, 'pt');
+        });
+        cards.forEach(function (card) { grid.appendChild(card); });
       } else {
         cards.sort(function (a, b) {
           var btnA = a.querySelector('.add-to-cart-btn');
