@@ -1629,4 +1629,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     resetTimer();
   })();
+
+  // --- Newsletter ---
+  var newsletterForm = document.getElementById('newsletterForm');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      newsletterForm.style.display = 'none';
+      document.getElementById('newsletterOk').style.display = 'block';
+    });
+  }
 });
