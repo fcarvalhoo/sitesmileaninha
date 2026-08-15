@@ -1201,34 +1201,67 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // --- Destaques Carousel ---
+  // --- Destaques Carousel (infinite loop) ---
   var destaquesTrack = document.getElementById('destaquesTrack');
   var prevArrow = document.querySelector('.destaque-arrow--prev');
   var nextArrow = document.querySelector('.destaque-arrow--next');
 
   if (destaquesTrack && prevArrow && nextArrow) {
-    var destaquesIndex = 0;
-    var cardWidth = 260; // card 240px + gap 20px
+    var CARD_W = 260; // 240px + 20px gap
+    var dAnimating = false;
+    var dIndex = 0;
 
-    function updateDestaquesArrows() {
-      var total = destaquesTrack.children.length;
-      var visible = Math.floor(destaquesTrack.parentElement.offsetWidth / cardWidth);
-      prevArrow.disabled = destaquesIndex === 0;
-      nextArrow.disabled = destaquesIndex >= total - visible;
-    }
+    // Clone all cards before and after for infinite loop
+    var origCards = Array.from(destaquesTrack.children);
+    var dTotal = origCards.length;
+
+    origCards.forEach(function (c) { destaquesTrack.appendChild(c.cloneNode(true)); });
+    origCards.slice().reverse().forEach(function (c) {
+      destaquesTrack.insertBefore(c.cloneNode(true), destaquesTrack.firstChild);
+    });
+
+    // Start at first real card (after prepended clones)
+    dIndex = dTotal;
+    destaquesTrack.style.transition = 'none';
+    destaquesTrack.style.transform = 'translateX(-' + (dIndex * CARD_W) + 'px)';
 
     function slideDestaques(dir) {
-      var total = destaquesTrack.children.length;
-      var visible = Math.floor(destaquesTrack.parentElement.offsetWidth / cardWidth);
-      destaquesIndex = Math.max(0, Math.min(destaquesIndex + dir, total - visible));
-      destaquesTrack.style.transform = 'translateX(-' + (destaquesIndex * cardWidth) + 'px)';
-      updateDestaquesArrows();
+      if (dAnimating) return;
+      dAnimating = true;
+      dIndex += dir;
+      destaquesTrack.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+      destaquesTrack.style.transform = 'translateX(-' + (dIndex * CARD_W) + 'px)';
+
+      setTimeout(function () {
+        // Silently jump back when entering clone territory
+        if (dIndex < dTotal) {
+          dIndex += dTotal;
+          destaquesTrack.style.transition = 'none';
+          destaquesTrack.style.transform = 'translateX(-' + (dIndex * CARD_W) + 'px)';
+        } else if (dIndex >= dTotal * 2) {
+          dIndex -= dTotal;
+          destaquesTrack.style.transition = 'none';
+          destaquesTrack.style.transform = 'translateX(-' + (dIndex * CARD_W) + 'px)';
+        }
+        dAnimating = false;
+      }, 420);
     }
 
     prevArrow.addEventListener('click', function () { slideDestaques(-1); });
     nextArrow.addEventListener('click', function () { slideDestaques(1); });
-    updateDestaquesArrows();
-    window.addEventListener('resize', updateDestaquesArrows);
+
+    // Click on destaque card opens modal (delegated — works for clones too)
+    destaquesTrack.addEventListener('click', function (e) {
+      var btn = e.target.closest('.destaque-btn');
+      if (!btn) return;
+      e.stopPropagation();
+      var name = btn.getAttribute('data-name');
+      var price = parseFloat(btn.getAttribute('data-price'));
+      var img = btn.closest('.destaque-card').querySelector('img');
+      var images = img ? [img.getAttribute('src')] : [];
+      gaEvent('view_item', { item_name: name, price: price });
+      openProductModal(name, price, images);
+    });
   }
 
   // --- Phone mask ---
