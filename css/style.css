@@ -783,23 +783,24 @@ img {
 /* ===== Category Filter Buttons (dentro do menu) ===== */
 .nav-filter-pills {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+  flex-direction: column;
+  gap: 6px;
   margin-top: 4px;
 }
 
 .category-filter-btn {
-  padding: 7px 14px;
-  border-radius: 20px;
-  border: 1.5px solid rgba(45,26,36,0.14);
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(45,26,36,0.12);
   background: none;
   font-family: 'Quicksand', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--text-dark);
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
+  text-align: left;
+  width: 100%;
 }
 
 .category-filter-btn:hover {
@@ -5061,6 +5062,7 @@ img {
   background: var(--text-dark);
   padding: 52px 24px 24px;
   flex-shrink: 0;
+  text-align: center;
 }
 
 .nav-drawer-brand {
