@@ -582,6 +582,11 @@ document.addEventListener('DOMContentLoaded', function () {
     renderGallery(imgs, name);
     document.getElementById('modalName').textContent = name;
     document.getElementById('modalPrice').textContent = 'R$ ' + price.toFixed(2).replace('.', ',');
+    var instEl = document.getElementById('modalInstallment');
+    if (instEl) {
+      var inst2x = (price / 2).toFixed(2).replace('.', ',');
+      instEl.textContent = 'ou 2x de R$ ' + inst2x + ' sem juros';
+    }
     document.getElementById('modalDesc').textContent = productDescriptions[cat] || '';
     document.getElementById('modalQty').textContent = '1';
 

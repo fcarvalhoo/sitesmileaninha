@@ -35,8 +35,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=44">
-  <script src="js/main.js?v=34" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=45">
+  <script src="js/main.js?v=35" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -1023,8 +1023,13 @@
         <div class="modal-gallery-dots" id="modalGalleryDots"></div>
       </div>
       <div class="product-modal-info">
-        <h2 id="modalName" class="product-modal-name"></h2>
-        <p id="modalPrice" class="product-modal-price"></p>
+        <div class="product-modal-name-block">
+          <h2 id="modalName" class="product-modal-name"></h2>
+        </div>
+        <div class="product-modal-price-block">
+          <p id="modalPrice" class="product-modal-price"></p>
+          <p id="modalInstallment" class="modal-price-installment"></p>
+        </div>
 
         <div id="modalSizeGroup" class="modal-section">
           <div class="modal-section-header">
@@ -1094,8 +1099,8 @@
         </div>
 
         <div class="product-modal-actions">
-          <button type="button" id="modalAddCart" class="modal-btn-secondary">ADICIONAR AO CARRINHO</button>
           <button type="button" id="modalBuyNow" class="modal-btn-primary">COMPRAR AGORA</button>
+          <button type="button" id="modalAddCart" class="modal-btn-secondary">ADICIONAR AO CARRINHO</button>
           <p id="modalAddedMsg" class="modal-added-msg"></p>
         </div>
 
@@ -1108,21 +1113,18 @@
 
         <!-- Vantagens -->
         <div class="modal-vantagens">
-          <h4 class="modal-vantagens-title">VANTAGENS DE COMPRAR NA SMILE</h4>
-          <ul class="modal-vantagens-list">
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-              Parcelamento em até 2x sem juros
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
-              Não serviu? Troque gratuitamente.
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
-              Embalagem especial para presente
-            </li>
-          </ul>
+          <div class="modal-vantagem-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            <span>2x sem juros</span>
+          </div>
+          <div class="modal-vantagem-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+            <span>Troca grátis</span>
+          </div>
+          <div class="modal-vantagem-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="22" height="22"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            <span>Embalagem presente</span>
+          </div>
         </div>
 
         <!-- Descrição do Produto -->

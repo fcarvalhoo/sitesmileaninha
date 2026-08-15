@@ -2175,9 +2175,9 @@ img {
   align-items: center;
   justify-content: space-between;
   padding: 14px 24px;
-  border-bottom: none;
+  border-bottom: 1px solid rgba(45, 26, 36, 0.08);
   flex-shrink: 0;
-  background: rgba(248, 200, 216, 0.95);
+  background: var(--white);
   position: relative;
 }
 
@@ -2188,8 +2188,8 @@ img {
   pointer-events: none;
   font-family: 'Playfair Display', serif;
   font-style: italic;
-  font-size: 22px;
-  color: var(--peach);
+  font-size: 20px;
+  color: var(--rose-cta);
   letter-spacing: 1px;
 }
 
@@ -2324,11 +2324,32 @@ img {
   height: 100%;
 }
 
+.product-modal-name-block {
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(45, 26, 36, 0.07);
+}
+
 .product-modal-name {
+  font-family: 'Playfair Display', serif;
   font-size: 26px;
-  font-weight: 800;
+  font-weight: 700;
   color: var(--text-dark);
-  line-height: 1.2;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.product-modal-price-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(45, 26, 36, 0.07);
+}
+
+.modal-price-installment {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
 }
 
 .modal-share-row {
@@ -2339,28 +2360,26 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 12px 16px;
-  background: rgba(37, 211, 102, 0.07);
-  border: 1.5px solid rgba(37, 211, 102, 0.3);
-  border-radius: var(--radius-sm);
+  gap: 7px;
+  padding: 10px 16px;
+  background: none;
+  border: 1px solid rgba(37, 211, 102, 0.35);
+  border-radius: var(--radius);
   color: #128C7E;
   font-family: 'Quicksand', sans-serif;
-  font-size: 13.5px;
-  font-weight: 700;
+  font-size: 12.5px;
+  font-weight: 600;
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s ease;
   width: 100%;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
 }
 
 .modal-share-full:hover {
-  background: rgba(37, 211, 102, 0.18);
+  background: rgba(37, 211, 102, 0.07);
   border-color: #25D366;
   color: #075E54;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.2);
 }
 
 .product-modal-price {
@@ -2498,9 +2517,8 @@ img {
 /* Action buttons inside product info */
 .product-modal-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 10px;
-  margin-top: 8px;
 }
 
 .modal-actions {
@@ -2508,17 +2526,43 @@ img {
   gap: 10px;
 }
 
+.modal-btn-primary {
+  width: 100%;
+  padding: 16px;
+  background: var(--rose-cta);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.modal-btn-primary:hover {
+  background: var(--rose-cta-hover);
+  box-shadow: 0 6px 24px rgba(176, 64, 96, 0.35);
+  transform: translateY(-1px);
+}
+
+.modal-btn-primary:active {
+  transform: scale(0.98);
+  box-shadow: none;
+}
+
 .modal-btn-secondary {
-  flex: 1;
+  width: 100%;
   padding: 14px 16px;
   background: var(--white);
   color: var(--rose-cta);
   border: 1.5px solid rgba(176, 64, 96, 0.35);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   font-family: 'Quicksand', sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  letter-spacing: 0.8px;
+  letter-spacing: 1px;
   cursor: pointer;
   transition: var(--transition);
 }
@@ -2532,32 +2576,6 @@ img {
   transform: scale(0.98);
 }
 
-.modal-btn-primary {
-  flex: 1;
-  padding: 14px 16px;
-  background: var(--rose-cta);
-  color: var(--white);
-  border: 1.5px solid var(--rose-cta);
-  border-radius: var(--radius-sm);
-  font-family: 'Quicksand', sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.modal-btn-primary:hover {
-  background: var(--rose-cta-hover);
-  border-color: var(--rose-cta-hover);
-  box-shadow: 0 6px 20px rgba(176, 64, 96, 0.3);
-}
-
-.modal-btn-primary:active {
-  transform: scale(0.98);
-  box-shadow: none;
-}
-
 .modal-added-msg {
   font-size: 13px;
   color: #25D366;
@@ -2569,39 +2587,39 @@ img {
 
 /* Vantagens */
 .modal-vantagens {
-  padding: 20px 0;
-  border-top: 1px solid rgba(0,0,0,0.06);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  display: flex;
+  gap: 0;
+  background: var(--bg-main);
+  border-radius: var(--radius);
+  border: 1px solid rgba(45, 26, 36, 0.07);
+  overflow: hidden;
 }
 
-.modal-vantagens-title {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  margin-bottom: 14px;
-}
-
-.modal-vantagens-list {
-  list-style: none;
+.modal-vantagem-item {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-}
-
-.modal-vantagens-list li {
-  display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-dark);
+  gap: 7px;
+  padding: 14px 8px;
+  text-align: center;
+  border-right: 1px solid rgba(45, 26, 36, 0.07);
 }
 
-.modal-vantagens-list li svg {
-  flex-shrink: 0;
+.modal-vantagem-item:last-child {
+  border-right: none;
+}
+
+.modal-vantagem-item svg {
   color: var(--peach);
+  flex-shrink: 0;
+}
+
+.modal-vantagem-item span {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.3;
 }
 
 /* Troca content */
