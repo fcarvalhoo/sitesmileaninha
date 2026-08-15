@@ -5041,6 +5041,104 @@ img {
   font-weight: 500;
 }
 
+/* ===== Nav Drawer Carousel ===== */
+.nav-carousel {
+  position: relative;
+  overflow: hidden;
+  background: var(--text-dark);
+}
+
+.nav-carousel-track {
+  display: flex;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.nav-carousel-slide {
+  position: relative;
+  min-width: 100%;
+  height: 200px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.nav-carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.nav-carousel-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(45,26,36,0.65) 0%, transparent 55%);
+}
+
+.nav-carousel-label {
+  position: absolute;
+  bottom: 14px;
+  left: 16px;
+  z-index: 2;
+  color: var(--white);
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.nav-carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  display: flex;
+  gap: 5px;
+  z-index: 3;
+}
+
+.nav-carousel-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s, width 0.2s;
+}
+
+.nav-carousel-dot.active {
+  background: var(--white);
+  width: 18px;
+  border-radius: 3px;
+}
+
+/* ===== Nav Store Info ===== */
+.nav-store-info {
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(45,26,36,0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.nav-store-info-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.nav-store-info-item svg {
+  flex-shrink: 0;
+  stroke: var(--rose-cta);
+}
+
 .nav-drawer-block {
   padding: 20px 20px 16px;
   border-bottom: 1px solid rgba(45,26,36,0.07);

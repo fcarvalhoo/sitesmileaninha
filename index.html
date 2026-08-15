@@ -35,8 +35,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=50">
-  <script src="js/main.js?v=38" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=51">
+  <script src="js/main.js?v=39" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -84,44 +84,50 @@
           <p class="nav-drawer-tagline">Acessórios artesanais feitos à mão</p>
         </div>
 
-        <!-- Produtos -->
-        <div class="nav-drawer-block">
-          <p class="nav-drawer-hook">Confira nossos produtos!</p>
-          <div class="nav-drawer-categories">
-            <button class="nav-cat-btn" data-section="bolsas">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              Bolsas
-            </button>
-            <button class="nav-cat-btn" data-section="pulseiras">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2 2"/></svg>
-              Pulseiras
-            </button>
-            <button class="nav-cat-btn" data-section="colares">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 2a10 10 0 0 0-10 10"/><circle cx="12" cy="20" r="2"/></svg>
-              Colares
-            </button>
-            <button class="nav-cat-btn" data-section="tornozeleiras">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><ellipse cx="12" cy="18" rx="8" ry="3"/><path d="M4 18V9a8 8 0 0 1 16 0v9"/></svg>
-              Tornozeleiras
-            </button>
-            <button class="nav-cat-btn" data-section="body-chain">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M12 2v20M6 6l6-4 6 4M6 18l6 4 6-4"/></svg>
-              Body Chain
-            </button>
-            <button class="nav-cat-btn nav-cat-btn--relig" data-section="religiosos">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              Artigos Religiosos
-            </button>
+        <!-- Carrossel de imagens -->
+        <div class="nav-carousel" id="navCarousel">
+          <div class="nav-carousel-track" id="navCarouselTrack">
+            <div class="nav-carousel-slide">
+              <img src="img/bolsa-azul-1.jpg" alt="Bolsas">
+              <span class="nav-carousel-label">Bolsas</span>
+            </div>
+            <div class="nav-carousel-slide">
+              <img src="img/pulseira-colorida.jpg" alt="Pulseiras">
+              <span class="nav-carousel-label">Pulseiras</span>
+            </div>
+            <div class="nav-carousel-slide">
+              <img src="img/colar-colorido-estrela.jpg" alt="Colares">
+              <span class="nav-carousel-label">Colares</span>
+            </div>
+            <div class="nav-carousel-slide">
+              <img src="img/tornozeleira-rosa.jpg" alt="Tornozeleiras">
+              <span class="nav-carousel-label">Tornozeleiras</span>
+            </div>
+            <div class="nav-carousel-slide">
+              <img src="img/body-chain-azul.jpg" alt="Body Chain">
+              <span class="nav-carousel-label">Body Chain</span>
+            </div>
           </div>
+          <div class="nav-carousel-dots" id="navCarouselDots"></div>
         </div>
 
-        <!-- Formas de pagamento -->
-        <div class="nav-drawer-block nav-drawer-block--subtle">
-          <p class="nav-drawer-block-title">Formas de Pagamento</p>
-          <div class="nav-payment-pills">
-            <span>⚡ Pix com 5% OFF</span>
-            <span>💳 Cartão 2x sem juros</span>
-            <span>💵 Dinheiro</span>
+        <!-- Informações da loja -->
+        <div class="nav-store-info">
+          <div class="nav-store-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            <span>Entrega para todo o Brasil</span>
+          </div>
+          <div class="nav-store-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <span>Troca grátis em 7 dias</span>
+          </div>
+          <div class="nav-store-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span>Artesanal desde 2021</span>
+          </div>
+          <div class="nav-store-info-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="16" height="16"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Pix com 5% de desconto</span>
           </div>
         </div>
 

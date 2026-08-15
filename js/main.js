@@ -1572,4 +1572,40 @@ document.addEventListener('DOMContentLoaded', function () {
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') zoomOverlay.classList.remove('active');
   });
+
+  // --- Nav drawer carousel ---
+  (function () {
+    var track = document.getElementById('navCarouselTrack');
+    var dotsWrap = document.getElementById('navCarouselDots');
+    if (!track || !dotsWrap) return;
+
+    var slides = track.querySelectorAll('.nav-carousel-slide');
+    var current = 0;
+    var timer;
+
+    slides.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.className = 'nav-carousel-dot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i + 1));
+      dot.addEventListener('click', function () { goTo(i); resetTimer(); });
+      dotsWrap.appendChild(dot);
+    });
+
+    function goTo(index) {
+      current = index;
+      track.style.transform = 'translateX(-' + (100 * current) + '%)';
+      dotsWrap.querySelectorAll('.nav-carousel-dot').forEach(function (d, i) {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function resetTimer() {
+      clearInterval(timer);
+      timer = setInterval(function () {
+        goTo((current + 1) % slides.length);
+      }, 3200);
+    }
+
+    resetTimer();
+  })();
 });
