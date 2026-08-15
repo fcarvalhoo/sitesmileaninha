@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=47">
+  <link rel="stylesheet" href="css/style.css?v=48">
   <script src="js/main.js?v=37" defer></script>
   <script type="application/ld+json">
   {
@@ -449,11 +449,13 @@
     </div>
   </section>
 
-  <!-- Barra de Categorias -->
-  <section class="category-bar" id="products-nav">
-    <div class="container">
-      <p class="category-bar-label">O que você procura?</p>
-      <div class="category-pills-wrap">
+  <!-- Products Area: sidebar esquerda + seções de produtos -->
+  <div class="products-area">
+
+    <!-- Sidebar de Categorias -->
+    <aside class="category-sidebar" id="products-nav">
+      <p class="category-sidebar-label">Categorias</p>
+      <div class="category-sidebar-items">
         <button class="category-pill" data-section="bolsas">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="15" height="15"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           Bolsas
@@ -467,8 +469,10 @@
           Artigos Religiosos
         </button>
       </div>
-    </div>
-  </section>
+    </aside>
+
+    <!-- Conteúdo de produtos -->
+    <div class="products-main">
 
   <!-- Bolsas Section -->
   <section class="products-section" id="bolsas">
@@ -902,6 +906,9 @@
       </div>
     </div>
   </section>
+
+    </div><!-- /products-main -->
+  </div><!-- /products-area -->
 
   <!-- Guia de Medidas Panel -->
   <div class="page-panel" id="medidas">
