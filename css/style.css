@@ -773,10 +773,6 @@ img {
 .products-section {
   padding: 80px 0;
   background: var(--white);
-  display: none;
-}
-
-.products-section.active {
   display: block;
 }
 
@@ -1516,9 +1512,16 @@ img {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   gap: 60px;
   align-items: start;
+}
+
+.footer-cols {
+  display: flex;
+  gap: 48px;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 
 .footer-brand {
@@ -1527,14 +1530,6 @@ img {
   gap: 12px;
   align-items: center;
   text-align: center;
-  justify-self: center;
-}
-
-.footer-cols {
-  display: flex;
-  gap: 48px;
-  justify-content: flex-start;
-  align-items: flex-start;
 }
 
 .footer-logo {

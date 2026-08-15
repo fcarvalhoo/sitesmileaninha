@@ -101,41 +101,30 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // --- Show product section by category ---
-  function showSection(sectionId) {
-    document.querySelectorAll('.products-section').forEach(function (s) {
-      s.classList.remove('active');
-    });
+  // --- Scroll to product section by category ---
+  function scrollToSection(sectionId) {
     var target = document.getElementById(sectionId);
     if (target) {
-      target.classList.add('active');
-      setTimeout(function () {
-        var navBar = document.getElementById('products-nav');
-        var top = target.getBoundingClientRect().top + window.scrollY - (navBar ? navBar.offsetHeight + 70 : 80);
-        window.scrollTo({ top: top, behavior: 'smooth' });
-        revealCards();
-      }, 40);
+      var top = target.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: top, behavior: 'smooth' });
     }
-    document.querySelectorAll('.category-pill, .nav-cat-btn').forEach(function (p) {
-      p.classList.toggle('active', p.getAttribute('data-section') === sectionId);
-    });
     closeMenu();
   }
-  window.showSection = showSection;
+  window.scrollToSection = scrollToSection;
 
-  // Category pill clicks (bar + menu)
-  document.querySelectorAll('.category-pill, .nav-cat-btn').forEach(function (btn) {
+  // Category buttons in menu — scroll to section
+  document.querySelectorAll('.nav-cat-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      showSection(this.getAttribute('data-section'));
+      scrollToSection(this.getAttribute('data-section'));
     });
   });
 
-  // Hero "Ver Produtos" button
+  // Hero "Ver Produtos" button — scroll to first section
   var heroViewBtn = document.getElementById('heroViewProducts');
   if (heroViewBtn) {
     heroViewBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      showSection('bolsas');
+      scrollToSection('bolsas');
     });
   }
 
