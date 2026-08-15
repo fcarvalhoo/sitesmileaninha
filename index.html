@@ -35,8 +35,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=43">
-  <script src="js/main.js?v=33" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=42">
+  <script src="js/main.js?v=32" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -382,97 +382,6 @@
     </div>
   </section>
 
-  <!-- Shop Layout: Sidebar + Products -->
-  <div class="shop-wrapper">
-
-    <!-- Mobile filter toggle -->
-    <button class="filter-mobile-toggle" id="filterMobileToggle">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/></svg>
-      Filtros
-    </button>
-    <div class="filter-mobile-overlay" id="filterMobileOverlay"></div>
-
-    <!-- Left Filter Sidebar -->
-    <aside class="filter-sidebar" id="filterSidebar">
-      <div class="filter-sidebar-head">
-        <span>Filtros</span>
-        <button class="filter-clear-all" id="clearAllFilters">Limpar tudo</button>
-      </div>
-
-      <!-- Categoria -->
-      <div class="filter-group open">
-        <button class="filter-group-toggle">
-          Categoria
-          <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="filter-group-body">
-          <label class="filter-label"><input type="checkbox" class="filter-cat" value="bolsas" checked><span>Bolsas</span></label>
-          <label class="filter-label"><input type="checkbox" class="filter-cat" value="pulseiras" checked><span>Pulseiras</span></label>
-          <label class="filter-label"><input type="checkbox" class="filter-cat" value="colares" checked><span>Colares</span></label>
-          <label class="filter-label"><input type="checkbox" class="filter-cat" value="tornozeleiras" checked><span>Tornozeleiras</span></label>
-          <label class="filter-label"><input type="checkbox" class="filter-cat" value="body-chain" checked><span>Body Chain</span></label>
-          <label class="filter-label"><input type="checkbox" class="filter-cat" value="religiosos" checked><span>Artigos Religiosos</span></label>
-        </div>
-      </div>
-
-      <!-- Preço -->
-      <div class="filter-group open">
-        <button class="filter-group-toggle">
-          Faixa de Preço
-          <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="filter-group-body">
-          <label class="filter-label"><input type="radio" name="filter-price" class="filter-price" value="all" checked><span>Todos os preços</span></label>
-          <label class="filter-label"><input type="radio" name="filter-price" class="filter-price" value="0-20"><span>Até R$ 20</span></label>
-          <label class="filter-label"><input type="radio" name="filter-price" class="filter-price" value="20-50"><span>R$ 20 – R$ 50</span></label>
-          <label class="filter-label"><input type="radio" name="filter-price" class="filter-price" value="50-100"><span>R$ 50 – R$ 100</span></label>
-          <label class="filter-label"><input type="radio" name="filter-price" class="filter-price" value="100+"><span>Acima de R$ 100</span></label>
-        </div>
-      </div>
-
-      <!-- Disponibilidade -->
-      <div class="filter-group open">
-        <button class="filter-group-toggle">
-          Disponibilidade
-          <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="filter-group-body">
-          <label class="filter-label"><input type="checkbox" class="filter-avail" value="disponivel" checked><span>Disponível</span></label>
-          <label class="filter-label"><input type="checkbox" class="filter-avail" value="esgotado" checked><span>Esgotado</span></label>
-        </div>
-      </div>
-
-      <!-- Tipo de Peça -->
-      <div class="filter-group">
-        <button class="filter-group-toggle">
-          Tipo de Peça
-          <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="filter-group-body">
-          <label class="filter-label"><input type="checkbox" class="filter-tipo" value="personalizavel" checked><span>Personalizável</span></label>
-          <label class="filter-label"><input type="checkbox" class="filter-tipo" value="religioso" checked><span>Religioso</span></label>
-          <label class="filter-label"><input type="checkbox" class="filter-tipo" value="acessorio" checked><span>Acessório</span></label>
-        </div>
-      </div>
-
-      <!-- Ordenar por -->
-      <div class="filter-group open">
-        <button class="filter-group-toggle">
-          Ordenar por
-          <svg class="filter-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M6 9l6 6 6-6"/></svg>
-        </button>
-        <div class="filter-group-body">
-          <label class="filter-label"><input type="radio" name="sidebar-sort" value="default" checked><span>Padrão</span></label>
-          <label class="filter-label"><input type="radio" name="sidebar-sort" value="low"><span>Menor preço</span></label>
-          <label class="filter-label"><input type="radio" name="sidebar-sort" value="high"><span>Maior preço</span></label>
-        </div>
-      </div>
-
-    </aside>
-
-    <!-- Products Area -->
-    <div class="shop-main">
-
   <!-- Bolsas Section -->
   <section class="products-section" id="bolsas">
     <div class="container">
@@ -488,6 +397,7 @@
             <option value="low">Menor preço</option>
             <option value="high">Maior preço</option>
           </select>
+          <button type="button" class="esgotado-toggle" id="toggleEsgotado">Ocultar esgotados</button>
         </div>
       </div>
       <div class="products-grid">
@@ -879,9 +789,6 @@
       </div>
     </div>
   </section>
-
-    </div><!-- end .shop-main -->
-  </div><!-- end .shop-wrapper -->
 
   <!-- Guia de Medidas Panel -->
   <div class="page-panel" id="medidas">

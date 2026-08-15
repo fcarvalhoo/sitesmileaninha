@@ -1473,88 +1473,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
   updateFavBadge();
 
-  // ===== FILTER SIDEBAR =====
-  var SECTIONS = ['bolsas', 'pulseiras', 'colares', 'tornozeleiras', 'body-chain', 'religiosos'];
-
-  function applyFilters() {
-    var activeCats = Array.from(document.querySelectorAll('.filter-cat:checked')).map(function(c) { return c.value; });
-    var priceRange = (document.querySelector('.filter-price:checked') || {}).value || 'all';
-    var showDisponivel = document.querySelector('.filter-avail[value="disponivel"]').checked;
-    var showEsgotado = document.querySelector('.filter-avail[value="esgotado"]').checked;
-
-    SECTIONS.forEach(function(id) {
-      var section = document.getElementById(id);
-      if (!section) return;
-
-      if (activeCats.indexOf(id) === -1) {
-        section.style.display = 'none';
-        return;
-      }
-      section.style.display = '';
-
-      var anyVisible = false;
-      section.querySelectorAll('.product-card').forEach(function(card) {
-        var btn = card.querySelector('[data-price]');
-        var price = btn ? parseFloat(btn.getAttribute('data-price')) : 0;
-        var isEsgotado = card.classList.contains('product-card--esgotado');
-
-        var priceOk = priceRange === 'all' ||
-          (priceRange === '0-20'   && price <= 20) ||
-          (priceRange === '20-50'  && price > 20 && price <= 50) ||
-          (priceRange === '50-100' && price > 50 && price <= 100) ||
-          (priceRange === '100+'   && price > 100);
-
-        var availOk = isEsgotado ? showEsgotado : showDisponivel;
-
-        var show = priceOk && availOk;
-        card.style.display = show ? '' : 'none';
-        if (show) anyVisible = true;
+  // ===== ESGOTADO TOGGLE =====
+  var hideEsgotados = false;
+  var toggleEsgBtn = document.getElementById('toggleEsgotado');
+  if (toggleEsgBtn) {
+    toggleEsgBtn.addEventListener('click', function() {
+      hideEsgotados = !hideEsgotados;
+      document.querySelectorAll('.product-card--esgotado').forEach(function(c) {
+        c.style.display = hideEsgotados ? 'none' : '';
       });
-
-      if (!anyVisible) section.style.display = 'none';
-    });
-
-    updateAllCounts();
-  }
-
-  // Filter accordion toggles
-  document.querySelectorAll('.filter-group-toggle').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      this.closest('.filter-group').classList.toggle('open');
-    });
-  });
-
-  // Filter inputs trigger applyFilters
-  document.querySelectorAll('.filter-cat, .filter-price, .filter-avail').forEach(function(input) {
-    input.addEventListener('change', applyFilters);
-  });
-
-  // Clear all filters
-  var clearAllBtn = document.getElementById('clearAllFilters');
-  if (clearAllBtn) {
-    clearAllBtn.addEventListener('click', function() {
-      document.querySelectorAll('.filter-cat, .filter-avail').forEach(function(cb) { cb.checked = true; });
-      var defaultPrice = document.querySelector('.filter-price[value="all"]');
-      if (defaultPrice) defaultPrice.checked = true;
-      applyFilters();
-    });
-  }
-
-  // Mobile filter sidebar
-  var filterMobileToggle = document.getElementById('filterMobileToggle');
-  var filterSidebar = document.getElementById('filterSidebar');
-  var filterMobileOverlay = document.getElementById('filterMobileOverlay');
-
-  if (filterMobileToggle && filterSidebar) {
-    filterMobileToggle.addEventListener('click', function() {
-      filterSidebar.classList.add('open');
-      filterMobileOverlay.classList.add('active');
-      lockScroll();
-    });
-    filterMobileOverlay.addEventListener('click', function() {
-      filterSidebar.classList.remove('open');
-      filterMobileOverlay.classList.remove('active');
-      unlockScroll();
+      this.textContent = hideEsgotados ? 'Mostrar esgotados' : 'Ocultar esgotados';
+      this.classList.toggle('active', hideEsgotados);
+      updateAllCounts();
     });
   }
 
