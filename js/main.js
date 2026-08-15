@@ -1629,15 +1629,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
     resetTimer();
   })();
-
-  // --- Newsletter form ---
-  var newsletterForm = document.getElementById('newsletterForm');
-  var newsletterOk = document.getElementById('newsletterOk');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      newsletterForm.style.display = 'none';
-      newsletterOk.style.display = 'block';
-    });
-  }
 });
