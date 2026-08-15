@@ -103,23 +103,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Mostrar seção por categoria ---
   function showSection(sectionId) {
-    // 1. Fecha o menu primeiro
+    // 1. Fecha o menu
     closeMenu();
-
-    // 2. Ativa a seção imediatamente (ainda escondida pelo menu)
-    document.querySelectorAll('.products-section').forEach(function (s) {
-      s.classList.remove('active');
-    });
-    var target = document.getElementById(sectionId);
-    if (target) { target.classList.add('active'); }
 
     document.querySelectorAll('.category-filter-btn').forEach(function (b) {
       b.classList.toggle('active', b.getAttribute('data-section') === sectionId);
     });
 
-    // 3. Aguarda a animação do menu fechar (320ms) e então rola para a seção
+    // 2. Espera o menu fechar completamente (transição = 320ms)
+    //    Só então exibe a seção e rola até ela
     setTimeout(function () {
+      document.querySelectorAll('.products-section').forEach(function (s) {
+        s.classList.remove('active');
+      });
+      var target = document.getElementById(sectionId);
       if (target) {
+        target.classList.add('active');
         var top = target.getBoundingClientRect().top + window.scrollY - 80;
         window.scrollTo({ top: top, behavior: 'smooth' });
         revealCards();
