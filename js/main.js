@@ -102,30 +102,71 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // --- Mostrar seção por categoria ---
+  var categoryNames = {
+    'bolsas': 'Bolsas',
+    'pulseiras': 'Pulseiras',
+    'colares': 'Colares',
+    'tornozeleiras': 'Tornozeleiras',
+    'body-chain': 'Body Chain',
+    'religiosos': 'Artigos Religiosos'
+  };
+
   function showSection(sectionId) {
-    // 1. Fecha o menu
     closeMenu();
 
     document.querySelectorAll('.category-filter-btn').forEach(function (b) {
       b.classList.toggle('active', b.getAttribute('data-section') === sectionId);
     });
 
-    // 2. Espera o menu fechar completamente (transição = 320ms)
-    //    Só então exibe a seção e rola até ela
     setTimeout(function () {
+      // Entra no modo de página de categoria (esconde hero, destaques, etc.)
+      document.body.classList.add('category-mode');
+
+      // Atualiza o título da barra de voltar
+      var titleEl = document.getElementById('categoryPageTitle');
+      if (titleEl) titleEl.textContent = categoryNames[sectionId] || sectionId;
+
       document.querySelectorAll('.products-section').forEach(function (s) {
         s.classList.remove('active');
       });
       var target = document.getElementById(sectionId);
       if (target) {
         target.classList.add('active');
-        var top = target.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: top, behavior: 'smooth' });
+        // Rola para o topo — hero/destaques estão escondidos, então os produtos ficam no início
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         revealCards();
       }
     }, 360);
   }
   window.showSection = showSection;
+
+  // --- Botão Voltar da página de categoria ---
+  function exitCategoryMode() {
+    document.body.classList.remove('category-mode');
+    document.querySelectorAll('.category-filter-btn').forEach(function (b) {
+      b.classList.remove('active');
+    });
+    document.querySelectorAll('.products-section').forEach(function (s) {
+      s.classList.remove('active');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  var categoryBackBtn = document.getElementById('categoryBackBtn');
+  if (categoryBackBtn) {
+    categoryBackBtn.addEventListener('click', exitCategoryMode);
+  }
+
+  // Logo também sai do modo categoria
+  var navLogo = document.querySelector('.nav-logo');
+  if (navLogo) {
+    navLogo.addEventListener('click', function (e) {
+      if (document.body.classList.contains('category-mode')) {
+        e.preventDefault();
+        exitCategoryMode();
+      }
+    });
+  }
 
   // Barra de filtros de categoria
   document.querySelectorAll('.category-filter-btn').forEach(function (btn) {

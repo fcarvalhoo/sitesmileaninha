@@ -5556,3 +5556,61 @@ img {
     background: var(--bg-main);
   }
 }
+
+/* ===== Category Page Mode ===== */
+
+/* When a category is active, hide the "above the fold" sections */
+body.category-mode .hero,
+body.category-mode .trust-bar,
+body.category-mode .stats-section,
+body.category-mode .destaques-section {
+  display: none !important;
+}
+
+/* Category back bar — hidden by default, shown in category mode */
+.category-page-bar {
+  display: none;
+  background: var(--bg-main);
+  border-bottom: 1px solid rgba(45,26,36,0.09);
+  padding: 14px 0;
+  margin-bottom: 0;
+}
+
+body.category-mode .category-page-bar {
+  display: block;
+}
+
+.category-page-bar .container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.category-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1.5px solid rgba(45,26,36,0.15);
+  border-radius: 8px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dark);
+  cursor: pointer;
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+  flex-shrink: 0;
+}
+
+.category-back-btn:hover {
+  border-color: var(--rose-cta);
+  color: var(--rose-cta);
+  background: var(--rose-soft);
+}
+
+.category-page-bar-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
