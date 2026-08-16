@@ -4225,17 +4225,19 @@ img {
 .zoom-close:hover { background: rgba(255,255,255,0.25); }
 
 
-/* ===== Mobile sticky modal actions ===== */
+/* ===== Mobile fixed modal actions ===== */
 @media (max-width: 768px) {
   .product-modal-actions {
-    position: sticky;
+    position: fixed !important;
     bottom: 0;
-    background: var(--white);
-    padding: 12px 0 20px;
-    margin-top: 4px;
-    border-top: 1px solid rgba(0,0,0,0.07);
-    box-shadow: 0 -6px 24px rgba(45,26,36,0.09);
-    z-index: 5;
+    left: 0;
+    right: 0;
+    padding: 12px 16px env(safe-area-inset-bottom, 16px) !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    z-index: 1000;
   }
 }
 
