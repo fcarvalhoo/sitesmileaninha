@@ -860,7 +860,6 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('modalCep').value = '';
 
     renderCompleteLook(name);
-    renderReviews(name);
     productModal.classList.add('active');
     lockScroll();
     history.pushState({ productModal: true }, '', '#produto=' + encodeURIComponent(name));
@@ -1976,75 +1975,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // --- Avaliações ---
-  var reviewsAddBtn = document.getElementById('modalReviewsAddBtn');
-  var reviewsForm = document.getElementById('modalReviewsForm');
-  var reviewsCancel = document.getElementById('modalReviewsCancel');
-
-  if (reviewsAddBtn && reviewsForm) {
-    reviewsAddBtn.addEventListener('click', function () {
-      reviewsForm.style.display = 'block';
-      reviewsAddBtn.style.display = 'none';
-      reviewsForm.reset();
-      document.getElementById('modalStarInput').setAttribute('data-rating', '0');
-      updateStarDisplay(0);
-    });
-  }
-  if (reviewsCancel) {
-    reviewsCancel.addEventListener('click', function () {
-      reviewsForm.style.display = 'none';
-      if (reviewsAddBtn) reviewsAddBtn.style.display = 'flex';
-    });
-  }
-
-  // Star input interação
-  var starInput = document.getElementById('modalStarInput');
-  if (starInput) {
-    starInput.querySelectorAll('button').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var rating = parseInt(this.getAttribute('data-star'));
-        starInput.setAttribute('data-rating', rating);
-        updateStarDisplay(rating);
-      });
-      btn.addEventListener('mouseover', function () {
-        updateStarDisplay(parseInt(this.getAttribute('data-star')));
-      });
-      btn.addEventListener('mouseleave', function () {
-        updateStarDisplay(parseInt(starInput.getAttribute('data-rating') || '0'));
-      });
-    });
-  }
-
-  if (reviewsForm) {
-    reviewsForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var rating = parseInt(document.getElementById('modalStarInput').getAttribute('data-rating') || '0');
-      if (rating === 0) {
-        document.getElementById('modalStarHint').textContent = 'Selecione uma nota antes de enviar!';
-        return;
-      }
-      var reviewName = document.getElementById('modalReviewName').value.trim();
-      var comment = document.getElementById('modalReviewComment').value.trim();
-      var productName = modalProduct ? modalProduct.name : '';
-      var review = { name: reviewName, stars: rating, comment: comment, date: Date.now() };
-      saveReview(productName, review);
-      // Notifica Ana Livia via WhatsApp
-      var stars = Array(rating + 1).join('★') + Array(6 - rating).join('☆');
-      var msg = encodeURIComponent(
-        '🌸 Nova avaliação na Smile Miçangas!\n\n' +
-        'Produto: ' + productName + '\n' +
-        'Nota: ' + stars + '\n' +
-        'Cliente: ' + reviewName + '\n' +
-        (comment ? 'Comentário: ' + comment : '')
-      );
-      window.open('https://wa.me/' + WHATSAPP_NUM + '?text=' + msg, '_blank');
-      renderReviews(productName);
-      reviewsForm.style.display = 'none';
-      if (reviewsAddBtn) reviewsAddBtn.style.display = 'flex';
-      showToast('Avaliação publicada! Obrigada ✨');
-    });
-  }
-
   // --- Firebase Auth ---
   initFirebaseAuth();
 });
@@ -2074,68 +2004,6 @@ function getBrevoListId(key) {
   return cfg[key] || 3;
 }
 
-// Avaliações: localStorage
-function loadReviews(productName) {
-  var all = JSON.parse(localStorage.getItem('sm_reviews') || '{}');
-  return all[productName] || [];
-}
-function saveReview(productName, review) {
-  var all = JSON.parse(localStorage.getItem('sm_reviews') || '{}');
-  if (!all[productName]) all[productName] = [];
-  all[productName].unshift(review);
-  localStorage.setItem('sm_reviews', JSON.stringify(all));
-}
-function renderReviews(productName) {
-  var reviews = loadReviews(productName);
-  var listEl = document.getElementById('modalReviewsList');
-  var statsEl = document.getElementById('modalReviewsStats');
-  var addBtn = document.getElementById('modalReviewsAddBtn');
-  var form = document.getElementById('modalReviewsForm');
-  if (!listEl) return;
-  if (form) form.style.display = 'none';
-  if (addBtn) addBtn.style.display = 'flex';
-
-  if (reviews.length === 0) {
-    if (statsEl) statsEl.innerHTML = '';
-    listEl.innerHTML = '<p class="modal-reviews-empty">Nenhuma avaliação ainda. Seja o primeiro!</p>';
-    return;
-  }
-  var avg = reviews.reduce(function (a, r) { return a + r.stars; }, 0) / reviews.length;
-  if (statsEl) {
-    statsEl.innerHTML = '<span class="reviews-avg">' + avg.toFixed(1) + '</span>' +
-      renderStarsHtml(Math.round(avg)) + '<span class="reviews-count">(' + reviews.length + ')</span>';
-  }
-  listEl.innerHTML = reviews.map(function (r) {
-    var dateStr = r.date ? new Date(r.date).toLocaleDateString('pt-BR') : '';
-    return '<div class="review-item">' +
-      '<div class="review-item-top">' +
-        '<span class="review-name">' + escapeHtml(r.name) + '</span>' +
-        '<span class="review-stars-row">' + renderStarsHtml(r.stars) + '</span>' +
-        (dateStr ? '<span class="review-date">' + dateStr + '</span>' : '') +
-      '</div>' +
-      (r.comment ? '<p class="review-comment">' + escapeHtml(r.comment) + '</p>' : '') +
-    '</div>';
-  }).join('');
-}
-window.renderReviews = renderReviews;
-
-function renderStarsHtml(n) {
-  var html = '';
-  for (var i = 1; i <= 5; i++) {
-    html += '<span class="' + (i <= n ? 'star-on' : 'star-off') + '">★</span>';
-  }
-  return html;
-}
-function updateStarDisplay(n) {
-  var si = document.getElementById('modalStarInput');
-  if (!si) return;
-  si.querySelectorAll('button').forEach(function (btn) {
-    btn.classList.toggle('star-active', parseInt(btn.getAttribute('data-star')) <= n);
-  });
-  var hint = document.getElementById('modalStarHint');
-  var labels = ['', 'Ruim', 'Regular', 'Bom', 'Ótimo', 'Excelente!'];
-  if (hint) hint.textContent = n > 0 ? labels[n] : 'Toque nas estrelas para avaliar';
-}
 function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
