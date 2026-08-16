@@ -1162,7 +1162,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   // --- Page panels (Medidas, Cuidados, Contato) ---
-  var panelIds = ['medidas', 'cuidados', 'contato', 'sobre', 'trocas', 'fale-conosco', 'avaliacoes', 'parcerias', 'duvidas', 'pagamentos', 'frete-info', 'termos', 'privacidade'];
+  var panelIds = ['medidas', 'cuidados', 'contato', 'sobre', 'trocas', 'fale-conosco', 'avaliacoes', 'parcerias', 'duvidas', 'pagamentos', 'frete-info', 'termos', 'privacidade', 'minha-conta', 'criar-conta'];
 
   function openPanel(id) {
     var panel = document.getElementById(id);
@@ -1674,13 +1674,23 @@ document.addEventListener('DOMContentLoaded', function () {
     resetTimer();
   })();
 
-  // --- Newsletter ---
+  // --- Newsletter (footer) ---
   var newsletterForm = document.getElementById('newsletterForm');
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
       newsletterForm.style.display = 'none';
       document.getElementById('newsletterOk').style.display = 'block';
+    });
+  }
+
+  // --- Newsletter (painel Criar Conta) ---
+  var panelNewsletterForm = document.getElementById('panelNewsletterForm');
+  if (panelNewsletterForm) {
+    panelNewsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      panelNewsletterForm.style.display = 'none';
+      document.getElementById('panelNewsletterOk').style.display = 'block';
     });
   }
 });
