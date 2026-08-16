@@ -6302,10 +6302,24 @@ body.category-mode .cart-toggle svg {
     font-size: 17px;
   }
 
-  /* Sticky actions — separar visualmente da informação acima */
+  /* Sticky actions — bottom sheet premium */
   .product-modal-actions {
-    padding: 10px 16px 24px !important;
+    padding: 14px 20px 28px !important;
     margin: 0 !important;
+    border-top: none !important;
+    border-radius: 22px 22px 0 0;
+    box-shadow: 0 -4px 32px rgba(45,26,36,0.13) !important;
+    background: var(--white) !important;
+  }
+  .modal-btn-primary {
+    border-radius: 50px;
+    font-size: 14px;
+    padding: 16px;
+  }
+  .modal-btn-secondary {
+    border-radius: 50px;
+    font-size: 13px;
+    padding: 13px 16px;
   }
 }
 
