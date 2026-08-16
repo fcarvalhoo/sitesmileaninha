@@ -693,8 +693,10 @@ document.addEventListener('DOMContentLoaded', function () {
   function renderGallery(imgs, name) {
     var track = document.getElementById('modalGalleryTrack');
     var dots = document.getElementById('modalGalleryDots');
+    var thumbs = document.getElementById('modalGalleryThumbs');
     track.innerHTML = '';
     dots.innerHTML = '';
+    thumbs.innerHTML = '';
     galleryImgs = imgs;
     galleryIndex = 0;
 
@@ -713,17 +715,31 @@ document.addEventListener('DOMContentLoaded', function () {
     nextBtn.style.display = hasMultiple ? '' : 'none';
 
     if (hasMultiple) {
-      imgs.forEach(function (_, i) {
+      imgs.forEach(function (src, i) {
         var dot = document.createElement('button');
         dot.className = 'modal-gallery-dot' + (i === 0 ? ' active' : '');
         dot.setAttribute('data-index', i);
         dot.setAttribute('aria-label', 'Foto ' + (i + 1));
         dot.addEventListener('click', function () { goToSlide(parseInt(this.getAttribute('data-index'))); });
         dots.appendChild(dot);
+
+        var thumb = document.createElement('button');
+        thumb.type = 'button';
+        thumb.className = 'modal-gallery-thumb' + (i === 0 ? ' active' : '');
+        thumb.setAttribute('data-index', i);
+        thumb.setAttribute('aria-label', 'Ver foto ' + (i + 1));
+        var thumbImg = document.createElement('img');
+        thumbImg.src = src;
+        thumbImg.alt = name;
+        thumb.appendChild(thumbImg);
+        thumb.addEventListener('click', function () { goToSlide(parseInt(this.getAttribute('data-index'))); });
+        thumbs.appendChild(thumb);
       });
       dots.style.display = 'flex';
+      thumbs.style.display = '';
     } else {
       dots.style.display = 'none';
+      thumbs.style.display = 'none';
     }
 
     goToSlide(0);
@@ -735,6 +751,9 @@ document.addEventListener('DOMContentLoaded', function () {
     track.style.transform = 'translateX(' + (-index * 100) + '%)';
     document.querySelectorAll('.modal-gallery-dot').forEach(function (d, i) {
       d.classList.toggle('active', i === index);
+    });
+    document.querySelectorAll('.modal-gallery-thumb').forEach(function (t, i) {
+      t.classList.toggle('active', i === index);
     });
     var prev = document.getElementById('galleryPrev');
     var next = document.getElementById('galleryNext');
@@ -1916,13 +1935,26 @@ document.addEventListener('DOMContentLoaded', function () {
   var zoomOverlay = document.getElementById('zoomOverlay');
   var zoomImg = document.getElementById('zoomImg');
 
-  document.getElementById('modalGalleryTrack').addEventListener('click', function(e) {
-    var img = e.target.closest('.modal-gallery-img');
-    if (!img || window.innerWidth <= 768) return;
+  function openZoom(img) {
+    if (!img) return;
     zoomImg.src = img.src;
     zoomImg.alt = img.alt;
     zoomOverlay.classList.add('active');
+  }
+
+  document.getElementById('modalGalleryTrack').addEventListener('click', function(e) {
+    var img = e.target.closest('.modal-gallery-img');
+    if (!img || window.innerWidth <= 768) return;
+    openZoom(img);
   });
+
+  var galleryZoomBtn = document.getElementById('galleryZoomBtn');
+  if (galleryZoomBtn) {
+    galleryZoomBtn.addEventListener('click', function () {
+      var activeImg = document.querySelectorAll('.modal-gallery-img')[galleryIndex];
+      openZoom(activeImg);
+    });
+  }
 
   document.getElementById('zoomClose').addEventListener('click', function() {
     zoomOverlay.classList.remove('active');
