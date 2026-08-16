@@ -534,6 +534,105 @@ document.addEventListener('DOMContentLoaded', function () {
   var modalProduct = {};
   var pendingCartFixName = null;
 
+  // Mapa de cores para "Complete o look"
+  var productColorMap = {
+    'Bolsa Azul Cristal':          'azul',
+    'Bolsa Verde Neon':            'verde',
+    'Bolsa Rosa Cristal':          'rosa',
+    'Bolsa Coração':               'azul',
+    'Pulseira Vermelha':           'vermelho',
+    'Pulseira Colorida':           'colorido',
+    'Pulseira Signo':              'rosa',
+    'Pulseira Neon':               'verde',
+    'Colar Laranja com Pingente':  'laranja',
+    'Colar Colorido Estrela do Mar': 'colorido',
+    'Colar Rosa com Pingente':     'rosa',
+    'Colar Dourado Smile':         'dourado',
+    'Tornozeleira Rosa':           'rosa',
+    'Tornozeleira Colorida':       'colorido',
+    'Tornozeleira Olho Grego':     'azul',
+    'Body Chain Cristal Azul':     'azul',
+    'Body Chain Colorido':         'colorido',
+    'Terço Lilás Dourado':         'lilas',
+    'Terço Branco Dourado':        'dourado',
+    'Terço Cristal Transparente':  'transparente',
+    'Terço Rosa Personalizado':    'rosa',
+    'Terço Religioso Dourado':     'dourado',
+    'Chaveiro Religioso':          'dourado'
+  };
+
+  function renderCompleteLook(currentName) {
+    var wrap = document.getElementById('modalCompleteLook');
+    var grid = document.getElementById('modalCompleteLookGrid');
+    if (!wrap || !grid) return;
+
+    var currentColor = productColorMap[currentName];
+    if (!currentColor) { wrap.style.display = 'none'; return; }
+
+    // Encontra até 2 produtos com a mesma cor, excluindo o atual e esgotados
+    var matches = [];
+    document.querySelectorAll('.product-card:not(.product-card--esgotado)').forEach(function (card) {
+      if (matches.length >= 2) return;
+      var nameEl = card.querySelector('.product-name');
+      if (!nameEl) return;
+      var name = nameEl.textContent.trim();
+      if (name === currentName) return;
+      if (productColorMap[name] === currentColor) {
+        var img = card.querySelector('.product-image img');
+        var buyBtn = card.querySelector('.add-to-cart-btn');
+        if (!img || !buyBtn) return;
+        matches.push({
+          name: name,
+          price: parseFloat(buyBtn.getAttribute('data-price')),
+          img: img.getAttribute('src')
+        });
+      }
+    });
+
+    if (matches.length === 0) { wrap.style.display = 'none'; return; }
+
+    grid.innerHTML = '';
+    matches.forEach(function (p) {
+      var item = document.createElement('div');
+      item.className = 'complete-look-item';
+
+      var imgEl = document.createElement('img');
+      imgEl.src = p.img;
+      imgEl.alt = p.name;
+      imgEl.loading = 'lazy';
+
+      var info = document.createElement('div');
+      info.className = 'complete-look-info';
+
+      var nameEl = document.createElement('p');
+      nameEl.className = 'complete-look-name';
+      nameEl.textContent = p.name;
+
+      var priceEl = document.createElement('p');
+      priceEl.className = 'complete-look-price';
+      priceEl.textContent = 'R$ ' + p.price.toFixed(2).replace('.', ',');
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'complete-look-btn';
+      btn.textContent = 'Ver peça';
+      (function (prod) {
+        btn.addEventListener('click', function () {
+          openProductModal(prod.name, prod.price, [prod.img]);
+        });
+      })(p);
+
+      info.appendChild(nameEl);
+      info.appendChild(priceEl);
+      info.appendChild(btn);
+      item.appendChild(imgEl);
+      item.appendChild(info);
+      grid.appendChild(item);
+    });
+
+    wrap.style.display = 'block';
+  }
+
   var productDescriptions = {
     'bolsa': 'Bolsa artesanal feita com cristais de alta qualidade. Perfeita para festas e eventos especiais.',
     'pulseira': 'Pulseira artesanal feita com miçangas selecionadas. Ideal para presentear ou usar no dia a dia.',
@@ -717,6 +816,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('modalFreteResult').textContent = '';
     document.getElementById('modalCep').value = '';
 
+    renderCompleteLook(name);
     productModal.classList.add('active');
     lockScroll();
     history.pushState({ productModal: true }, '', '#produto=' + encodeURIComponent(name));
