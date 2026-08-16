@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';
-    window.scrollTo(0, restoreY);
+    window.scrollTo({ top: restoreY, behavior: 'instant' });
     window.scrollTo(0, scrollLockY);
   }
 
