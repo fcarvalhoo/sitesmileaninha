@@ -2018,7 +2018,7 @@ document.addEventListener('DOMContentLoaded', function () {
       aviseMeForm.style.display = 'none';
       var msgEl = document.getElementById('modalAviseMeMsg');
       if (msgEl) {
-        msgEl.textContent = '✓ Te avisaremos quando "' + productName + '" voltar!';
+        msgEl.textContent = 'Registrado! Te avisaremos quando "' + productName + '" voltar!';
         msgEl.style.display = 'block';
       }
     });
