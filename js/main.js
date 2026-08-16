@@ -1341,8 +1341,26 @@ document.addEventListener('DOMContentLoaded', function () {
       }, 420);
     }
 
-    prevArrow.addEventListener('click', function () { slideDestaques(-1); });
-    nextArrow.addEventListener('click', function () { slideDestaques(1); });
+    prevArrow.addEventListener('click', function () { slideDestaques(-1); resetAutoPlay(); });
+    nextArrow.addEventListener('click', function () { slideDestaques(1); resetAutoPlay(); });
+
+    // Auto-play a cada 5 segundos
+    var autoPlayTimer;
+    function startAutoPlay() {
+      autoPlayTimer = setInterval(function () { slideDestaques(1); }, 5000);
+    }
+    function resetAutoPlay() {
+      clearInterval(autoPlayTimer);
+      startAutoPlay();
+    }
+    startAutoPlay();
+
+    // Pausa ao passar o mouse por cima
+    var destaquesSection = destaquesTrack.closest('.destaques-section');
+    if (destaquesSection) {
+      destaquesSection.addEventListener('mouseenter', function () { clearInterval(autoPlayTimer); });
+      destaquesSection.addEventListener('mouseleave', startAutoPlay);
+    }
 
     // Click on destaque card opens modal (delegated — works for clones too)
     destaquesTrack.addEventListener('click', function (e) {
