@@ -6536,3 +6536,27 @@ body.category-mode .cart-toggle svg {
     padding: 7px 0;
   }
 }
+
+/* Nav drawer mobile: reduzir seções acima dos quick links */
+@media (max-width: 768px) {
+  .nav-search-wrap {
+    padding: 10px 14px;
+  }
+  .nav-categories-section {
+    padding: 10px 14px 4px;
+  }
+  .nav-tile-img {
+    width: 44px;
+    height: 44px;
+  }
+  .nav-category-tile {
+    padding: 8px 4px;
+    gap: 5px;
+  }
+  .nav-category-tile span {
+    font-size: 10px;
+  }
+  .nav-category-tiles {
+    gap: 8px;
+  }
+}
