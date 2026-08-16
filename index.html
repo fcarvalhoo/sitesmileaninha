@@ -35,7 +35,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=80">
+  <link rel="stylesheet" href="css/style.css?v=73">
   <script src="js/config.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js" defer></script>
   <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js" defer></script>
@@ -1174,6 +1174,12 @@
           <p id="modalAviseMeMsg" class="modal-avise-msg" style="display:none"></p>
         </div>
 
+        <div class="product-modal-actions">
+          <button type="button" id="modalBuyNow" class="modal-btn-primary">COMPRAR AGORA</button>
+          <button type="button" id="modalAddCart" class="modal-btn-secondary">ADICIONAR AO CARRINHO</button>
+          <p id="modalAddedMsg" class="modal-added-msg"></p>
+        </div>
+
         <!-- Trust badges -->
         <div class="modal-trust-badges">
           <div class="modal-trust-item">
@@ -1235,14 +1241,6 @@
 
       </div>
     </div>
-
-    <!-- Ações fixas no rodapé do modal (fora da área scrollável) -->
-    <div class="product-modal-actions">
-      <button type="button" id="modalBuyNow" class="modal-btn-primary">COMPRAR AGORA</button>
-      <button type="button" id="modalAddCart" class="modal-btn-secondary">ADICIONAR AO CARRINHO</button>
-      <p id="modalAddedMsg" class="modal-added-msg"></p>
-    </div>
-
   </div>
 
   <!-- Footer -->
