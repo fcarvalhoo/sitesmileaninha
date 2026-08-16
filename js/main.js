@@ -34,21 +34,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // --- Scroll lock (iOS-safe) ---
   var scrollLockY = 0;
+  var scrollLockDepth = 0;
   function lockScroll() {
-    scrollLockY = window.scrollY;
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = '-' + scrollLockY + 'px';
-    document.body.style.width = '100%';
+    if (scrollLockDepth === 0) {
+      scrollLockY = window.scrollY;
+      document.body.style.overflow = 'hidden';
+      document.body.style.position = 'fixed';
+      document.body.style.top = '-' + scrollLockY + 'px';
+      document.body.style.width = '100%';
+    }
+    scrollLockDepth++;
   }
   function unlockScroll() {
-    var restoreY = scrollLockY || 0;
+    if (scrollLockDepth <= 0) return;
+    scrollLockDepth--;
+    if (scrollLockDepth > 0) return;
+    var restoreY = scrollLockY;
     document.body.style.overflow = '';
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';
     window.scrollTo({ top: restoreY, behavior: 'instant' });
-    window.scrollTo(0, scrollLockY);
   }
 
   // --- Mobile menu ---
