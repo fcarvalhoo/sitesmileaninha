@@ -6239,9 +6239,9 @@ body.category-mode .cart-toggle svg {
     padding-bottom: 16px;
   }
 
-  /* Quick links: fluxo normal — o drawer tem overflow-y:auto */
+  /* Quick links: ancora no fundo; overflow-y:auto cuida do scroll em telas pequenas */
   .nav-quick-links {
-    margin-top: 0;
+    margin-top: auto;
     padding-bottom: env(safe-area-inset-bottom, 16px);
   }
 }
