@@ -1462,57 +1462,99 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // --- Destaques Carousel (infinite loop) ---
+  // --- Destaques Carousel (infinite loop + touch/swipe) ---
   var destaquesTrack = document.getElementById('destaquesTrack');
+  var destaquesWrap = document.querySelector('.destaques-track-wrap');
   var prevArrow = document.querySelector('.destaque-arrow--prev');
   var nextArrow = document.querySelector('.destaque-arrow--next');
 
-  if (destaquesTrack && prevArrow && nextArrow) {
-    var CARD_W = 260; // 240px + 20px gap
+  if (destaquesTrack && destaquesWrap) {
     var dAnimating = false;
     var dIndex = 0;
+    var autoPlayTimer;
 
     // Clone all cards before and after for infinite loop
     var origCards = Array.from(destaquesTrack.children);
     var dTotal = origCards.length;
-
     origCards.forEach(function (c) { destaquesTrack.appendChild(c.cloneNode(true)); });
     origCards.slice().reverse().forEach(function (c) {
       destaquesTrack.insertBefore(c.cloneNode(true), destaquesTrack.firstChild);
     });
 
-    // Start at first real card (after prepended clones)
+    // Disable native scroll — use JS loop on all screen sizes
+    destaquesWrap.style.overflow = 'hidden';
+
+    function getCardW() {
+      var card = destaquesTrack.querySelector('.destaque-card');
+      return card ? card.getBoundingClientRect().width + 20 : 260;
+    }
+
+    function jumpTo(idx, animated) {
+      var cw = getCardW();
+      destaquesTrack.style.transition = animated
+        ? 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+        : 'none';
+      destaquesTrack.style.transform = 'translateX(-' + (idx * cw) + 'px)';
+    }
+
+    // Start at first real card
     dIndex = dTotal;
-    destaquesTrack.style.transition = 'none';
-    destaquesTrack.style.transform = 'translateX(-' + (dIndex * CARD_W) + 'px)';
+    jumpTo(dIndex, false);
 
     function slideDestaques(dir) {
       if (dAnimating) return;
       dAnimating = true;
       dIndex += dir;
-      destaquesTrack.style.transition = 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-      destaquesTrack.style.transform = 'translateX(-' + (dIndex * CARD_W) + 'px)';
-
+      jumpTo(dIndex, true);
       setTimeout(function () {
-        // Silently jump back when entering clone territory
         if (dIndex < dTotal) {
           dIndex += dTotal;
-          destaquesTrack.style.transition = 'none';
-          destaquesTrack.style.transform = 'translateX(-' + (dIndex * CARD_W) + 'px)';
+          jumpTo(dIndex, false);
         } else if (dIndex >= dTotal * 2) {
           dIndex -= dTotal;
-          destaquesTrack.style.transition = 'none';
-          destaquesTrack.style.transform = 'translateX(-' + (dIndex * CARD_W) + 'px)';
+          jumpTo(dIndex, false);
         }
         dAnimating = false;
       }, 420);
     }
 
-    prevArrow.addEventListener('click', function () { slideDestaques(-1); resetAutoPlay(); });
-    nextArrow.addEventListener('click', function () { slideDestaques(1); resetAutoPlay(); });
+    // Touch / swipe
+    var touchStartX = 0;
+    var touchDeltaX = 0;
+    destaquesTrack.addEventListener('touchstart', function (e) {
+      if (dAnimating) return;
+      touchStartX = e.touches[0].clientX;
+      touchDeltaX = 0;
+      clearInterval(autoPlayTimer);
+    }, { passive: true });
 
-    // Auto-play a cada 5 segundos
-    var autoPlayTimer;
+    destaquesTrack.addEventListener('touchmove', function (e) {
+      if (dAnimating) return;
+      touchDeltaX = e.touches[0].clientX - touchStartX;
+      var cw = getCardW();
+      destaquesTrack.style.transition = 'none';
+      destaquesTrack.style.transform = 'translateX(-' + (dIndex * cw - touchDeltaX) + 'px)';
+    }, { passive: true });
+
+    destaquesTrack.addEventListener('touchend', function () {
+      var threshold = 50;
+      if (Math.abs(touchDeltaX) > threshold) {
+        slideDestaques(touchDeltaX < 0 ? 1 : -1);
+      } else {
+        // Snap back to current card
+        dAnimating = true;
+        jumpTo(dIndex, true);
+        setTimeout(function () { dAnimating = false; }, 420);
+      }
+      resetAutoPlay();
+    });
+
+    // Recalculate position on resize
+    window.addEventListener('resize', function () { jumpTo(dIndex, false); });
+
+    if (prevArrow) prevArrow.addEventListener('click', function () { slideDestaques(-1); resetAutoPlay(); });
+    if (nextArrow) nextArrow.addEventListener('click', function () { slideDestaques(1); resetAutoPlay(); });
+
     function startAutoPlay() {
       autoPlayTimer = setInterval(function () { slideDestaques(1); }, 5000);
     }
@@ -1522,7 +1564,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     startAutoPlay();
 
-    // Pausa ao passar o mouse por cima
     var destaquesSection = destaquesTrack.closest('.destaques-section');
     if (destaquesSection) {
       destaquesSection.addEventListener('mouseenter', function () { clearInterval(autoPlayTimer); });
