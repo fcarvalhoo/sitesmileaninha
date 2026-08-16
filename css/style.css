@@ -6302,14 +6302,14 @@ body.category-mode .cart-toggle svg {
     font-size: 17px;
   }
 
-  /* Sticky actions — barra fixa simples */
+  /* Sticky actions — só os botões, sem card */
   .product-modal-actions {
     padding: 12px 16px env(safe-area-inset-bottom, 16px) !important;
     margin: 0 !important;
     border-radius: 0 !important;
-    border-top: 1px solid rgba(45,26,36,0.08) !important;
-    box-shadow: 0 -4px 16px rgba(45,26,36,0.08) !important;
-    background: var(--white) !important;
+    border-top: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
   }
 }
 
