@@ -778,11 +778,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderGallery(imgs, name);
     document.getElementById('modalName').textContent = name;
+
+    var badgeEl = document.getElementById('modalBadge');
+    if (badgeEl) {
+      var allCards = document.querySelectorAll('.product-card');
+      var sourceCard = null;
+      allCards.forEach(function(card) {
+        var n = card.querySelector('.product-name');
+        if (n && n.textContent.trim() === name) sourceCard = card;
+      });
+      var cardBadge = sourceCard ? sourceCard.querySelector('.product-badge:not(.product-badge--esgotado)') : null;
+      if (cardBadge) {
+        badgeEl.textContent = cardBadge.textContent;
+        badgeEl.style.display = 'inline-block';
+      } else {
+        badgeEl.style.display = 'none';
+      }
+    }
+
     document.getElementById('modalPrice').textContent = 'R$ ' + price.toFixed(2).replace('.', ',');
     var instEl = document.getElementById('modalInstallment');
     if (instEl) {
       var inst2x = (price / 2).toFixed(2).replace('.', ',');
       instEl.textContent = 'ou 2x de R$ ' + inst2x + ' sem juros';
+    }
+    var pixEl = document.getElementById('modalPixPrice');
+    if (pixEl) {
+      var pixPrice = (price * 0.95).toFixed(2).replace('.', ',');
+      pixEl.textContent = 'R$ ' + pixPrice + ' no Pix (5% OFF)';
+      pixEl.style.display = 'block';
     }
     document.getElementById('modalDesc').textContent = productDescriptions[cat] || '';
     document.getElementById('modalQty').textContent = '1';
@@ -806,8 +830,8 @@ document.addEventListener('DOMContentLoaded', function () {
         sizeOpts.appendChild(btn);
       });
     } else {
-      sizeGroup.style.display = 'block';
-      sizeOpts.innerHTML = '<button type="button" class="modal-size-btn active" data-size="Tamanho Único">Tamanho Único</button>';
+      sizeGroup.style.display = 'none';
+      sizeOpts.innerHTML = '<button type="button" class="modal-size-btn active" data-size="Tamanho Único" style="display:none">Tamanho Único</button>';
     }
 
     document.querySelectorAll('.modal-accordion-content').forEach(function (c) { c.classList.remove('open'); });
