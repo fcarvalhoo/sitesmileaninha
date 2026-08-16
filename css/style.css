@@ -6289,7 +6289,7 @@ body.category-mode .cart-toggle svg {
 /* ---- 6. PRODUCT MODAL INFO — PADDING BOTTOM PARA STICKY ACTIONS ---- */
 @media (max-width: 768px) {
   .product-modal-info {
-    padding-bottom: 100px !important;
+    padding-bottom: 120px !important;
   }
 
   /* Product page nav bar mais compacto */
@@ -6302,13 +6302,13 @@ body.category-mode .cart-toggle svg {
     font-size: 17px;
   }
 
-  /* Sticky actions — bottom sheet premium */
+  /* Sticky actions — floating card premium */
   .product-modal-actions {
-    padding: 14px 20px 28px !important;
-    margin: 0 !important;
+    padding: 16px 16px 16px !important;
+    margin: 0 12px 12px !important;
     border-top: none !important;
-    border-radius: 22px 22px 0 0;
-    box-shadow: 0 -4px 32px rgba(45,26,36,0.13) !important;
+    border-radius: 22px !important;
+    box-shadow: 0 4px 32px rgba(45,26,36,0.18), 0 1px 8px rgba(45,26,36,0.08) !important;
     background: var(--white) !important;
   }
   .modal-btn-primary {
