@@ -4667,7 +4667,7 @@ img {
   }
 
   .destaques-arrows {
-    display: none;
+    display: flex;
   }
 
   .destaques-track-wrap {
