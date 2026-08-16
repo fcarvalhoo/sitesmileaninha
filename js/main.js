@@ -823,8 +823,14 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('modalPrice').textContent = 'R$ ' + price.toFixed(2).replace('.', ',');
     var instEl = document.getElementById('modalInstallment');
     if (instEl) {
-      var inst2x = (price / 2).toFixed(2).replace('.', ',');
-      instEl.textContent = 'ou 2x de R$ ' + inst2x + ' sem juros';
+      if (price >= 50) {
+        var inst2x = (price / 2).toFixed(2).replace('.', ',');
+        instEl.textContent = 'ou 2x de R$ ' + inst2x + ' sem juros';
+        instEl.style.display = '';
+      } else {
+        instEl.textContent = '';
+        instEl.style.display = 'none';
+      }
     }
     var pixEl = document.getElementById('modalPixPrice');
     if (pixEl) {
@@ -1018,7 +1024,14 @@ document.addEventListener('DOMContentLoaded', function () {
       freteLine.style.display = 'none';
     }
 
-    var total = subtotal + freteAtual;
+    var isPix = (document.querySelector('input[name="cart-payment"]:checked') || {}).value === 'Pix';
+    var pixDiscount = isPix ? subtotal * 0.05 : 0;
+    var pixLine = document.getElementById('cartPixLine');
+    var pixDiscEl = document.getElementById('cartPixDiscount');
+    if (pixLine) pixLine.style.display = isPix ? 'flex' : 'none';
+    if (pixDiscEl) pixDiscEl.textContent = '- R$ ' + pixDiscount.toFixed(2).replace('.', ',');
+
+    var total = subtotal - pixDiscount + freteAtual;
     cartTotalEl.textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
   }
 
@@ -1168,7 +1181,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   document.querySelectorAll('input[name="cart-payment"]').forEach(function (radio) {
-    radio.addEventListener('change', updateCashWarning);
+    radio.addEventListener('change', function() {
+      updateCashWarning();
+      updateCartTotals();
+    });
   });
 
   function getCardImages(card) {
@@ -1206,7 +1222,13 @@ document.addEventListener('DOMContentLoaded', function () {
       var img = card.querySelector('.product-image img').getAttribute('src');
       var cat = getProductCategory(name);
 
-      var size = sizeOptions[cat] ? null : 'Tamanho Único';
+      // Products with size options must go through the modal for size selection
+      if (sizeOptions[cat]) {
+        openProductModal(name, price, getCardImages(card));
+        return;
+      }
+
+      var size = 'Tamanho Único';
       var existing = cart.find(function (item) {
         return item.name === name && item.size === size;
       });
@@ -1242,8 +1264,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  var checkoutInFlight = false;
   document.getElementById('cartCheckout').addEventListener('click', function () {
     if (cart.length === 0) return;
+    if (checkoutInFlight) return;
+    checkoutInFlight = true;
+    setTimeout(function () { checkoutInFlight = false; }, 4000);
 
     var missingSize = cart.find(function (item) { return item.size === null; });
     if (missingSize) {
@@ -1267,15 +1293,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     msg += '\nSubtotal: R$ ' + subtotal.toFixed(2).replace('.', ',');
 
+    var payment = document.querySelector('input[name="cart-payment"]:checked');
+    var isPix = payment && payment.value === 'Pix';
+    var pixDiscount = isPix ? subtotal * 0.05 : 0;
+    if (isPix && pixDiscount > 0) {
+      msg += '\n5% OFF Pix: - R$ ' + pixDiscount.toFixed(2).replace('.', ',');
+    }
+
     if (freteAtual > 0 && cartCidadeUf) {
       msg += '\nEnvio para: ' + cartCidadeUf;
       msg += '\nFrete: R$ ' + freteAtual.toFixed(2).replace('.', ',');
     }
 
-    var totalFinal = subtotal + freteAtual;
+    var totalFinal = subtotal - pixDiscount + freteAtual;
     msg += '\n*Total: R$ ' + totalFinal.toFixed(2).replace('.', ',') + '*';
-
-    var payment = document.querySelector('input[name="cart-payment"]:checked');
     if (payment) {
       msg += '\nPagamento: ' + payment.value;
     }
@@ -1440,6 +1471,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
         cards.forEach(function (card) { grid.appendChild(card); });
       }
+
+      // Always push esgotados to the end regardless of sort order
+      Array.from(grid.querySelectorAll('.product-card--esgotado')).forEach(function (card) {
+        grid.appendChild(card);
+      });
 
       grid.querySelectorAll('.product-card').forEach(function (card) {
         card.classList.remove('visible');
@@ -1793,6 +1829,55 @@ document.addEventListener('DOMContentLoaded', function () {
 
   updateFavBadge();
 
+  function renderContaFavoritos() {
+    var listEl = document.getElementById('contaFavoritosList');
+    if (!listEl) return;
+    listEl.innerHTML = '';
+    if (favorites.length === 0) {
+      listEl.innerHTML = '<p style="color:rgba(45,26,36,0.5);font-size:14px;">Você ainda não tem favoritos salvos.</p>';
+      return;
+    }
+    favorites.forEach(function (fav) {
+      var card = Array.from(document.querySelectorAll('.product-card')).find(function (c) {
+        var n = c.querySelector('.product-name');
+        return n && n.textContent === fav;
+      });
+      if (!card) return;
+      var buyBtn2 = card.querySelector('.add-to-cart-btn');
+      var price2 = buyBtn2 ? parseFloat(buyBtn2.getAttribute('data-price')) : 0;
+      var imgEl2 = card.querySelector('.product-image img');
+      var item = document.createElement('div');
+      item.className = 'conta-fav-item';
+      item.style.cssText = 'display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(45,26,36,0.07);cursor:pointer;';
+      var imgNode = document.createElement('img');
+      imgNode.src = imgEl2 ? imgEl2.getAttribute('src') : '';
+      imgNode.alt = fav;
+      imgNode.style.cssText = 'width:52px;height:52px;object-fit:cover;border-radius:8px;flex-shrink:0;';
+      var info2 = document.createElement('div');
+      info2.style.flex = '1';
+      var nameNode = document.createElement('p');
+      nameNode.textContent = fav;
+      nameNode.style.cssText = 'font-size:13px;font-weight:600;color:var(--text-dark);margin:0 0 2px;';
+      var priceNode = document.createElement('p');
+      priceNode.textContent = 'R$ ' + price2.toFixed(2).replace('.', ',');
+      priceNode.style.cssText = 'font-size:12px;color:var(--rose-cta);margin:0;';
+      info2.appendChild(nameNode);
+      info2.appendChild(priceNode);
+      item.appendChild(imgNode);
+      item.appendChild(info2);
+      item.addEventListener('click', function () {
+        closeAllPanels();
+        openProductModal(fav, price2, getCardImages(card));
+      });
+      listEl.appendChild(item);
+    });
+  }
+  window.renderContaFavoritos = renderContaFavoritos;
+
+  // Auto-update footer year
+  var footerYearEl = document.getElementById('footerYear');
+  if (footerYearEl) footerYearEl.textContent = new Date().getFullYear();
+
   // ===== ESGOTADO TOGGLE =====
   var hideEsgotados = false;
   var toggleEsgBtn = document.getElementById('toggleEsgotado');
@@ -2057,26 +2142,42 @@ function escapeHtml(s) {
   return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
-// Firebase Auth
+// Firebase Auth — only loads SDK when configured
 function initFirebaseAuth() {
   var cfg = (window.SMILE_CONFIG || {}).FIREBASE || {};
-  if (!cfg.apiKey || typeof firebase === 'undefined') return;
-  try {
-    if (!firebase.apps.length) firebase.initializeApp(cfg);
-    var auth = firebase.auth();
-    auth.onAuthStateChanged(function (user) { updateAuthUI(user); });
-    // Botões de login
-    document.querySelectorAll('#googleLoginBtn, #googleLoginBtn2').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function () {});
+  if (!cfg.apiKey) return;
+
+  function setupAuth() {
+    try {
+      if (!firebase.apps.length) firebase.initializeApp(cfg);
+      var auth = firebase.auth();
+      auth.onAuthStateChanged(function (user) { updateAuthUI(user); });
+      document.querySelectorAll('#googleLoginBtn, #googleLoginBtn2').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function () {});
+        });
       });
-    });
-    // Botões de logout
-    ['contaLogoutBtn', 'criarContaLogoutBtn'].forEach(function (id) {
-      var el = document.getElementById(id);
-      if (el) el.addEventListener('click', function () { auth.signOut(); });
-    });
-  } catch (e) {}
+      ['contaLogoutBtn', 'criarContaLogoutBtn'].forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.addEventListener('click', function () { auth.signOut(); });
+      });
+    } catch (e) {}
+  }
+
+  if (typeof firebase !== 'undefined') {
+    setupAuth();
+    return;
+  }
+
+  var s1 = document.createElement('script');
+  s1.src = 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js';
+  s1.onload = function () {
+    var s2 = document.createElement('script');
+    s2.src = 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js';
+    s2.onload = setupAuth;
+    document.head.appendChild(s2);
+  };
+  document.head.appendChild(s1);
 }
 
 function updateAuthUI(user) {
@@ -2097,6 +2198,7 @@ function updateAuthUI(user) {
     setText('criarContaName', n);
     setPhoto('contaUserPhoto', user.photoURL);
     setPhoto('criarContaPhoto', user.photoURL);
+    if (window.renderContaFavoritos) window.renderContaFavoritos();
   }
 }
 function setText(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }

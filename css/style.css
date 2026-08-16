@@ -2966,7 +2966,7 @@ img {
 
 .modal-calc-btn {
   padding: 10px 18px;
-  background: var(--pink-pastel);
+  background: var(--rose-cta);
   color: var(--white);
   border: none;
   border-radius: 8px;
@@ -2979,7 +2979,7 @@ img {
 }
 
 .modal-calc-btn:hover {
-  background: var(--peach);
+  background: var(--rose-cta-hover);
 }
 
 .modal-calc-btn.ready {
@@ -6578,5 +6578,25 @@ body.category-mode .cart-toggle svg {
   }
   .nav-quick-links {
     padding-top: 4px;
+  }
+}
+
+/* ===== Pix discount cart line ===== */
+.cart-pix-discount {
+  color: #2a7a2a;
+  font-weight: 600;
+}
+
+/* ===== Accessibility: reduced motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  .destaques-track {
+    transition: none !important;
+  }
+  .product-card,
+  .page-panel,
+  .nav-drawer,
+  .product-modal {
+    transition: none !important;
+    animation: none !important;
   }
 }

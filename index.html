@@ -35,11 +35,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=81">
+  <link rel="stylesheet" href="css/style.css?v=82">
   <script src="js/config.js" defer></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js" defer></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js" defer></script>
-  <script src="js/main.js?v=59" defer></script>
+  <script src="js/main.js?v=60" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -248,6 +246,10 @@
       <div class="cart-total-line" id="cartFreteLine" style="display:none;">
         <span>Frete:</span>
         <span id="cartFreteValue">R$ 0,00</span>
+      </div>
+      <div class="cart-total-line cart-pix-discount" id="cartPixLine" style="display:none;">
+        <span>5% OFF Pix:</span>
+        <span id="cartPixDiscount">- R$ 0,00</span>
       </div>
       <div class="cart-total">
         <span>Total:</span>
@@ -1307,7 +1309,7 @@
 
     <div class="footer-bottom">
       <div class="container">
-        <p>Smile Miçangas &copy; 2021–2026. Todos os direitos reservados.</p>
+        <p>Smile Miçangas &copy; 2021–<span id="footerYear">2026</span>. Todos os direitos reservados.</p>
       </div>
     </div>
   </footer>
@@ -1597,7 +1599,7 @@
           </div>
         </div>
         <div class="parcerias-cta">
-          <a href="https://wa.me/5581983911126?text=Ol%C3%A1%2C%20Ana%20Livia!%20Tenho%20interesse%20em%20ser%20parceira%20da%20Smile%20Micanangas!" target="_blank" rel="noopener" class="btn-rose-filled">Quero ser parceira!</a>
+          <a href="https://wa.me/5581983911126?text=Ol%C3%A1%2C%20Ana%20Livia!%20Tenho%20interesse%20em%20ser%20parceira%20da%20Smile%20Mi%C3%A7angas!" target="_blank" rel="noopener" class="btn-rose-filled">Quero ser parceira!</a>
         </div>
       </div>
     </section>
