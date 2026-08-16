@@ -5627,29 +5627,29 @@ body.category-mode .category-page-bar {
 
 /* Forçar estilo de navbar "scrolled" no modo de categoria */
 body.category-mode .navbar {
-  background: rgba(255, 252, 250, 0.97);
+  background: rgba(255, 252, 250, 0.98) !important;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  padding: 10px 0;
-  box-shadow: 0 1px 0 rgba(45, 26, 36, 0.08), 0 4px 24px rgba(45, 26, 36, 0.06);
+  padding: 10px 0 !important;
+  box-shadow: 0 1px 0 rgba(45, 26, 36, 0.08), 0 4px 24px rgba(45, 26, 36, 0.06) !important;
 }
 
 body.category-mode .nav-logo-text {
-  color: var(--rose-cta);
-  text-shadow: none;
+  color: var(--rose-cta) !important;
+  text-shadow: none !important;
 }
 
 body.category-mode .nav-toggle span {
-  background: #8b4060;
+  background: #8b4060 !important;
 }
 
 body.category-mode .nav-link {
-  color: var(--text-dark);
+  color: var(--text-dark) !important;
 }
 
 body.category-mode .nav-link:hover {
   background: var(--rose-soft);
-  color: var(--rose-cta);
+  color: var(--rose-cta) !important;
 }
 
 body.category-mode .nav-link--highlight {
@@ -5659,9 +5659,9 @@ body.category-mode .nav-link--highlight {
 }
 
 body.category-mode .fav-toggle svg {
-  stroke: #8b4060;
+  stroke: #8b4060 !important;
 }
 
 body.category-mode .cart-toggle svg {
-  color: #8b4060;
+  color: #8b4060 !important;
 }
