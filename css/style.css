@@ -6038,3 +6038,349 @@ body.category-mode .cart-toggle svg {
 
 .nav-quick-link--insta { color: #c13584; }
 .nav-quick-link--insta:hover { color: #a02c6d; }
+
+/* ================================================================
+   AVISE-ME QUANDO DISPONÍVEL
+   ================================================================ */
+.modal-avise-me {
+  text-align: center;
+  padding: 28px 20px;
+  background: var(--bg-main);
+  border-radius: var(--radius);
+  border: 1.5px dashed rgba(45,26,36,0.18);
+  margin-bottom: 16px;
+}
+.modal-avise-icon svg {
+  color: var(--rose-cta);
+  opacity: 0.7;
+}
+.modal-avise-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin: 10px 0 4px;
+}
+.modal-avise-desc {
+  font-size: 13px;
+  color: rgba(45,26,36,0.55);
+  margin-bottom: 16px;
+}
+.modal-avise-form {
+  display: flex;
+  gap: 8px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.modal-avise-form input[type="email"] {
+  flex: 1;
+  padding: 11px 14px;
+  border: 1.5px solid rgba(45,26,36,0.15);
+  border-radius: 10px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  outline: none;
+  background: var(--white);
+  color: var(--text-dark);
+}
+.modal-avise-form input[type="email"]:focus {
+  border-color: var(--rose-cta);
+}
+.modal-avise-btn {
+  padding: 11px 18px;
+  background: var(--rose-cta);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition);
+}
+.modal-avise-btn:hover { opacity: 0.88; }
+.modal-avise-msg {
+  margin-top: 12px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #2a7a3b;
+}
+
+/* ================================================================
+   AVALIAÇÕES NO MODAL
+   ================================================================ */
+.modal-reviews {
+  border-top: 1px solid rgba(45,26,36,0.09);
+  padding-top: 24px;
+  margin-top: 8px;
+}
+.modal-reviews-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+}
+.modal-reviews-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-dark);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.modal-reviews-stats {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+}
+.reviews-avg {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+.reviews-count {
+  color: rgba(45,26,36,0.45);
+  font-size: 12px;
+}
+.star-on  { color: #f5a623; }
+.star-off { color: rgba(45,26,36,0.18); }
+
+.modal-reviews-empty {
+  font-size: 13px;
+  color: rgba(45,26,36,0.45);
+  text-align: center;
+  padding: 16px 0;
+}
+
+.review-item {
+  background: var(--bg-main);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+.review-item-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.review-name {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-dark);
+}
+.review-stars-row { font-size: 13px; }
+.review-date {
+  font-size: 11px;
+  color: rgba(45,26,36,0.38);
+  margin-left: auto;
+}
+.review-comment {
+  font-size: 13px;
+  color: rgba(45,26,36,0.7);
+  line-height: 1.5;
+}
+
+.modal-reviews-open-form {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 14px auto 0;
+  padding: 10px 20px;
+  border: 1.5px solid var(--rose-cta);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--rose-cta);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.modal-reviews-open-form:hover {
+  background: var(--rose-cta);
+  color: #fff;
+}
+
+.modal-reviews-form {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.modal-reviews-form-title {
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text-dark);
+  margin-bottom: -4px;
+}
+.modal-star-input {
+  display: flex;
+  gap: 4px;
+}
+.modal-star-input button {
+  background: none;
+  border: none;
+  font-size: 28px;
+  color: rgba(45,26,36,0.2);
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.12s;
+}
+.modal-star-input button.star-active {
+  color: #f5a623;
+}
+.modal-star-hint {
+  font-size: 12px;
+  color: rgba(45,26,36,0.45);
+  margin-top: -6px;
+}
+.modal-reviews-form input[type="text"],
+.modal-reviews-form textarea {
+  padding: 11px 14px;
+  border: 1.5px solid rgba(45,26,36,0.12);
+  border-radius: 10px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  outline: none;
+  background: var(--bg-main);
+  color: var(--text-dark);
+  resize: none;
+}
+.modal-reviews-form input:focus,
+.modal-reviews-form textarea:focus {
+  border-color: var(--rose-cta);
+  background: var(--white);
+}
+.modal-reviews-form-actions {
+  display: flex;
+  gap: 10px;
+}
+.modal-reviews-cancel {
+  flex: 1;
+  padding: 11px;
+  border: 1.5px solid rgba(45,26,36,0.12);
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(45,26,36,0.5);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.modal-reviews-submit {
+  flex: 2;
+  padding: 11px;
+  background: var(--rose-cta);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.modal-reviews-submit:hover { opacity: 0.88; }
+
+/* ================================================================
+   GOOGLE SIGN-IN / CONTA
+   ================================================================ */
+.google-signin-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 22px;
+  border: 1.5px solid rgba(45,26,36,0.14);
+  border-radius: 12px;
+  background: var(--white);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-dark);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(45,26,36,0.06);
+  transition: var(--transition);
+}
+.google-signin-btn:hover {
+  box-shadow: 0 4px 16px rgba(45,26,36,0.12);
+  transform: translateY(-1px);
+}
+.conta-divider {
+  text-align: center;
+  font-size: 12px;
+  color: rgba(45,26,36,0.38);
+  position: relative;
+}
+.conta-divider::before,
+.conta-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 38%;
+  height: 1px;
+  background: rgba(45,26,36,0.1);
+}
+.conta-divider::before { left: 0; }
+.conta-divider::after  { right: 0; }
+.conta-whatsapp-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #25D366;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+}
+.conta-whatsapp-link:hover { text-decoration: underline; }
+.conta-user-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.conta-user-photo {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--rose-soft);
+  background: var(--bg-main);
+}
+.conta-user-name {
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--text-dark);
+}
+.conta-user-email {
+  font-size: 12px;
+  color: rgba(45,26,36,0.5);
+}
+.conta-logout-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border: 1.5px solid rgba(45,26,36,0.14);
+  border-radius: 10px;
+  background: transparent;
+  color: rgba(45,26,36,0.55);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: var(--transition);
+}
+.conta-logout-btn:hover {
+  border-color: var(--rose-cta);
+  color: var(--rose-cta);
+}
+.conta-favoritos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 13px;
+  color: rgba(45,26,36,0.55);
+}

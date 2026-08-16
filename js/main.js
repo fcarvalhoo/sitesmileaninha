@@ -779,14 +779,15 @@ document.addEventListener('DOMContentLoaded', function () {
     renderGallery(imgs, name);
     document.getElementById('modalName').textContent = name;
 
+    var allCards = document.querySelectorAll('.product-card');
+    var sourceCard = null;
+    allCards.forEach(function(card) {
+      var n = card.querySelector('.product-name');
+      if (n && n.textContent.trim() === name) sourceCard = card;
+    });
+
     var badgeEl = document.getElementById('modalBadge');
     if (badgeEl) {
-      var allCards = document.querySelectorAll('.product-card');
-      var sourceCard = null;
-      allCards.forEach(function(card) {
-        var n = card.querySelector('.product-name');
-        if (n && n.textContent.trim() === name) sourceCard = card;
-      });
       var cardBadge = sourceCard ? sourceCard.querySelector('.product-badge:not(.product-badge--esgotado)') : null;
       if (cardBadge) {
         badgeEl.textContent = cardBadge.textContent;
@@ -794,6 +795,21 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         badgeEl.style.display = 'none';
       }
+    }
+
+    // Esgotado: troca botões de compra por "Avise-me"
+    var isEsgotado = sourceCard && sourceCard.classList.contains('product-card--esgotado');
+    var actionsEl = document.querySelector('.product-modal-actions');
+    var trustBadgesEl = document.querySelector('.modal-trust-badges');
+    var aviseMeEl = document.getElementById('modalAviseMe');
+    if (actionsEl) actionsEl.style.display = isEsgotado ? 'none' : '';
+    if (trustBadgesEl) trustBadgesEl.style.display = isEsgotado ? 'none' : '';
+    if (aviseMeEl) aviseMeEl.style.display = isEsgotado ? 'block' : 'none';
+    if (isEsgotado) {
+      var avForm = document.getElementById('modalAviseMeForm');
+      var avMsg = document.getElementById('modalAviseMeMsg');
+      if (avForm) { avForm.style.display = 'flex'; avForm.reset(); }
+      if (avMsg) { avMsg.style.display = 'none'; avMsg.textContent = ''; }
     }
 
     document.getElementById('modalPrice').textContent = 'R$ ' + price.toFixed(2).replace('.', ',');
@@ -844,6 +860,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('modalCep').value = '';
 
     renderCompleteLook(name);
+    renderReviews(name);
     productModal.classList.add('active');
     lockScroll();
     history.pushState({ productModal: true }, '', '#produto=' + encodeURIComponent(name));
@@ -1915,6 +1932,9 @@ document.addEventListener('DOMContentLoaded', function () {
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      var emailInput = newsletterForm.querySelector('input[type="email"]');
+      var email = emailInput ? emailInput.value.trim() : '';
+      brevoSubscribe(email, '', getBrevoListId('BREVO_LIST_NEWSLETTER'));
       newsletterForm.style.display = 'none';
       document.getElementById('newsletterOk').style.display = 'block';
     });
@@ -1925,8 +1945,242 @@ document.addEventListener('DOMContentLoaded', function () {
   if (panelNewsletterForm) {
     panelNewsletterForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      var name = document.getElementById('panelNewsletterName').value.trim();
+      var email = document.getElementById('panelNewsletterEmail').value.trim();
+      brevoSubscribe(email, name, getBrevoListId('BREVO_LIST_NEWSLETTER'));
       panelNewsletterForm.style.display = 'none';
       document.getElementById('panelNewsletterOk').style.display = 'block';
     });
   }
+
+  // --- Avise-me quando disponível ---
+  var aviseMeForm = document.getElementById('modalAviseMeForm');
+  if (aviseMeForm) {
+    aviseMeForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var email = document.getElementById('modalAviseMeEmail').value.trim();
+      var productName = modalProduct ? modalProduct.name : '';
+      // Salva localmente
+      var stored = JSON.parse(localStorage.getItem('sm_avise') || '[]');
+      stored.push({ email: email, product: productName, date: Date.now() });
+      localStorage.setItem('sm_avise', JSON.stringify(stored));
+      // Envia pro Brevo
+      brevoSubscribe(email, '', getBrevoListId('BREVO_LIST_AVISE'), function () {});
+      // Feedback visual
+      aviseMeForm.style.display = 'none';
+      var msgEl = document.getElementById('modalAviseMeMsg');
+      if (msgEl) {
+        msgEl.textContent = '✓ Te avisaremos quando "' + productName + '" voltar!';
+        msgEl.style.display = 'block';
+      }
+    });
+  }
+
+  // --- Avaliações ---
+  var reviewsAddBtn = document.getElementById('modalReviewsAddBtn');
+  var reviewsForm = document.getElementById('modalReviewsForm');
+  var reviewsCancel = document.getElementById('modalReviewsCancel');
+
+  if (reviewsAddBtn && reviewsForm) {
+    reviewsAddBtn.addEventListener('click', function () {
+      reviewsForm.style.display = 'block';
+      reviewsAddBtn.style.display = 'none';
+      reviewsForm.reset();
+      document.getElementById('modalStarInput').setAttribute('data-rating', '0');
+      updateStarDisplay(0);
+    });
+  }
+  if (reviewsCancel) {
+    reviewsCancel.addEventListener('click', function () {
+      reviewsForm.style.display = 'none';
+      if (reviewsAddBtn) reviewsAddBtn.style.display = 'flex';
+    });
+  }
+
+  // Star input interação
+  var starInput = document.getElementById('modalStarInput');
+  if (starInput) {
+    starInput.querySelectorAll('button').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var rating = parseInt(this.getAttribute('data-star'));
+        starInput.setAttribute('data-rating', rating);
+        updateStarDisplay(rating);
+      });
+      btn.addEventListener('mouseover', function () {
+        updateStarDisplay(parseInt(this.getAttribute('data-star')));
+      });
+      btn.addEventListener('mouseleave', function () {
+        updateStarDisplay(parseInt(starInput.getAttribute('data-rating') || '0'));
+      });
+    });
+  }
+
+  if (reviewsForm) {
+    reviewsForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var rating = parseInt(document.getElementById('modalStarInput').getAttribute('data-rating') || '0');
+      if (rating === 0) {
+        document.getElementById('modalStarHint').textContent = 'Selecione uma nota antes de enviar!';
+        return;
+      }
+      var reviewName = document.getElementById('modalReviewName').value.trim();
+      var comment = document.getElementById('modalReviewComment').value.trim();
+      var productName = modalProduct ? modalProduct.name : '';
+      var review = { name: reviewName, stars: rating, comment: comment, date: Date.now() };
+      saveReview(productName, review);
+      // Notifica Ana Livia via WhatsApp
+      var stars = Array(rating + 1).join('★') + Array(6 - rating).join('☆');
+      var msg = encodeURIComponent(
+        '🌸 Nova avaliação na Smile Miçangas!\n\n' +
+        'Produto: ' + productName + '\n' +
+        'Nota: ' + stars + '\n' +
+        'Cliente: ' + reviewName + '\n' +
+        (comment ? 'Comentário: ' + comment : '')
+      );
+      window.open('https://wa.me/' + WHATSAPP_NUM + '?text=' + msg, '_blank');
+      renderReviews(productName);
+      reviewsForm.style.display = 'none';
+      if (reviewsAddBtn) reviewsAddBtn.style.display = 'flex';
+      showToast('Avaliação publicada! Obrigada ✨');
+    });
+  }
+
+  // --- Firebase Auth ---
+  initFirebaseAuth();
 });
+
+// ================================================================
+// HELPERS GLOBAIS (fora do DOMContentLoaded)
+// ================================================================
+
+// Brevo: inscreve email numa lista
+function brevoSubscribe(email, name, listId, cb) {
+  var cfg = window.SMILE_CONFIG || {};
+  var apiKey = cfg.BREVO_API_KEY;
+  if (!apiKey || !email) { if (cb) cb(false); return; }
+  var body = { email: email, listIds: [listId], updateEnabled: true };
+  if (name) body.attributes = { NOME: name };
+  fetch('https://api.brevo.com/v3/contacts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'api-key': apiKey },
+    body: JSON.stringify(body)
+  }).then(function (r) { if (cb) cb(r.ok || r.status === 204); })
+    .catch(function () { if (cb) cb(false); });
+}
+window.brevoSubscribe = brevoSubscribe;
+
+function getBrevoListId(key) {
+  var cfg = window.SMILE_CONFIG || {};
+  return cfg[key] || 3;
+}
+
+// Avaliações: localStorage
+function loadReviews(productName) {
+  var all = JSON.parse(localStorage.getItem('sm_reviews') || '{}');
+  return all[productName] || [];
+}
+function saveReview(productName, review) {
+  var all = JSON.parse(localStorage.getItem('sm_reviews') || '{}');
+  if (!all[productName]) all[productName] = [];
+  all[productName].unshift(review);
+  localStorage.setItem('sm_reviews', JSON.stringify(all));
+}
+function renderReviews(productName) {
+  var reviews = loadReviews(productName);
+  var listEl = document.getElementById('modalReviewsList');
+  var statsEl = document.getElementById('modalReviewsStats');
+  var addBtn = document.getElementById('modalReviewsAddBtn');
+  var form = document.getElementById('modalReviewsForm');
+  if (!listEl) return;
+  if (form) form.style.display = 'none';
+  if (addBtn) addBtn.style.display = 'flex';
+
+  if (reviews.length === 0) {
+    if (statsEl) statsEl.innerHTML = '';
+    listEl.innerHTML = '<p class="modal-reviews-empty">Nenhuma avaliação ainda. Seja o primeiro!</p>';
+    return;
+  }
+  var avg = reviews.reduce(function (a, r) { return a + r.stars; }, 0) / reviews.length;
+  if (statsEl) {
+    statsEl.innerHTML = '<span class="reviews-avg">' + avg.toFixed(1) + '</span>' +
+      renderStarsHtml(Math.round(avg)) + '<span class="reviews-count">(' + reviews.length + ')</span>';
+  }
+  listEl.innerHTML = reviews.map(function (r) {
+    var dateStr = r.date ? new Date(r.date).toLocaleDateString('pt-BR') : '';
+    return '<div class="review-item">' +
+      '<div class="review-item-top">' +
+        '<span class="review-name">' + escapeHtml(r.name) + '</span>' +
+        '<span class="review-stars-row">' + renderStarsHtml(r.stars) + '</span>' +
+        (dateStr ? '<span class="review-date">' + dateStr + '</span>' : '') +
+      '</div>' +
+      (r.comment ? '<p class="review-comment">' + escapeHtml(r.comment) + '</p>' : '') +
+    '</div>';
+  }).join('');
+}
+window.renderReviews = renderReviews;
+
+function renderStarsHtml(n) {
+  var html = '';
+  for (var i = 1; i <= 5; i++) {
+    html += '<span class="' + (i <= n ? 'star-on' : 'star-off') + '">★</span>';
+  }
+  return html;
+}
+function updateStarDisplay(n) {
+  var si = document.getElementById('modalStarInput');
+  if (!si) return;
+  si.querySelectorAll('button').forEach(function (btn) {
+    btn.classList.toggle('star-active', parseInt(btn.getAttribute('data-star')) <= n);
+  });
+  var hint = document.getElementById('modalStarHint');
+  var labels = ['', 'Ruim', 'Regular', 'Bom', 'Ótimo', 'Excelente!'];
+  if (hint) hint.textContent = n > 0 ? labels[n] : 'Toque nas estrelas para avaliar';
+}
+function escapeHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Firebase Auth
+function initFirebaseAuth() {
+  var cfg = (window.SMILE_CONFIG || {}).FIREBASE || {};
+  if (!cfg.apiKey || typeof firebase === 'undefined') return;
+  try {
+    if (!firebase.apps.length) firebase.initializeApp(cfg);
+    var auth = firebase.auth();
+    auth.onAuthStateChanged(function (user) { updateAuthUI(user); });
+    // Botões de login
+    document.querySelectorAll('#googleLoginBtn, #googleLoginBtn2').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(function () {});
+      });
+    });
+    // Botões de logout
+    ['contaLogoutBtn', 'criarContaLogoutBtn'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('click', function () { auth.signOut(); });
+    });
+  } catch (e) {}
+}
+
+function updateAuthUI(user) {
+  // Painel Minha Conta
+  var out = document.getElementById('contaLoggedOut');
+  var inp = document.getElementById('contaLoggedIn');
+  if (out) out.style.display = user ? 'none' : 'block';
+  if (inp) inp.style.display = user ? 'block' : 'none';
+  // Painel Criar Conta
+  var ccLogin = document.getElementById('criarContaLoginSection');
+  var ccUser = document.getElementById('criarContaLoggedIn');
+  if (ccLogin) ccLogin.style.display = user ? 'none' : 'block';
+  if (ccUser) ccUser.style.display = user ? 'block' : 'none';
+  if (user) {
+    var n = user.displayName || 'Visitante';
+    setText('contaUserName', n);
+    setText('contaUserEmail', user.email || '');
+    setText('criarContaName', n);
+    setPhoto('contaUserPhoto', user.photoURL);
+    setPhoto('criarContaPhoto', user.photoURL);
+  }
+}
+function setText(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; }
+function setPhoto(id, url) { var el = document.getElementById(id); if (el && url) el.src = url; }
