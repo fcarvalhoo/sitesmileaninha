@@ -6464,3 +6464,50 @@ body.category-mode .cart-toggle svg {
 .page-panel * {
   max-width: 100%;
 }
+
+/* ===== Nav drawer — mini benefícios ===== */
+.nav-benefits {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-top: 1px solid rgba(45,26,36,0.07);
+  border-bottom: 1px solid rgba(45,26,36,0.07);
+  flex-shrink: 0;
+}
+
+.nav-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(45,26,36,0.05);
+}
+
+.nav-benefit-item:last-child {
+  border-bottom: none;
+}
+
+.nav-benefit-item svg {
+  stroke: var(--rose-cta);
+  flex-shrink: 0;
+}
+
+.nav-benefit-item div {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.nav-benefit-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+.nav-benefit-desc {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
