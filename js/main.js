@@ -42,10 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
     document.body.style.width = '100%';
   }
   function unlockScroll() {
+    var restoreY = scrollLockY || 0;
     document.body.style.overflow = '';
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';
+    window.scrollTo(0, restoreY);
     window.scrollTo(0, scrollLockY);
   }
 
