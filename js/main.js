@@ -151,11 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  var categoryBackBtn = document.getElementById('categoryBackBtn');
-  if (categoryBackBtn) {
-    categoryBackBtn.addEventListener('click', exitCategoryMode);
-  }
+  window.exitCategoryMode = exitCategoryMode;
 
   // Logo também sai do modo categoria
   var navLogo = document.querySelector('.nav-logo');
