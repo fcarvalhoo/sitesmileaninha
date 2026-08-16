@@ -176,9 +176,25 @@ document.addEventListener('DOMContentLoaded', function () {
   if (heroViewBtn) {
     heroViewBtn.addEventListener('click', function (e) {
       e.preventDefault();
-      showSection('bolsas');
+      showAllProducts();
     });
   }
+
+  function showAllProducts() {
+    closeMenu();
+    document.querySelectorAll('.category-filter-btn').forEach(function (b) {
+      b.classList.remove('active');
+    });
+    setTimeout(function () {
+      document.body.classList.add('category-mode');
+      document.querySelectorAll('.products-section').forEach(function (s) {
+        s.classList.add('active');
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      revealCards();
+    }, 360);
+  }
+  window.showAllProducts = showAllProducts;
 
   // --- Scroll reveal for product cards ---
   function revealCards() {
