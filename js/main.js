@@ -569,7 +569,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var currentColor = productColorMap[currentName];
     if (!currentColor) { wrap.style.display = 'none'; return; }
 
-    // Encontra até 2 produtos com a mesma cor, excluindo o atual e esgotados
+    var currentCategory = getProductCategory(currentName);
+
+    // Encontra até 2 produtos com mesma cor, categoria diferente, não esgotados
     var matches = [];
     document.querySelectorAll('.product-card:not(.product-card--esgotado)').forEach(function (card) {
       if (matches.length >= 2) return;
@@ -577,6 +579,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (!nameEl) return;
       var name = nameEl.textContent.trim();
       if (name === currentName) return;
+      if (getProductCategory(name) === currentCategory) return;
       if (productColorMap[name] === currentColor) {
         var img = card.querySelector('.product-image img');
         var buyBtn = card.querySelector('.add-to-cart-btn');
