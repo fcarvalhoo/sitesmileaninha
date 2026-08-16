@@ -1632,8 +1632,15 @@ document.addEventListener('DOMContentLoaded', function () {
       e.stopPropagation();
       var name = btn.getAttribute('data-name');
       var price = parseFloat(btn.getAttribute('data-price'));
-      var img = btn.closest('.destaque-card').querySelector('img');
-      var images = img ? [img.getAttribute('src')] : [];
+      var id = btn.getAttribute('data-id');
+      var matchingCard = id ? document.querySelector('.product-card .add-to-cart-btn[data-id="' + id + '"]') : null;
+      var images;
+      if (matchingCard) {
+        images = getCardImages(matchingCard.closest('.product-card'));
+      } else {
+        var img = btn.closest('.destaque-card').querySelector('img');
+        images = img ? [img.getAttribute('src')] : [];
+      }
       gaEvent('view_item', { item_name: name, price: price });
       openProductModal(name, price, images);
     });
