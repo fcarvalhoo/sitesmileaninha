@@ -1807,6 +1807,85 @@ document.addEventListener('DOMContentLoaded', function () {
     resetTimer();
   })();
 
+  // --- Busca no menu ---
+  var navSearchInput = document.getElementById('navSearchInput');
+  var navSearchResults = document.getElementById('navSearchResults');
+
+  if (navSearchInput && navSearchResults) {
+    navSearchInput.addEventListener('input', function () {
+      var query = this.value.trim().toLowerCase();
+      navSearchResults.innerHTML = '';
+
+      if (query.length < 2) {
+        navSearchResults.classList.remove('open');
+        return;
+      }
+
+      var allCards = Array.from(document.querySelectorAll('.product-card:not(.product-card--esgotado)'));
+      var matches = allCards.filter(function (card) {
+        var name = card.querySelector('.product-name');
+        return name && name.textContent.toLowerCase().indexOf(query) !== -1;
+      }).slice(0, 5);
+
+      if (matches.length === 0) {
+        navSearchResults.innerHTML = '<p class="nav-search-empty">Nenhum produto encontrado.</p>';
+        navSearchResults.classList.add('open');
+        return;
+      }
+
+      matches.forEach(function (card) {
+        var name = card.querySelector('.product-name').textContent;
+        var img = card.querySelector('.product-image img');
+        var buyBtn = card.querySelector('.add-to-cart-btn');
+        var price = buyBtn ? parseFloat(buyBtn.getAttribute('data-price')) : 0;
+        var imgSrc = img ? img.getAttribute('src') : '';
+
+        var item = document.createElement('div');
+        item.className = 'nav-search-result-item';
+
+        var imgEl = document.createElement('img');
+        imgEl.src = imgSrc; imgEl.alt = name;
+
+        var info = document.createElement('div');
+        var nameEl = document.createElement('p');
+        nameEl.className = 'nav-search-result-name';
+        nameEl.textContent = name;
+        var priceEl = document.createElement('p');
+        priceEl.className = 'nav-search-result-price';
+        priceEl.textContent = 'R$ ' + price.toFixed(2).replace('.', ',');
+        info.appendChild(nameEl);
+        info.appendChild(priceEl);
+
+        item.appendChild(imgEl);
+        item.appendChild(info);
+        item.addEventListener('click', function () {
+          navSearchInput.value = '';
+          navSearchResults.classList.remove('open');
+          closeMenu();
+          setTimeout(function () { openProductModal(name, price, getCardImages(card)); }, 360);
+        });
+        navSearchResults.appendChild(item);
+      });
+
+      navSearchResults.classList.add('open');
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!navSearchInput.contains(e.target) && !navSearchResults.contains(e.target)) {
+        navSearchResults.classList.remove('open');
+      }
+    });
+  }
+
+  // --- Botões de painel nos links rápidos do menu ---
+  document.querySelectorAll('.nav-panel-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var panelId = this.getAttribute('data-panel');
+      closeMenu();
+      setTimeout(function () { openPanel(panelId); }, 360);
+    });
+  });
+
   // --- Newsletter (footer) ---
   var newsletterForm = document.getElementById('newsletterForm');
   if (newsletterForm) {

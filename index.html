@@ -35,8 +35,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="canonical" href="https://sitesmileaninha.vercel.app/">
-  <link rel="stylesheet" href="css/style.css?v=61">
-  <script src="js/main.js?v=52" defer></script>
+  <link rel="stylesheet" href="css/style.css?v=62">
+  <script src="js/main.js?v=53" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -78,23 +78,69 @@
       </button>
       <div class="nav-menu" id="navMenu">
 
-        <!-- Cabeçalho da gaveta -->
+        <!-- 1. Strip promocional -->
+        <div class="nav-promo-strip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          Frete grátis acima de R$150
+          <span class="nav-promo-sep">·</span>
+          Pix com 5% OFF
+        </div>
+
+        <!-- 2. Cabeçalho -->
         <div class="nav-drawer-header">
           <div class="nav-drawer-brand">Smile</div>
           <p class="nav-drawer-tagline">Acessórios artesanais feitos à mão</p>
         </div>
 
-        <!-- Filtros de categoria -->
-        <div class="nav-drawer-block">
-          <p class="nav-drawer-block-title">Ver produtos</p>
-          <div class="nav-filter-pills">
-            <button class="category-filter-btn" data-section="bolsas">Bolsas</button>
-            <button class="category-filter-btn" data-section="pulseiras">Pulseiras</button>
-            <button class="category-filter-btn" data-section="colares">Colares</button>
-            <button class="category-filter-btn" data-section="tornozeleiras">Tornozeleiras</button>
-            <button class="category-filter-btn" data-section="body-chain">Body Chain</button>
-            <button class="category-filter-btn" data-section="religiosos">Artigos Religiosos</button>
+        <!-- 3. Busca -->
+        <div class="nav-search-wrap">
+          <div class="nav-search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="navSearchInput" class="nav-search-input" placeholder="Buscar produtos..." autocomplete="off">
           </div>
+          <div class="nav-search-results" id="navSearchResults"></div>
+        </div>
+
+        <!-- 4. Categorias com tiles -->
+        <div class="nav-categories-section">
+          <p class="nav-section-label">Categorias</p>
+          <div class="nav-category-tiles">
+            <button class="nav-category-tile category-filter-btn" data-section="bolsas">
+              <div class="nav-tile-img"><img src="img/bolsa-azul-1.jpg" alt="Bolsas" loading="lazy"></div>
+              <span>Bolsas</span>
+            </button>
+            <button class="nav-category-tile category-filter-btn" data-section="pulseiras">
+              <div class="nav-tile-img"><img src="img/pulseira-colorida.jpg" alt="Pulseiras" loading="lazy"></div>
+              <span>Pulseiras</span>
+            </button>
+            <button class="nav-category-tile category-filter-btn" data-section="colares">
+              <div class="nav-tile-img"><img src="img/colar-rosa-letra.jpg" alt="Colares" loading="lazy"></div>
+              <span>Colares</span>
+            </button>
+            <button class="nav-category-tile category-filter-btn" data-section="tornozeleiras">
+              <div class="nav-tile-img"><img src="img/tornozeleira-rosa.jpg" alt="Tornozeleiras" loading="lazy"></div>
+              <span>Tornozeleiras</span>
+            </button>
+            <button class="nav-category-tile category-filter-btn" data-section="body-chain">
+              <div class="nav-tile-img"><img src="img/body-chain-azul.jpg" alt="Body Chain" loading="lazy"></div>
+              <span>Body Chain</span>
+            </button>
+            <button class="nav-category-tile category-filter-btn" data-section="religiosos">
+              <div class="nav-tile-img"><img src="img/terco-cristal-1.jpg" alt="Religiosos" loading="lazy"></div>
+              <span>Religiosos</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 5. Links rápidos -->
+        <div class="nav-quick-links">
+          <a href="https://instagram.com/smilemicangas_" target="_blank" rel="noopener" class="nav-quick-link nav-quick-link--insta">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            @smilemicangas_
+          </a>
+          <button class="nav-quick-link nav-panel-btn" data-panel="sobre">Sobre a Smile</button>
+          <button class="nav-quick-link nav-panel-btn" data-panel="fale-conosco">Fale Conosco</button>
+          <button class="nav-quick-link nav-panel-btn" data-panel="trocas">Trocas e Devoluções</button>
         </div>
 
       </div>
