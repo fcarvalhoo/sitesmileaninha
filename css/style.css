@@ -1615,9 +1615,7 @@ img {
 
 .footer-newsletter-fine {
   font-size: 11px;
-  color: rgba(255,255,255,0.38);
-  line-height: 1.5;
-  margin-top: 6px;
+  color: rgba(255,255,255,0.40);
 }
 
 .footer-newsletter-form {
