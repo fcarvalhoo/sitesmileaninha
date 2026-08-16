@@ -4235,9 +4235,9 @@ img {
     flex-shrink: 0;
     padding: 12px 16px env(safe-area-inset-bottom, 16px) !important;
     margin: 0 !important;
-    background: transparent !important;
-    border-top: none !important;
-    box-shadow: none !important;
+    background: var(--white) !important;
+    border-top: 1px solid rgba(0,0,0,0.07) !important;
+    box-shadow: 0 -6px 24px rgba(45,26,36,0.09) !important;
   }
   /* Conteúdo scrollável ocupa o espaço restante */
   .product-modal-content {
