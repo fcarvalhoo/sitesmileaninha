@@ -6239,9 +6239,9 @@ body.category-mode .cart-toggle svg {
     padding-bottom: 16px;
   }
 
-  /* Quick links viram o rodapé do menu */
+  /* Quick links: fluxo normal — o drawer tem overflow-y:auto */
   .nav-quick-links {
-    margin-top: auto;
+    margin-top: 0;
     padding-bottom: env(safe-area-inset-bottom, 16px);
   }
 }
@@ -6515,4 +6515,24 @@ body.category-mode .cart-toggle svg {
   font-size: 11px;
   color: var(--text-muted);
   line-height: 1.2;
+}
+
+/* Nav drawer mobile: header compacto para caber tudo na tela */
+@media (max-width: 768px) {
+  .nav-drawer-header {
+    padding: 20px 20px 14px;
+  }
+  .nav-drawer-brand {
+    font-size: 22px;
+    margin-bottom: 2px;
+  }
+  .nav-drawer-tagline {
+    display: none;
+  }
+  .nav-benefits {
+    padding: 8px 16px;
+  }
+  .nav-benefit-item {
+    padding: 7px 0;
+  }
 }
