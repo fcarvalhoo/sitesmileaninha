@@ -2415,11 +2415,11 @@ img {
 }
 
 .modal-gallery-thumbs {
-  flex: 0 0 76px;
+  flex: 0 0 88px;
   display: none;
   flex-direction: column;
-  gap: 10px;
-  padding: 20px 0 20px 20px;
+  gap: 12px;
+  padding: 24px 12px 24px 24px;
   overflow-y: auto;
 }
 
@@ -2458,6 +2458,7 @@ img {
   display: flex;
   flex-direction: column;
   position: relative;
+  overflow: hidden;
 }
 
 @media (min-width: 769px) {
@@ -2560,10 +2561,10 @@ img {
 
 .gallery-zoom-btn {
   position: absolute;
-  top: 16px;
-  right: 16px;
-  width: 40px;
-  height: 40px;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--white);
   border: 1.5px solid rgba(176, 64, 96, 0.25);
